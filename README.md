@@ -11,7 +11,7 @@ A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 - `npm install -save bootstrap-input-spinner`
 
 Or just download this repository and include `src/InputSpinner.js`.
-No extra css needed. Just Bootstrap 4 and jQuery.
+**No extra css needed**, just Bootstrap 4 and jQuery.
 
 ## Usage
 
