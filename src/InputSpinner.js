@@ -95,11 +95,7 @@
             }
 
             function calcStep(step) {
-                if(step < 0) {
-                    value = Math.max(value + step, min);
-                } else if(step > 0) {
-                    value = Math.min(value + step, max);
-                }
+                value = Math.min(Math.max(value + step, min), max);
                 $input.val(numberFormat.format(value));
             }
 
