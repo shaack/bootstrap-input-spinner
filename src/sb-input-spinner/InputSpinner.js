@@ -12,7 +12,8 @@
             incrementHtml: "<strong>+</strong>",
             buttonClass: "btn-outline-secondary",
             buttonWidth: "2.5em",
-            textAlign: "center"
+            textAlign: "center",
+
         };
         Object.assign(config, options);
 
@@ -43,6 +44,7 @@
             const decimals = parseInt($original.attr("data-decimals") | 0);
 
             const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
+            console.log(getLang());
 
             var value = parseFloat($original.val());
 
@@ -51,11 +53,11 @@
             $input.css("width", originalWidth + (decimals * 9) + "px");
             $input.val(numberFormat.format(value));
 
-            $buttonDecrement.mousedown(function () {
+            onPointerDown($buttonDecrement[0], function () {
                 onDecrement();
             });
 
-            $buttonIncrement.mousedown(function () {
+            onPointerDown($buttonIncrement[0], function () {
                 onIncrement();
             });
 
@@ -72,6 +74,17 @@
         });
 
     };
+
+    function onPointerDown(element, callback) {
+        element.addEventListener("mousedown", function (e) {
+            e.preventDefault();
+            callback(e);
+        });
+        element.addEventListener("touchstart", function (e) {
+            e.preventDefault();
+            callback(e);
+        });
+    }
 
     function getLang() {
         if (navigator.languages !== undefined) {
