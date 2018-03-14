@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sb-input-spinner</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <style type="text/css">
+        pre.code {
+            padding: 10px;
+            background-color: #555;
+            color: white;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+<section class="container">
+    <h1>sb-input-spinner</h1>
+    <p>
+        A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
+    </p>
+    <h2>Source code and documentation</h2>
+    <p><a href="https://github.com/shaack/sb-input-spinner">GitHub repository</a></p>
+    <h2>Examples</h2>
+
+    <pre class="code">&lt;input style="text-align: right" type="number" value="50" min="0" max="100" step="10"/&gt;</pre>
+    <p>
+        <input style="text-align: right" type="number" value="50" min="0" max="100" step="10"/>
+    </p>
+    <pre class="code">&lt;input style="text-align: right" type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
+    <p>
+        <input style="text-align: right" type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+    </p>
+
+</section>
+<!-- bootstrap needs jQuery -->
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./src/sb-input-spinner/InputSpinner.js"></script>
+<script>
+    $("input[type='number']").InputSpinner();
+</script>
+</body>
+</html>

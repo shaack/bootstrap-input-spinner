@@ -1,10 +1,17 @@
 # sb-input-spinner
 
-Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
+A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
+
+## Example
+
+[Demo Page](http://shaack.com/projekte/sb-input-spinner/)
 
 ## Usage
 
-```javascript
-$("#input-element").InputSpinner({min: 0, max: 100, step: 10});
+```html
+<input type="number" id="input1" value="50" min="0" max="100" step="10"/>
+<script>
+    $("input[type='number']").InputSpinner();
+</script>
 ```
 
