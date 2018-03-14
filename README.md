@@ -19,7 +19,8 @@ A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 
 HTML
 
-Uses tag-attributes:
+Uses the following tag-attributes:
+
 - min
 - max
 - step
