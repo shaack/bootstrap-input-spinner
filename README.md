@@ -40,10 +40,11 @@ default config is:
 
 ```javascript
 const config = {
-    decrementHtml: "<strong>-</strong>", // button text
-    incrementHtml: "<strong>+</strong>", // button text
-    buttonClass: "btn-outline-secondary",
-    buttonWidth: "2.5em",
+    decrementButton: "<strong>-</strong>", // button text
+    incrementButton: "<strong>+</strong>", // ..
+    groupClass: "input-group-spinner", // css class of the input-group
+    buttonsClass: "btn-outline-secondary",
+    buttonsWidth: "2.5em",
     textAlign: "center",
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change

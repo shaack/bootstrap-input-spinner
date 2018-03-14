@@ -8,10 +8,11 @@
     $.fn.InputSpinner = function (options) {
 
         const config = {
-            decrementHtml: "<strong>-</strong>", // button text
-            incrementHtml: "<strong>+</strong>", // button text
-            buttonClass: "btn-outline-secondary",
-            buttonWidth: "2.5em",
+            decrementButton: "<strong>-</strong>", // button text
+            incrementButton: "<strong>+</strong>", // ..
+            groupClass: "input-group-spinner", // css class of the input-group
+            buttonsClass: "btn-outline-secondary",
+            buttonsWidth: "2.5em",
             textAlign: "center",
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
@@ -20,20 +21,19 @@
         };
         Object.assign(config, options);
 
-        const html = '<div class="input-group input-spinner">' +
+        const html = '<div class="input-group ' + config.groupClass + '">' +
             '<div class="input-group-prepend">' +
-            '<button style="min-width: ' + config.buttonWidth + '" class="btn btn-decrement ' + config.buttonClass + '" type="button">' + config.decrementHtml + '</button>' +
+            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
             '<input style="text-align: ' + config.textAlign + '" class="input"/>' +
             '<div class="input-group-append">' +
-            '<button style="min-width: ' + config.buttonWidth + '" class="btn btn-increment ' + config.buttonClass + '" type="button">' + config.incrementHtml + '</button>' +
+            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
             '</div>';
 
         this.each(function () {
 
             const $original = $(this);
-            const originalWidth = $original.outerWidth();
             $original.hide();
 
             var autoDelayHandler = null;
@@ -44,19 +44,16 @@
             const $buttonIncrement = $inputGroup.find(".btn-increment");
             const $input = $inputGroup.find("input");
 
-            const min = parseFloat($original.prop("min"));
-            const max = parseFloat($original.prop("max"));
-            const step = parseFloat($original.prop("step"));
+            const min = parseFloat($original.prop("min")) || 0;
+            const max = parseFloat($original.prop("max")) || Infinity;
+            const step = parseFloat($original.prop("step")) || 1;
             const decimals = parseInt($original.attr("data-decimals") ? $original.attr("data-decimals") : "0");
 
             const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
-            console.log(getLang());
 
             var value = parseFloat($original.val());
 
             $original.after($inputGroup);
-
-            $input.css("width", originalWidth + (decimals * 9) + "px");
             $input.val(numberFormat.format(value));
 
             var boostCount = 0;
