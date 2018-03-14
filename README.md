@@ -15,7 +15,21 @@ A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 </script>
 ```
 
-## Syntax
+### Syntax
+
+HTML
+
+Uses tag-attributes:
+- min
+- max
+- step
+- data-decimals
+
+```html
+<input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+```
+
+JavaScript
 
 ```javascript
 $(element).InputSpinner(config);
