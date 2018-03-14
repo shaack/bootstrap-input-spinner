@@ -1,10 +1,10 @@
-# be-bootstrap-input-spinner
+# bootstrap-input-spinner
 
 A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 
 ## Example
 
-[Demo Page](http://shaack.com/projekte/be-bootstrap-input-spinner/)
+[Demo Page](http://shaack.com/projekte/bootstrap-input-spinner/)
 
 ## Usage
 
