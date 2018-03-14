@@ -1,0 +1,32 @@
+{
+  "name": "sb-input-spinner",
+  "version": "1.0.0",
+  "description": "Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.",
+  "main": "src/sb-input-spinner/InputSpinner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaack/sb-input-spinner.git"
+  },
+  "keywords": [
+    "Bootstrap",
+    "Bootstrap",
+    "4",
+    "jQuery",
+    "Input",
+    "UI"
+  ],
+  "author": "shaack@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaack/sb-input-spinner/issues"
+  },
+  "homepage": "https://github.com/shaack/sb-input-spinner#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
+  }
+}
