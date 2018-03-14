@@ -58,6 +58,10 @@
 
             var boostCount = 0;
 
+            $input.on("change paste keyup", function() {
+                value =  parseFloat($input.val());
+            });
+
             onPointerDown($buttonDecrement[0], function () {
                 decrement();
                 resetTimer();
@@ -101,7 +105,6 @@
             function increment(boost) {
                 boost = boost ? boost : 1;
                 value = Math.min(value + step * boost, max);
-                console.log(value, step, boost, step * boost);
                 $input.val(numberFormat.format(value));
             }
 
