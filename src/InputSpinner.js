@@ -47,9 +47,9 @@
             const min = parseFloat($original.prop("min")) || 0;
             const max = parseFloat($original.prop("max")) || Infinity;
             const step = parseFloat($original.prop("step")) || 1;
-            const decimals = parseInt($original.attr("data-decimals") ? $original.attr("data-decimals") : "0");
+            const decimals = parseInt($original.attr("data-decimals")) || 0;
 
-            const numberFormat = new Intl.NumberFormat({minimumFractionDigits: decimals});
+            const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
 
             var value = parseFloat($original.val());
 
@@ -59,7 +59,9 @@
             var boostCount = 0;
 
             $input.on("paste keyup change", function() {
-                value = Math.round(parseFloat($input.val()) / step) * step;
+                value = parseInt($input.val().replace(/[.,]/g,''), 10); // i18n
+                value = value / Math.pow(10, decimals);
+                value = Math.round(value / step) * step;
             });
 
             onPointerDown($buttonDecrement[0], function () {
@@ -128,6 +130,14 @@
             e.preventDefault();
             callback(e);
         });
+    }
+
+    function getLang() {
+        if (navigator.languages !== undefined) {
+            return navigator.languages[0];
+        } else {
+            return navigator.language;
+        }
     }
 
 }(jQuery));
