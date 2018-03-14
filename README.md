@@ -1,10 +1,10 @@
-# sb-input-spinner
+# be-bootstrap-input-spinner
 
 A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 
 ## Example
 
-[Demo Page](http://shaack.com/projekte/sb-input-spinner/)
+[Demo Page](http://shaack.com/projekte/be-bootstrap-input-spinner/)
 
 ## Usage
 
@@ -24,12 +24,16 @@ $(element).InputSpinner(config);
 default config is:
 
 ```javascript
-config = {
-    decrementHtml: "<strong>-</strong>",
-    incrementHtml: "<strong>+</strong>",
+const config = {
+    decrementHtml: "<strong>-</strong>", // button text
+    incrementHtml: "<strong>+</strong>", // button text
     buttonClass: "btn-outline-secondary",
     buttonWidth: "2.5em",
-    textAlign: "center"
+    textAlign: "center",
+    autoDelay: 500, // ms holding before auto value change
+    autoInterval: 100, // speed of auto value change
+    boostThreshold: 15, // boost after these steps
+    boostMultiplier: 10
 };
 ```
 

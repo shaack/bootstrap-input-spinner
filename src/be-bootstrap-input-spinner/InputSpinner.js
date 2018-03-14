@@ -8,12 +8,15 @@
     $.fn.InputSpinner = function (options) {
 
         const config = {
-            decrementHtml: "<strong>-</strong>",
-            incrementHtml: "<strong>+</strong>",
+            decrementHtml: "<strong>-</strong>", // button text
+            incrementHtml: "<strong>+</strong>", // button text
             buttonClass: "btn-outline-secondary",
             buttonWidth: "2.5em",
             textAlign: "center",
-
+            autoDelay: 500, // ms holding before auto value change
+            autoInterval: 100, // speed of auto value change
+            boostThreshold: 15, // boost after these steps
+            boostMultiplier: 10
         };
         Object.assign(config, options);
 
@@ -33,6 +36,9 @@
             const originalWidth = $original.outerWidth();
             $original.hide();
 
+            var autoDelayHandler = null;
+            var autoIntervalHandler = null;
+
             const $inputGroup = $(html);
             const $buttonDecrement = $inputGroup.find(".btn-decrement");
             const $buttonIncrement = $inputGroup.find(".btn-increment");
@@ -41,7 +47,7 @@
             const min = parseFloat($original.prop("min"));
             const max = parseFloat($original.prop("max"));
             const step = parseFloat($original.prop("step"));
-            const decimals = parseInt($original.attr("data-decimals") | 0);
+            const decimals = parseInt($original.attr("data-decimals") ? $original.attr("data-decimals") : "0");
 
             const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
             console.log(getLang());
@@ -53,27 +59,75 @@
             $input.css("width", originalWidth + (decimals * 9) + "px");
             $input.val(numberFormat.format(value));
 
+            var boostCount = 0;
+
             onPointerDown($buttonDecrement[0], function () {
-                onDecrement();
+                decrement();
+                resetTimer();
+                autoDelayHandler = setTimeout(function () {
+                    autoIntervalHandler = setInterval(function () {
+                        if(boostCount > config.boostThreshold) {
+                            decrement(config.boostMultiplier);
+                        } else {
+                            decrement();
+                        }
+                        boostCount++;
+                    }, config.autoInterval);
+                }, config.autoDelay);
             });
 
             onPointerDown($buttonIncrement[0], function () {
-                onIncrement();
+                increment();
+                resetTimer();
+                autoDelayHandler = setTimeout(function () {
+                    autoIntervalHandler = setInterval(function () {
+                        if(boostCount > config.boostThreshold) {
+                            increment(config.boostMultiplier);
+                        } else {
+                            increment();
+                        }
+                        boostCount++;
+                    }, config.autoInterval);
+                }, config.autoDelay);
             });
 
-            function onDecrement() {
-                value = Math.max(value - step, min);
+            onPointerUp(document.body, function () {
+                resetTimer();
+            });
+
+            function decrement(boost) {
+                boost = boost ? boost : 1;
+                value = Math.max(value - step * boost, min);
                 $input.val(numberFormat.format(value));
             }
 
-            function onIncrement() {
-                value = Math.min(value + step, max);
+            function increment(boost) {
+                boost = boost ? boost : 1;
+                value = Math.min(value + step * boost, max);
+                console.log(value, step, boost, step * boost);
                 $input.val(numberFormat.format(value));
+            }
+
+            function resetTimer() {
+                boostCount = 0;
+                clearTimeout(autoDelayHandler);
+                clearTimeout(autoIntervalHandler);
             }
 
         });
 
     };
+
+    function onPointerUp(element, callback) {
+        element.addEventListener("mouseup", function (e) {
+            e.preventDefault();
+            callback(e);
+        });
+        element.addEventListener("touchend", function (e) {
+            e.preventDefault();
+            callback(e);
+        });
+    }
 
     function onPointerDown(element, callback) {
         element.addEventListener("mousedown", function (e) {
