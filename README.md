@@ -49,7 +49,7 @@ const config = {
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
     boostThreshold: 15, // boost after these steps
-    boostMultiplier: 10
+    boostMultiplier: 2
 };
 ```
 
