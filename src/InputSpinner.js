@@ -49,7 +49,7 @@
             const step = parseFloat($original.prop("step")) || 1;
             const decimals = parseInt($original.attr("data-decimals") ? $original.attr("data-decimals") : "0");
 
-            const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
+            const numberFormat = new Intl.NumberFormat({minimumFractionDigits: decimals});
 
             var value = parseFloat($original.val());
 
@@ -58,53 +58,43 @@
 
             var boostCount = 0;
 
-            $input.on("change paste keyup", function() {
-                value =  parseFloat($input.val());
+            $input.on("paste keyup change", function() {
+                value = Math.round(parseFloat($input.val()) / step) * step;
             });
 
             onPointerDown($buttonDecrement[0], function () {
-                decrement();
-                resetTimer();
-                autoDelayHandler = setTimeout(function () {
-                    autoIntervalHandler = setInterval(function () {
-                        if(boostCount > config.boostThreshold) {
-                            decrement(config.boostMultiplier);
-                        } else {
-                            decrement();
-                        }
-                        boostCount++;
-                    }, config.autoInterval);
-                }, config.autoDelay);
+                stepHandling(-step);
             });
 
             onPointerDown($buttonIncrement[0], function () {
-                increment();
-                resetTimer();
-                autoDelayHandler = setTimeout(function () {
-                    autoIntervalHandler = setInterval(function () {
-                        if(boostCount > config.boostThreshold) {
-                            increment(config.boostMultiplier);
-                        } else {
-                            increment();
-                        }
-                        boostCount++;
-                    }, config.autoInterval);
-                }, config.autoDelay);
+                stepHandling(step);
             });
 
             onPointerUp(document.body, function () {
                 resetTimer();
             });
 
-            function decrement(boost) {
-                boost = boost ? boost : 1;
-                value = Math.max(value - step * boost, min);
-                $input.val(numberFormat.format(value));
+            function stepHandling(step) {
+                calcStep(step);
+                resetTimer();
+                autoDelayHandler = setTimeout(function () {
+                    autoIntervalHandler = setInterval(function () {
+                        if(boostCount > config.boostThreshold) {
+                            calcStep(step * config.boostMultiplier);
+                        } else {
+                            calcStep(step);
+                        }
+                        boostCount++;
+                    }, config.autoInterval);
+                }, config.autoDelay);
             }
 
-            function increment(boost) {
-                boost = boost ? boost : 1;
-                value = Math.min(value + step * boost, max);
+            function calcStep(step) {
+                if(step < 0) {
+                    value = Math.max(value + step, min);
+                } else if(step > 0) {
+                    value = Math.min(value + step, max);
+                }
                 $input.val(numberFormat.format(value));
             }
 
@@ -140,11 +130,4 @@
         });
     }
 
-    function getLang() {
-        if (navigator.languages !== undefined) {
-            return navigator.languages[0];
-        } else {
-            return navigator.language;
-        }
-    }
 }(jQuery));
