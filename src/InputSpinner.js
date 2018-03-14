@@ -17,7 +17,8 @@
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 15, // boost after these steps
-            boostMultiplier: 2
+            boostMultiplier: 2,
+            locale: null // detects the local from `navigator.language`, if null
         };
         Object.assign(config, options);
 
@@ -49,7 +50,9 @@
             const step = parseFloat($original.prop("step")) || 1;
             const decimals = parseInt($original.attr("data-decimals")) || 0;
 
-            const numberFormat = new Intl.NumberFormat(getLang(), {minimumFractionDigits: decimals});
+            const locale = config.locale || getLanguage();
+
+            const numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals});
 
             var value = parseFloat($original.val());
 
@@ -132,7 +135,7 @@
         });
     }
 
-    function getLang() {
+    function getLanguage() {
         if (navigator.languages !== undefined) {
             return navigator.languages[0];
         } else {
