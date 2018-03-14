@@ -15,3 +15,21 @@ A Bootstrap/jQuery plugin to create input spinner elements with Bootstrap 4.
 </script>
 ```
 
+## Syntax
+
+```javascript
+$(element).InputSpinner(config);
+```
+
+default config is:
+
+```javascript
+config = {
+    decrementHtml: "<strong>-</strong>",
+    incrementHtml: "<strong>+</strong>",
+    buttonClass: "btn-outline-secondary",
+    buttonWidth: "2.5em",
+    textAlign: "center"
+};
+```
+

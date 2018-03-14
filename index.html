@@ -7,8 +7,7 @@
     <style type="text/css">
         pre.code {
             padding: 10px;
-            background-color: #555;
-            color: white;
+            background-color: #eee;
             overflow-y: scroll;
         }
     </style>
@@ -23,15 +22,17 @@
     <p><a href="https://github.com/shaack/sb-input-spinner">GitHub repository</a></p>
     <h2>Examples</h2>
 
-    <pre class="code">&lt;input style="text-align: right" type="number" value="50" min="0" max="100" step="10"/&gt;</pre>
+    <pre class="code">&lt;input type="number" value="50" min="0" max="100" step="10"/&gt;</pre>
     <p>
-        <input style="text-align: right" type="number" value="50" min="0" max="100" step="10"/>
+        <input type="number" value="50" min="0" max="100" step="10"/>
     </p>
-    <pre class="code">&lt;input style="text-align: right" type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
+    <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
     <p>
-        <input style="text-align: right" type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+        <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
     </p>
-
+    <pre class="code">&lt;script&gt;
+    $("input[type='number']").InputSpinner();
+&lt;/script&gt;</pre>
 </section>
 <!-- bootstrap needs jQuery -->
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
