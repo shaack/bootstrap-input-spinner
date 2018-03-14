@@ -11,6 +11,7 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 `npm install -save bootstrap-input-spinner`
 
 Or just download this repository and include `src/InputSpinner.js`.
+
 **No extra css needed**, only Bootstrap 4 and jQuery.
 
 ## Usage
