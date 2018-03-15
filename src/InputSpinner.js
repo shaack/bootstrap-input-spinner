@@ -56,6 +56,10 @@
 
             var value = parseFloat($original.val());
 
+            if(decimals === 0) {
+                $input.attr("inputmode", "numeric").attr("pattern", "[0-9]*"); // ios numpad
+            }
+
             $original.after($inputGroup);
             $input.val(numberFormat.format(value));
 
@@ -111,11 +115,9 @@
 
     function onPointerUp(element, callback) {
         element.addEventListener("mouseup", function (e) {
-            e.preventDefault();
             callback(e);
         });
         element.addEventListener("touchend", function (e) {
-            e.preventDefault();
             callback(e);
         });
     }
