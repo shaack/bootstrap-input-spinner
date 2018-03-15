@@ -18,7 +18,7 @@
             autoInterval: 100, // speed of auto value change
             boostThreshold: 15, // boost after these steps
             boostMultiplier: 2,
-            locale: null // detects the local from `navigator.language`, if null
+            locale: null // the locale for number rendering; if null, the browsers language is used
         };
         Object.assign(config, options);
 
@@ -26,7 +26,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input style="border-radius: 0; text-align: ' + config.textAlign + '" class="input"/>' +
+            '<input style="text-align: ' + config.textAlign + '" class="input form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -50,13 +50,13 @@
             const step = parseFloat($original.prop("step")) || 1;
             const decimals = parseInt($original.attr("data-decimals")) || 0;
 
-            const locale = config.locale || getLanguage();
+            const locale = config.locale || navigator.language || "en-US";
 
             const numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals});
 
             var value = parseFloat($original.val());
 
-            if(decimals === 0) {
+            if (decimals === 0) {
                 $input.attr("inputmode", "numeric").attr("pattern", "[0-9]*"); // ios numpad
             }
 
@@ -65,9 +65,10 @@
 
             var boostCount = 0;
 
-            $input.on("paste keyup change", function() {
-                value = parseInt($input.val().replace(/[.,]/g,''), 10); // i18n
-                value = value / Math.pow(10, decimals);
+            $input.on("paste keyup change", function () {
+                if (locale !== "en-US" && locale !== "en-GB" && locale !== "th-TH") { // these locales use '.' for decimals
+                    value = parseFloat($input.val().replace(/[. ]/g, '').replace(/[,]/g, '.'), 10); // i18n
+                }
                 value = Math.round(value / step) * step;
             });
 
@@ -88,7 +89,7 @@
                 resetTimer();
                 autoDelayHandler = setTimeout(function () {
                     autoIntervalHandler = setInterval(function () {
-                        if(boostCount > config.boostThreshold) {
+                        if (boostCount > config.boostThreshold) {
                             calcStep(step * config.boostMultiplier);
                         } else {
                             calcStep(step);
@@ -131,14 +132,6 @@
             e.preventDefault();
             callback(e);
         });
-    }
-
-    function getLanguage() {
-        if (navigator.languages !== undefined) {
-            return navigator.languages[0];
-        } else {
-            return navigator.language;
-        }
     }
 
 }(jQuery));
