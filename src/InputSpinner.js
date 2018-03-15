@@ -26,7 +26,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input style="text-align: ' + config.textAlign + '" class="input"/>' +
+            '<input style="border-radius: 0; text-align: ' + config.textAlign + '" class="input"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
