@@ -57,7 +57,8 @@ const config = {
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
     boostThreshold: 15, // boost after these steps
-    boostMultiplier: 2
+    boostMultiplier: 2,
+    locale: null // the locale for number rendering; if null, the browsers language is used
 };
 ```
 
