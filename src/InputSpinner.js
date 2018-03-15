@@ -66,10 +66,13 @@
             var boostCount = 0;
 
             $input.on("paste keyup change", function () {
-                if (locale !== "en-US" && locale !== "en-GB" && locale !== "th-TH") { // these locales use '.' for decimals
-                    value = parseFloat($input.val().replace(/[. ]/g, '').replace(/[,]/g, '.'), 10); // i18n
+                const inputValue = $input.val();
+                if (locale === "en-US" || locale === "en-GB" || locale === "th-TH") {
+                    value = parseFloat(inputValue);
+                } else {
+                    value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.'), 10); // i18n
                 }
-                value = Math.round(value / step) * step;
+                $original.val(value);
             });
 
             onPointerDown($buttonDecrement[0], function () {
@@ -101,7 +104,9 @@
 
             function calcStep(step) {
                 value = Math.min(Math.max(value + step, min), max);
+                value = Math.round(value / step) * step;
                 $input.val(numberFormat.format(value));
+                $original.val(Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals));
             }
 
             function resetTimer() {
