@@ -6,6 +6,13 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 
 [Demo Page](http://shaack.com/projekte/bootstrap-input-spinner/)
 
+## Features
+
+- Mobile friendly and responsive
+- Internationalized number formatting
+- Automatically changes value when holding button
+- Boosts value change when holding button longer
+
 ## Installation
 
 `npm install -save bootstrap-input-spinner`
@@ -25,7 +32,7 @@ Or just download this repository and include `src/InputSpinner.js`.
 
 ### Syntax
 
-HTML
+#### HTML
 
 Uses the following tag-attributes:
 
@@ -38,7 +45,7 @@ Uses the following tag-attributes:
 <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
 ```
 
-JavaScript
+#### JavaScript
 
 ```javascript
 $(element).InputSpinner(config);
