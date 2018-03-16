@@ -1,5 +1,5 @@
 /**
- * Author and copyright: Stefan Haack <shaack@gmail.com> (http://www.shaack.com)
+ * Author and copyright: Stefan Haack <shaack@gmail.com> (http://shaack.com)
  * License: MIT, see file 'LICENSE'
  * Date: 14.03.2018
  */
