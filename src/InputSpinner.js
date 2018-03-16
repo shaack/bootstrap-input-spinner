@@ -1,7 +1,7 @@
 /**
  * Author and copyright: Stefan Haack <shaack@gmail.com> (http://www.shaack.com)
- * Date: 14.03.2018
  * License: MIT, see file 'LICENSE'
+ * Date: 14.03.2018
  */
 
 (function ($) {
