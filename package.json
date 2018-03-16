@@ -16,7 +16,7 @@
     "Input",
     "UI"
   ],
-  "author": "shaack@gmail.com",
+  "author": "Stefan Haack <shaack@gmail.com> (http://www.shaack.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/shaack/bootstrap-input-spinner/issues"
