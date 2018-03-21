@@ -57,10 +57,6 @@
 
             var value = parseFloat($original.val());
 
-            if (decimals === 0) {
-                $input.attr("inputmode", "numeric").attr("pattern", "[0-9]*"); // ios numpad
-            }
-
             $original.after($inputGroup);
             $input.val(numberFormat.format(value));
 
