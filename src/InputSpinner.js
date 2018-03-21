@@ -60,15 +60,12 @@
             if($original.prop("class").indexOf("is-invalid") !== -1) {
                 $input.addClass("is-invalid");
             }
-
             if($original.prop("class").indexOf("is-valid") !== -1) {
                 $input.addClass("is-valid");
             }
-
             if($original.prop("required")) {
                 $input.prop("required", true);
             }
-
             if($original.prop("placeholder")) {
                 $input.prop("placeholder", $original.prop("placeholder"));
             }
