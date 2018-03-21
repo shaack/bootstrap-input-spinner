@@ -18,7 +18,7 @@
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 15, // boost after these steps
-            boostMultiplier: 2,
+            boostMultiplier: 4,
             locale: null // the locale for number rendering; if null, the browsers language is used
         };
         Object.assign(config, options);
@@ -27,7 +27,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input style="text-align: ' + config.textAlign + '" class="input form-control"/>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -57,8 +57,36 @@
 
             var value = parseFloat($original.val());
 
+            if($original.prop("class").indexOf("is-invalid") !== -1) {
+                $input.addClass("is-invalid");
+            }
+
+            if($original.prop("class").indexOf("is-valid") !== -1) {
+                $input.addClass("is-valid");
+            }
+
+            if($original.prop("required")) {
+                $input.prop("required", true);
+            }
+
+            if($original.prop("placeholder")) {
+                $input.prop("placeholder", $original.prop("placeholder"));
+            }
+
             $original.after($inputGroup);
-            $input.val(numberFormat.format(value));
+
+            if(isNaN(value)) {
+                // value = 0;
+                $original.val("");
+            } else {
+                $original.val(value);
+            }
+
+            if(isNaN(value)) {
+                $input.val("");
+            } else {
+                $input.val(numberFormat.format(value));
+            }
 
             var boostCount = 0;
 
@@ -69,7 +97,12 @@
                 } else {
                     value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.'), 10); // i18n
                 }
-                $original.val(value);
+                if(isNaN(value)) {
+                    // value = 0;
+                    $original.val("");
+                } else {
+                    $original.val(value);
+                }
             });
 
             onPointerDown($buttonDecrement[0], function () {
@@ -100,6 +133,9 @@
             }
 
             function calcStep(step) {
+                if(isNaN(value)) {
+                    value = 0;
+                }
                 value = Math.min(Math.max(value + step, min), max);
                 value = Math.round(value / step) * step;
                 $input.val(numberFormat.format(value));

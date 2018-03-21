@@ -10,11 +10,8 @@
             background-color: #eee;
             overflow-y: scroll;
         }
-        input[type='number'] {
-            width: 50px;
-        }
         .input-group {
-            width: 200px;
+            width: 250px;
         }
     </style>
 </head>
@@ -27,15 +24,28 @@
     <h2>Source code and documentation</h2>
     <p><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository</a></p>
     <h2>Examples</h2>
-
+    <form>
+    <h5>Simple Integer</h5>
     <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
     <p>
         <input type="number" value="500" min="0" max="1000" step="10"/>
     </p>
+    <h5>Floating Point</h5>
     <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
     <p>
         <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
     </p>
+    <h5>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h5>
+    <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to the created input element.
+        Also 'required' and 'placeholder' are copied.</p>
+    <pre class="code">&lt;input class="<strong>is-invalid</strong>" <strong>placeholder</strong>="a number please" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
+    <p>
+        <input class="is-invalid" placeholder="a number please" required type="number" value="" min="-100" max="100"/>
+    </p>
+        <input type="submit" class="btn btn-primary mb-4" value="Submit to test empty input"/>
+    </form>
+
+    <h5>Script</h5>
     <pre class="code">&lt;script&gt;
     $("input[type='number']").InputSpinner();
 &lt;/script&gt;</pre>
