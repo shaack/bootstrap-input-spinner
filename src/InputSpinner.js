@@ -73,15 +73,10 @@
             $original.after($inputGroup);
 
             if(isNaN(value)) {
-                // value = 0;
                 $original.val("");
-            } else {
-                $original.val(value);
-            }
-
-            if(isNaN(value)) {
                 $input.val("");
             } else {
+                $original.val(value);
                 $input.val(numberFormat.format(value));
             }
 
@@ -95,7 +90,6 @@
                     value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.'), 10); // i18n
                 }
                 if(isNaN(value)) {
-                    // value = 0;
                     $original.val("");
                 } else {
                     $original.val(value);
