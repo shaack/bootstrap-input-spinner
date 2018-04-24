@@ -1,7 +1,6 @@
 /**
  * Author: Stefan Haack (https://github.com/shaack)
  * License: MIT, see file 'LICENSE'
- * Date: 14.03.2018
  */
 
 (function ($) {
