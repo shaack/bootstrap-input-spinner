@@ -8,7 +8,7 @@
     "use strict";
     $.fn.InputSpinner = function (options) {
 
-        const config = {
+        var config = {
             decrementButton: "<strong>-</strong>", // button text
             incrementButton: "<strong>+</strong>", // ..
             groupClass: "input-group-spinner", // css class of the input-group
@@ -23,7 +23,7 @@
         };
         Object.assign(config, options);
 
-        const html = '<div class="input-group ' + config.groupClass + '">' +
+        var html = '<div class="input-group ' + config.groupClass + '">' +
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
@@ -35,25 +35,25 @@
 
         this.each(function () {
 
-            const $original = $(this);
+            var $original = $(this);
             $original.hide();
 
             var autoDelayHandler = null;
             var autoIntervalHandler = null;
 
-            const $inputGroup = $(html);
-            const $buttonDecrement = $inputGroup.find(".btn-decrement");
-            const $buttonIncrement = $inputGroup.find(".btn-increment");
-            const $input = $inputGroup.find("input");
+            var $inputGroup = $(html);
+            var $buttonDecrement = $inputGroup.find(".btn-decrement");
+            var $buttonIncrement = $inputGroup.find(".btn-increment");
+            var $input = $inputGroup.find("input");
 
-            const min = parseFloat($original.prop("min")) || 0;
-            const max = parseFloat($original.prop("max")) || Infinity;
-            const step = parseFloat($original.prop("step")) || 1;
-            const decimals = parseInt($original.attr("data-decimals")) || 0;
+            var min = parseFloat($original.prop("min")) || 0;
+            var max = parseFloat($original.prop("max")) || Infinity;
+            var step = parseFloat($original.prop("step")) || 1;
+            var decimals = parseInt($original.attr("data-decimals")) || 0;
 
-            const locale = config.locale || navigator.language || "en-US";
+            var locale = config.locale || navigator.language || "en-US";
 
-            const numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals});
+            var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals});
 
             var value = parseFloat($original.val());
 
@@ -83,11 +83,11 @@
             var boostCount = 0;
 
             $input.on("paste keyup change", function () {
-                const inputValue = $input.val();
+                var inputValue = $input.val();
                 if (locale === "en-US" || locale === "en-GB" || locale === "th-TH") {
                     value = parseFloat(inputValue);
                 } else {
-                    value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.'), 10); // i18n
+                    value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.')); // i18n
                 }
                 if(isNaN(value)) {
                     $original.val("");
@@ -127,8 +127,8 @@
                 if(isNaN(value)) {
                     value = 0;
                 }
-                value = Math.min(Math.max(value + step, min), max);
                 value = Math.round(value / step) * step;
+                value = Math.min(Math.max(value + step, min), max);
                 $input.val(numberFormat.format(value));
                 $original.val(Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals));
             }
