@@ -32,6 +32,8 @@
             '</div>' +
             '</div>';
 
+        var locale = config.locale || navigator.language || "en-US";
+
         this.each(function () {
 
             var $original = $(this);
@@ -50,10 +52,7 @@
             var step = parseFloat($original.prop("step")) || 1;
             var decimals = parseInt($original.attr("data-decimals")) || 0;
 
-            var locale = config.locale || navigator.language || "en-US";
-
             var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals});
-
             var value = parseFloat($original.val());
 
             if($original.prop("class").indexOf("is-invalid") !== -1) {
