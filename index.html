@@ -55,7 +55,14 @@
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./src/InputSpinner.js"></script>
 <script>
-    $("input[type='number']").InputSpinner();
+    var $element = $("input[type='number']");
+    $element.InputSpinner();
+    $element.on("change", function(event) {
+       console.log("change", event);
+    });
+    $element.on("input", function(event) {
+        console.log("input", event);
+    });
 </script>
 </body>
 </html>

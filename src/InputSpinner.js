@@ -93,14 +93,20 @@
                 } else {
                     $original.val(value);
                 }
+                $original.trigger("change")
+                $original.trigger("input")
             });
 
             onPointerDown($buttonDecrement[0], function () {
                 stepHandling(-step);
+                $original.trigger("change")
+                $original.trigger("input")
             });
 
             onPointerDown($buttonIncrement[0], function () {
                 stepHandling(step);
+                $original.trigger("change")
+                $original.trigger("input")
             });
 
             onPointerUp(document.body, function () {
