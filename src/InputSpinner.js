@@ -5,6 +5,7 @@
 
 (function ($) {
     "use strict";
+    var spacePressed = false;
     $.fn.InputSpinner = function (options) {
 
         var config = {
@@ -148,6 +149,12 @@
         element.addEventListener("touchend", function (e) {
             callback(e);
         });
+        element.addEventListener("keyup", function (e) {
+            if(e.keyCode === 32) {
+                spacePressed = false
+                callback(e);
+            }
+        });
     }
 
     function onPointerDown(element, callback) {
@@ -158,6 +165,12 @@
         element.addEventListener("touchstart", function (e) {
             e.preventDefault();
             callback(e);
+        });
+        element.addEventListener("keydown", function (e) {
+            if(e.keyCode === 32 && !spacePressed) {
+                spacePressed = true
+                callback(e);
+            }
         });
     }
 
