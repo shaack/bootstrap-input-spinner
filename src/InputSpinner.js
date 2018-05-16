@@ -53,8 +53,22 @@
             var step = parseFloat($original.prop("step")) || 1
             var decimals = parseInt($original.attr("data-decimals")) || 0
 
-            var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals})
+            var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals, maximumFractionDigits: decimals})
             var value = parseFloat($original.val())
+
+            dispatchChangeEvents($original)
+            $original[0].setValue = function(newValue) { // use this to set the value of the original element
+                $original[0].value = newValue
+                if (isNaN(newValue) || newValue === "") {
+                    $original.val("")
+                    $input.val("")
+                    value = 0.0
+                } else {
+                    $original.val(newValue)
+                    $input.val(numberFormat.format(newValue))
+                    value = parseFloat(newValue)
+                }
+            }
 
             if ($original.prop("class").indexOf("is-invalid") !== -1) {
                 $input.addClass("is-invalid")
