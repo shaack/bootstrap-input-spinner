@@ -38,7 +38,7 @@
         <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
         <h4>Handle `change` and `input` events</h4>
         <p>
-            <input type="number" id="handleChange" value="500" min="0" max="1000" step="10"/>
+            <input type="number" id="handleChange" value="2500" min="0" max="5000" step="10"/>
         </p>
         <p>
             Value: <span id="valueOutput"></span>
@@ -46,7 +46,7 @@
         <script>
             var changedElement = document.getElementById("handleChange")
             var outputElement = document.getElementById("valueOutput")
-            changedElement.addEventListener("change", function(event) {
+            changedElement.addEventListener("change", function (event) {
                 valueOutput.innerHTML = changedElement.value
             })
         </script>
@@ -71,10 +71,10 @@ inputGross.addEventListener("change", function(event) {
         <script>
             var inputNet = document.getElementById("inputNet")
             var inputGross = document.getElementById("inputGross")
-            inputNet.addEventListener("change", function(event) {
+            inputNet.addEventListener("change", function (event) {
                 inputGross.setValue(inputNet.value * 1.19)
             })
-            inputGross.addEventListener("change", function(event) {
+            inputGross.addEventListener("change", function (event) {
                 inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
             })
         </script>
