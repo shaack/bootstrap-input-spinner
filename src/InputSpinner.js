@@ -93,7 +93,7 @@
                 } else {
                     $original.val(value)
                 }
-                triggerChange($original)
+                dispatchChangeEvents($original)
             })
 
             onPointerDown($buttonDecrement[0], function () {
@@ -108,11 +108,13 @@
                 resetTimer()
             })
 
-            function triggerChange($element) {
-                var changeEvent = new Event("change", {bubbles: true})
-                var inputEvent = new Event("input", {bubbles: true})
-                $element[0].dispatchEvent(changeEvent)
-                $element[0].dispatchEvent(inputEvent)
+            function dispatchChangeEvents($element) {
+                setTimeout(function() {
+                    var changeEvent = new Event("change", {bubbles: true})
+                    var inputEvent = new Event("input", {bubbles: true})
+                    $element[0].dispatchEvent(changeEvent)
+                    $element[0].dispatchEvent(inputEvent)
+                })
             }
 
             function stepHandling(step) {
@@ -138,7 +140,7 @@
                 value = Math.min(Math.max(value + step, min), max)
                 $input.val(numberFormat.format(value))
                 $original.val(Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals))
-                triggerChange($original)
+                dispatchChangeEvents($original)
             }
 
             function resetTimer() {
