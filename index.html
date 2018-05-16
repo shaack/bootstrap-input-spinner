@@ -103,11 +103,7 @@ inputGross.addEventListener("change", function(event) {
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./src/InputSpinner.js"></script>
 <script>
-    var $element = $("input[type='number']")
-    $element.InputSpinner()
-    $element.on("change", function (event) {
-        console.log("change Event", event.target.value)
-    })
+    $("input[type='number']").InputSpinner()
 </script>
 </body>
 </html>
