@@ -12,6 +12,7 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 - Internationalized number formatting
 - Automatically changes value when holding button
 - Boosts value change when holding button longer
+- Dispatches `change` and `input` events on value change like native elements
 
 ## Installation
 
@@ -54,7 +55,7 @@ $(element).InputSpinner(config);
 default config is:
 
 ```javascript
-const config = {
+var config = {
     decrementButton: "<strong>-</strong>", // button text
     incrementButton: "<strong>+</strong>", // ..
     groupClass: "input-group-spinner", // css class of the input-group
