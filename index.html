@@ -62,20 +62,20 @@
             Gross (+19%)
             <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
         </p>
-        <pre class="code">inputGross.addEventListener("change", function(event) {
-    inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
-})
-inputNet.addEventListener("change", function(event) {
+        <pre class="code">inputNet.addEventListener("change", function(event) {
     inputGross.setValue(inputNet.value * 1.19)
+})
+inputGross.addEventListener("change", function(event) {
+    inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
 })</pre>
         <script>
-            var inputGross = document.getElementById("inputGross")
             var inputNet = document.getElementById("inputNet")
-            inputGross.addEventListener("change", function(event) {
-                inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
-            })
+            var inputGross = document.getElementById("inputGross")
             inputNet.addEventListener("change", function(event) {
                 inputGross.setValue(inputNet.value * 1.19)
+            })
+            inputGross.addEventListener("change", function(event) {
+                inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
             })
         </script>
         <h4>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h4>
