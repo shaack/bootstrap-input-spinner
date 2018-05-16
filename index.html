@@ -72,10 +72,10 @@ inputGross.addEventListener("change", function(event) {
             var inputNet = document.getElementById("inputNet")
             var inputGross = document.getElementById("inputGross")
             inputNet.addEventListener("change", function (event) {
-                inputGross.setValue(inputNet.value * 1.19)
+                inputGross.setValue(inputNet.value * 1.19) // use `setValue` instead of `value=`
             })
             inputGross.addEventListener("change", function (event) {
-                inputNet.setValue(inputGross.value / 1.19) // use `setValue` instead of `value=`
+                inputNet.setValue(inputGross.value / 1.19)
             })
         </script>
         <h4>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h4>
