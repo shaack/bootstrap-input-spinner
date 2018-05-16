@@ -58,10 +58,10 @@
     var $element = $("input[type='number']");
     $element.InputSpinner();
     $element.on("change", function(event) {
-       console.log("change", event);
+       console.log("change Event", event.target.value);
     });
     $element.on("input", function(event) {
-        console.log("input", event);
+        console.log("input Event", event.target.value);
     });
 </script>
 </body>
