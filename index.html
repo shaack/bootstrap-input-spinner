@@ -10,6 +10,7 @@
             background-color: #eee;
             overflow-y: scroll;
         }
+
         .input-group {
             width: 250px;
         }
@@ -25,44 +26,88 @@
     <p><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository</a></p>
     <h2>Examples</h2>
     <form>
-    <h5>Simple Integer</h5>
-    <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
-    <p>
-        <input type="number" value="500" min="0" max="1000" step="10"/>
-    </p>
-    <h5>Floating Point</h5>
-    <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
-    <p>
-        <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
-    </p>
-    <h5>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h5>
-    <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to the created input element.
-        Also 'required' and 'placeholder' are copied.</p>
-    <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
-    <p>
-        <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
-    </p>
+        <h4>Simple Integer</h4>
+        <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
+        <p>
+            <input type="number" value="500" min="0" max="1000" step="10"/>
+        </p>
+        <h4>Floating Point</h4>
+        <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
+        <p>
+            <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+        </p>
+        <h4>Handle `change` and `input` events</h4>
+        <p>
+            <input type="number" id="handleChange" value="500" min="0" max="1000" step="10"/>
+        </p>
+        <p>
+            Value: <span id="valueOutput"></span>
+        </p>
+        <script>
+            var changedElement = document.getElementById("handleChange")
+            var outputElement = document.getElementById("valueOutput")
+            changedElement.addEventListener("change", function(event) {
+                valueOutput.innerHTML = changedElement.value
+            })
+        </script>
+        <pre class="code">changedElement.addEventListener("change", function(event) { // works also with `ìnput`
+    valueOutput.innerHTML = changedElement.value
+})</pre>
+        <h4>Programmatic change of value</h4>
+        <p>
+            Gross:
+            <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
+        </p>
+        <p>
+            Net (+19%):
+            <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
+        </p>
+        <pre class="code">inputGross.addEventListener("change", function(event) {
+    inputNet.setValue(inputGross.value * 1.19) // use `setValue` instead of `value=`
+})
+inputNet.addEventListener("change", function(event) {
+    inputGross.setValue(inputNet.value / 1.19)
+})</pre>
+        <script>
+            var inputGross = document.getElementById("inputGross")
+            var inputNet = document.getElementById("inputNet")
+            inputGross.addEventListener("change", function(event) {
+                inputNet.setValue(inputGross.value * 1.19) // use `setValue` instead of `value=`
+            })
+            inputNet.addEventListener("change", function(event) {
+                inputGross.setValue(inputNet.value / 1.19) // use `setValue` instead of `value=`
+            })
+        </script>
+        <h4>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h4>
+        <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to
+            the created input element.
+            Also 'required' and 'placeholder' are copied.</p>
+        <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
+        <p>
+            <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
+        </p>
         <input type="submit" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
-
     <h5>Script</h5>
-    <pre class="code">&lt;script&gt;
-    $("input[type='number']").InputSpinner();
+    <p>
+        This script enabled the InputSpinner for all inputs with type='number' on this page.
+        No extra css needed, just Bootstrap 4.
+    </p>
+    <pre class="code">&lt;script&gt
+    $("input[type='number']").InputSpinner()
 &lt;/script&gt;</pre>
+    <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./src/InputSpinner.js"></script>
 <script>
-    var $element = $("input[type='number']");
-    $element.InputSpinner();
-    $element.on("change", function(event) {
-       console.log("change Event", event.target.value);
-    });
-    $element.on("input", function(event) {
-        console.log("input Event", event.target.value);
-    });
+    var $element = $("input[type='number']")
+    $element.InputSpinner()
+    $element.on("change", function (event) {
+        console.log("change Event", event.target.value)
+    })
 </script>
 </body>
 </html>
