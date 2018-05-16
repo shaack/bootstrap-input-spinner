@@ -57,7 +57,7 @@
             var value = parseFloat($original.val())
 
             dispatchChangeEvents($original)
-            $original[0].setValue = function(newValue) { // use this to set the value of the original element
+            $original[0].setValue = function(newValue) {
                 if (isNaN(newValue) || newValue === "") {
                     $original.val("")
                     $input.val("")
