@@ -27,15 +27,15 @@
     <h2>Examples</h2>
     <form>
         <h4>Simple Integer</h4>
-        <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
         <p>
             <input type="number" value="500" min="0" max="1000" step="10"/>
         </p>
+        <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
         <h4>Floating Point</h4>
-        <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
         <p>
             <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
         </p>
+        <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
         <h4>Handle `change` and `input` events</h4>
         <p>
             <input type="number" id="handleChange" value="500" min="0" max="1000" step="10"/>
@@ -82,10 +82,10 @@ inputNet.addEventListener("change", function(event) {
         <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to
             the created input element.
             Also 'required' and 'placeholder' are copied.</p>
-        <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
         <p>
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
+        <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
         <input type="submit" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
     <h5>Script</h5>
