@@ -58,7 +58,7 @@ default config is:
 var config = {
     decrementButton: "<strong>-</strong>", // button text
     incrementButton: "<strong>+</strong>", // ..
-    groupClass: "input-group-spinner", // css class of the input-group
+    groupClass: "", // css class of the input-group (sizing with input-group-sm or input-group-lg)
     buttonsClass: "btn-outline-secondary",
     buttonsWidth: "2.5em",
     textAlign: "center",
@@ -67,6 +67,6 @@ var config = {
     boostThreshold: 15, // boost after these steps
     boostMultiplier: 4,
     locale: null // the locale for number rendering; if null, the browsers language is used
-};
+}
 ```
 
