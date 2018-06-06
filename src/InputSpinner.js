@@ -11,7 +11,7 @@
         var config = {
             decrementButton: "<strong>-</strong>", // button text
             incrementButton: "<strong>+</strong>", // ..
-            groupClass: "input-group-spinner", // css class of the input-group
+            groupClass: "", // css class of the input-group (sizing with input-group-sm, input-group-lg)
             buttonsClass: "btn-outline-secondary",
             buttonsWidth: "2.5em",
             textAlign: "center",
@@ -27,7 +27,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control ' + config.inputClass + '"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
