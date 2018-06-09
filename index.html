@@ -36,18 +36,6 @@
             <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
         </p>
         <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
-        <h4>Sizing</h4>
-        <p>You can set the group css class via configuration.</p>
-        <p>
-            Small
-            <input class="small" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
-        </p>
-        <pre class="code">$("input.small").InputSpinner({groupClass: "input-group-sm"})</pre>
-        <p>
-            Large
-            <input class="large" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
-        </p>
-        <pre class="code">$("input.large").InputSpinner({groupClass: "input-group-lg"})</pre>
         <h4>Handle `change` and `input` events</h4>
         <p>
             <input type="number" id="handleChange" value="2500" min="0" max="5000" step="10"/>
@@ -108,6 +96,18 @@ inputGross.addEventListener("change", function(event) {
     <pre class="code">&lt;script&gt
     $("input[type='number']").InputSpinner()
 &lt;/script&gt;</pre>
+    <h4>Sizing</h4>
+    <p>You can set the group css class via configuration.</p>
+    <p>
+        Small
+        <input class="small" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+    </p>
+    <pre class="code">$("input.small").InputSpinner({groupClass: "input-group-sm"})</pre>
+    <p>
+        Large
+        <input class="large" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+    </p>
+    <pre class="code">$("input.large").InputSpinner({groupClass: "input-group-lg"})</pre>
     <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
