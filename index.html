@@ -38,20 +38,15 @@
         <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
         <h4>Handle `change` and `input` events</h4>
         <p>
-            <input type="number" id="handleChange" value="2500" min="0" max="5000" step="10"/>
+            <input type="number" id="changedInput" value="2500" min="0" max="5000" step="10"/>
         </p>
         <p>
             Value: <span id="valueOutput"></span>
         </p>
-        <script>
-            var changedElement = document.getElementById("handleChange")
-            var outputElement = document.getElementById("valueOutput")
-            changedElement.addEventListener("change", function (event) {
-                valueOutput.innerHTML = changedElement.value
-            })
-        </script>
-        <pre class="code">changedElement.addEventListener("change", function(event) { // works also with `ìnput`
-    valueOutput.innerHTML = changedElement.value
+        <pre class="code">var $changedInput = $("#changedInput")
+var $output = $("#valueOutput")
+$changedInput.on("change", function (event) {
+    $output.html($changedInput.val())
 })</pre>
         <h4>Programmatic change of value</h4>
         <p>
@@ -62,22 +57,12 @@
             Gross (+19%)
             <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
         </p>
-        <pre class="code">inputNet.addEventListener("change", function(event) {
-    inputGross.setValue(inputNet.value * 1.19) // use `setValue` instead of `value=`
+        <pre class="code">$inputNet.on("change", function (event) {
+    $inputGross.val($inputNet.val() * 1.19)
 })
-inputGross.addEventListener("change", function(event) {
-    inputNet.setValue(inputGross.value / 1.19)
+$inputGross.on("change", function (event) {
+    $inputNet.val($inputGross.val() / 1.19)
 })</pre>
-        <script>
-            var inputNet = document.getElementById("inputNet")
-            var inputGross = document.getElementById("inputGross")
-            inputNet.addEventListener("change", function (event) {
-                inputGross.setValue(inputNet.value * 1.19) // use `setValue` instead of `value=`
-            })
-            inputGross.addEventListener("change", function (event) {
-                inputNet.setValue(inputGross.value / 1.19)
-            })
-        </script>
         <h4>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h4>
         <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to
             the created input element.
@@ -86,7 +71,7 @@ inputGross.addEventListener("change", function(event) {
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
         <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
-        <input type="submit" class="btn btn-primary mb-4" value="Submit to test empty input"/>
+        <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
     <h4>Script</h4>
     <p>
@@ -118,6 +103,23 @@ inputGross.addEventListener("change", function(event) {
     $("input[type='number']").InputSpinner()
     $("input.small").InputSpinner({groupClass: "input-group-sm"})
     $("input.large").InputSpinner({groupClass: "input-group-lg"})
+</script>
+<script>
+    var $changedInput = $("#changedInput")
+    var $output = $("#valueOutput")
+    $changedInput.on("change", function (event) {
+        $output.html($changedInput.val())
+    })
+</script>
+<script>
+    var $inputNet = $("#inputNet")
+    var $inputGross = $("#inputGross")
+    $inputNet.on("change", function (event) {
+        $inputGross.val($inputNet.val() * 1.19)
+    })
+    $inputGross.on("change", function (event) {
+        $inputNet.val($inputGross.val() / 1.19)
+    })
 </script>
 </body>
 </html>

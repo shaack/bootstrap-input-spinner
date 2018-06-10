@@ -6,6 +6,16 @@
 (function ($) {
     "use strict"
     var spacePressed = false
+    var originalVal = $.fn.val
+    $.fn.val = function (value) {
+        if (arguments.length >= 1) {
+            if (this[0]["bootstrap-input-spinner"] && this[0].setValue) {
+                this[0].setValue(value)
+            }
+        }
+        return originalVal.apply(this, arguments)
+    }
+
     $.fn.InputSpinner = function (options) {
 
         var config = {
@@ -38,6 +48,7 @@
         this.each(function () {
 
             var $original = $(this)
+            $original[0]["bootstrap-input-spinner"] = true
             $original.hide()
 
             var autoDelayHandler = null
@@ -53,20 +64,15 @@
             var step = parseFloat($original.prop("step")) || 1
             var decimals = parseInt($original.attr("data-decimals")) || 0
 
-            var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals, maximumFractionDigits: decimals})
+            var numberFormat = new Intl.NumberFormat(locale, {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            })
             var value = parseFloat($original[0].value)
 
             dispatchChangeEvents($original)
-            $original[0].setValue = function(newValue) {
-                if (isNaN(newValue) || newValue === "") {
-                    $original[0].value = ""
-                    $input[0].value = ""
-                    value = 0.0
-                } else {
-                    $original[0].value = newValue
-                    $input[0].value = numberFormat.format(newValue)
-                    value = parseFloat(newValue)
-                }
+            $original[0].setValue = function (newValue) {
+                setValue(newValue)
             }
 
             if ($original.prop("class").indexOf("is-invalid") !== -1) {
@@ -121,8 +127,20 @@
                 resetTimer()
             })
 
+            function setValue(newValue) {
+                if (isNaN(newValue) || newValue === "") {
+                    $original[0].value = ""
+                    $input[0].value = ""
+                    value = 0.0
+                } else {
+                    $original[0].value = newValue
+                    $input[0].value = numberFormat.format(newValue)
+                    value = parseFloat(newValue)
+                }
+            }
+
             function dispatchChangeEvents($element) {
-                setTimeout(function() {
+                setTimeout(function () {
                     var changeEvent = new Event("change", {bubbles: true})
                     var inputEvent = new Event("input", {bubbles: true})
                     $element[0].dispatchEvent(changeEvent)
