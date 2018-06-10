@@ -54,17 +54,17 @@
             var decimals = parseInt($original.attr("data-decimals")) || 0
 
             var numberFormat = new Intl.NumberFormat(locale, {minimumFractionDigits: decimals, maximumFractionDigits: decimals})
-            var value = parseFloat($original.val())
+            var value = parseFloat($original[0].value)
 
             dispatchChangeEvents($original)
             $original[0].setValue = function(newValue) {
                 if (isNaN(newValue) || newValue === "") {
-                    $original.val("")
-                    $input.val("")
+                    $original[0].value = ""
+                    $input[0].value = ""
                     value = 0.0
                 } else {
-                    $original.val(newValue)
-                    $input.val(numberFormat.format(newValue))
+                    $original[0].value = newValue
+                    $input[0].value = numberFormat.format(newValue)
                     value = parseFloat(newValue)
                 }
             }
@@ -85,26 +85,26 @@
             $original.after($inputGroup)
 
             if (isNaN(value)) {
-                $original.val("")
-                $input.val("")
+                $original[0].value = ""
+                $input[0].value = ""
             } else {
-                $original.val(value)
-                $input.val(numberFormat.format(value))
+                $original[0].value = value
+                $input[0].value = numberFormat.format(value)
             }
 
             var boostCount = 0
 
             $input.on("paste keyup change", function () {
-                var inputValue = $input.val()
+                var inputValue = $input[0].value
                 if (locale === "en-US" || locale === "en-GB" || locale === "th-TH") {
                     value = parseFloat(inputValue)
                 } else {
                     value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.')) // i18n
                 }
                 if (isNaN(value)) {
-                    $original.val("")
+                    $original[0].value = ""
                 } else {
-                    $original.val(value)
+                    $original[0].value = value
                 }
                 dispatchChangeEvents($original)
             })
@@ -151,8 +151,8 @@
                 }
                 value = Math.round(value / step) * step
                 value = Math.min(Math.max(value + step, min), max)
-                $input.val(numberFormat.format(value))
-                $original.val(Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals))
+                $input[0].value = numberFormat.format(value)
+                $original[0].value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)
                 dispatchChangeEvents($original)
             }
 
