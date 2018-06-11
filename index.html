@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +20,7 @@
             margin-top: 0.5em;
         }
 
+        /*noinspection CssUnusedSymbol*/
         .input-group {
             width: 250px;
         }
@@ -146,6 +148,7 @@ $inputGross.on("change", function (event) {
     $("input.small").InputSpinner({groupClass: "input-group-sm"})
     $("input.large").InputSpinner({groupClass: "input-group-lg"})
 </script>
+<!--suppress JSUnusedLocalSymbols -->
 <script>
     var $changedInput = $("#changedInput")
     var $output = $("#valueOutput")
@@ -154,6 +157,7 @@ $inputGross.on("change", function (event) {
     })
     $output.html($changedInput.val())
 </script>
+<!--suppress JSUnusedLocalSymbols -->
 <script>
     var $inputNet = $("#inputNet")
     var $inputGross = $("#inputGross")
