@@ -131,7 +131,7 @@ browser language.
 The change or read the value just use the jQuery `val()` function
 on the input, like this
 
-```html
+```javascript
 var currentValue = $(element).val() // read
 $(element).val(newValue) // write
 ```
@@ -144,14 +144,14 @@ $(element).val(newValue) // write
 The InputSpinner handles `input` and `change` events like the  native element.
 
 #### Event handling with vanilla JavaScript
-```html
+```javascript
 element.addEventListener("change", function(event) {
     newValue = element.value
 })
 ```
 
 #### Event handling with jQuery syntax
-```html
+```javascript
 $(element).on("change", function (event) {
     newValue = $(element).val()
 })
