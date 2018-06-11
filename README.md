@@ -33,6 +33,7 @@ Create the element attribute compatible to the native `input` element.
 ### Script
 Is is a jQuery plugin.
 Enable the InputSpinner for all inputs with `type='number'` with the following script.
+
 **No extra css needed**, just Bootstrap 4 and jQuery.
 
 ```html
