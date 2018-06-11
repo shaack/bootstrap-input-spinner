@@ -156,15 +156,17 @@ $(element).val(newValue) // write
 The InputSpinner handles `input` and `change` events like the  native element.
 
 #### Event handling with vanilla JavaScript
+
 ```javascript
 element.addEventListener("change", function(event) {
-    newValue = element.value
+    newValue = this.value
 })
 ```
 
 #### Event handling with jQuery syntax
+
 ```javascript
 $(element).on("change", function (event) {
-    newValue = $(element).val()
+    newValue = $(this).val()
 })
 ```
