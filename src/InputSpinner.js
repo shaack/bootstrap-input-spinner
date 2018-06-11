@@ -5,6 +5,7 @@
 
 (function ($) {
     "use strict"
+
     var spacePressed = false
     var originalVal = $.fn.val
     $.fn.val = function (value) {
@@ -69,6 +70,7 @@
                 maximumFractionDigits: decimals
             })
             var value = parseFloat($original[0].value)
+            var boostCount = 0
 
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
@@ -97,8 +99,6 @@
                 $input[0].value = numberFormat.format(value)
             }
 
-            var boostCount = 0
-
             $input.on("paste keyup change", function () {
                 var inputValue = $input[0].value
                 if (locale === "en-US" || locale === "en-GB" || locale === "th-TH") {
@@ -117,11 +117,9 @@
             onPointerDown($buttonDecrement[0], function () {
                 stepHandling(-step)
             })
-
             onPointerDown($buttonIncrement[0], function () {
                 stepHandling(step)
             })
-
             onPointerUp(document.body, function () {
                 resetTimer()
             })
