@@ -11,7 +11,7 @@ The Bootstrap 4 InputSpinner is
 - mobile friendly and responsive,
 - automatically changes value when holding button, boosts value change when holding button longer,
 - has internationalized number formatting,
-- handles `val()` like the native element,
+- handles `val()` like the native element
 - and dispatches `change` and `input` events on value change like the native element.
 
 ## Installation
