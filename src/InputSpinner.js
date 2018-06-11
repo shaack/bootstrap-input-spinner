@@ -70,7 +70,6 @@
             })
             var value = parseFloat($original[0].value)
 
-            dispatchChangeEvents($original)
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
             }

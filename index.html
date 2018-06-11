@@ -152,6 +152,7 @@ $inputGross.on("change", function (event) {
     $changedInput.on("change", function (event) {
         $output.html($changedInput.val())
     })
+    $output.html($changedInput.val())
 </script>
 <script>
     var $inputNet = $("#inputNet")
@@ -162,6 +163,7 @@ $inputGross.on("change", function (event) {
     $inputGross.on("change", function (event) {
         $inputNet.val($inputGross.val() / 1.19)
     })
+    $inputGross.val($inputNet.val() * 1.19)
 </script>
 </body>
 </html>
