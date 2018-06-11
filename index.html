@@ -47,7 +47,7 @@
             has internationalized number formatting,
         </li>
         <li>
-            handles <b>$.fn.val()</b> like the native element,
+            handles <span class="code">val()</span> like the native element,
         </li>
         <li>
             and dispatches <span class="code">change</span> and <span class="code">input</span> events on value change
@@ -63,8 +63,8 @@
 &lt;script&gt
     $("input[type='number']").InputSpinner()
 &lt;/script&gt;</pre>
-    <h2>Ropsitory and package</h2>
-    <p>Find the source code and npm package at</p>
+    <h2>Repsitory, documentation and package</h2>
+    <p>Find the source code, more documentation and the npm package at</p>
     <ul>
         <li><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository</a></li>
         <li><a href="https://www.npmjs.com/package/bootstrap-input-spinner">npm package</a></li>
@@ -127,12 +127,12 @@ $inputGross.on("change", function (event) {
     <p>You can set the group css class via configuration.</p>
     <p>
         Small
-        <input class="small" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+        <input class="small" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
     <pre class="code">$("input.small").InputSpinner({groupClass: "input-group-sm"})</pre>
     <p>
         Large
-        <input class="large" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+        <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre class="code">$("input.large").InputSpinner({groupClass: "input-group-lg"})</pre>
     <br/><br/>
