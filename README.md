@@ -11,8 +11,9 @@ The Bootstrap 4 InputSpinner is
 - mobile friendly and responsive,
 - automatically changes value when holding button, boosts value change when holding button longer,
 - has internationalized number formatting,
-- handles `val()` like the native element
-- and dispatches `change` and `input` events on value change like the native element.
+- handles `val()` like the native element,
+- dispatches `change` and `input` events on value change like the native element and
+- does not need to include extra css.
 
 ## Installation
 
@@ -25,7 +26,7 @@ Or just download this repository and include `src/InputSpinner.js`.
 ## Usage
 
 ### HTML
-Create the element attribute compatible to the native `input` element.
+Create the element in HTML. The attributes are compatible to the native `input[type="number"]` element.
 ```html
 <input type="number" value="50" min="0" max="100" step="10"/>
 ```
@@ -34,14 +35,14 @@ Create the element attribute compatible to the native `input` element.
 Is is a jQuery plugin.
 Enable the InputSpinner for all inputs with `type='number'` with the following script.
 
-**No extra css needed**, just Bootstrap 4 and jQuery.
-
 ```html
 <script src="./src/InputSpinner.js"></script>
 <script>
     $("input[type='number']").InputSpinner();
 </script>
 ```
+
+Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
 
 ## Syntax and configuration
 
@@ -51,14 +52,17 @@ Enable the InputSpinner for all inputs with `type='number'` with the following s
 <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
 ```
 
-Uses the following tag-attributes:
+Uses the following attributes
 
-- min
-- max
-- step
-- data-decimals
+- **min** // minimum value when stepping
+- **max** // maximum value when stepping
+- **step** // step size 
+- **data-decimals** // shown decimal places
 
 ### JavaScript
+
+Use JavaScript to create the instance as jQuery plugin. Provide additional
+configuration in an object as parameter.
 
 ```javascript
 $(element).InputSpinner(config);
@@ -90,8 +94,13 @@ HTML of the texts inside the buttons.
 
 ##### groupClass
 
-The css class of the `input-group`, results in
-`<div class="input-group ' + config.groupClass + '">`.
+Additional css class for the `input-group`, results in
+
+```html
+<div class="input-group ' + config.groupClass + '">
+```
+
+You can use it for sizing with `groupClass: input-group-sm` or `input-group-lg`.
 
 ##### buttonsClass
 
@@ -139,8 +148,7 @@ var currentValue = $(element).val() // read
 $(element).val(newValue) // write
 ```
 
-> **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value  
- you have to use `element.setValue(newValue)` or `$(element).val(newValue)`  
+> **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value you have to use `element.setValue(newValue)` or `$(element).val(newValue)`  
 
 ### Events
 
