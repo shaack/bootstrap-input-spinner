@@ -118,7 +118,7 @@ After these auto value changes the speed will increase with `boostMultiplier`.
 
 ##### boostMultiplier
 
-Speed increase after `boostThreshold`. 
+The speed multiplier after `boostThreshold` steps of auto value change. 
 
 ##### locale
 
