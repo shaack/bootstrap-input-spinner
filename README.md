@@ -16,7 +16,9 @@ The Bootstrap 4 InputSpinner is
 
 ## Installation
 
-`npm install -save bootstrap-input-spinner`
+```bash
+npm install -save bootstrap-input-spinner
+```
 
 Or just download this repository and include `src/InputSpinner.js`.
 
