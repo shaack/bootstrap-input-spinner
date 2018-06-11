@@ -76,7 +76,7 @@
                 setValue(newValue)
             }
 
-            if ($original.prop("class").indexOf("is-invalid") !== -1) {
+            if ($original.prop("class").indexOf("is-invalid") !== -1) { // TODO dynamically copy all classes
                 $input.addClass("is-invalid")
             }
             if ($original.prop("class").indexOf("is-valid") !== -1) {
