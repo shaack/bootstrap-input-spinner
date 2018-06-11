@@ -136,8 +136,8 @@ var currentValue = $(element).val() // read
 $(element).val(newValue) // write
 ```
 
-> **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value with 
- you have to use `element.setValue(newValue)` or jQuery with `$(element).val(newValue)`  
+> **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value  
+ you have to use `element.setValue(newValue)` or `$(element).val(newValue)`  
 
 ### Events
 
