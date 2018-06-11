@@ -104,12 +104,13 @@ You can use it for sizing with `groupClass: input-group-sm` or `input-group-lg`.
 
 ##### buttonsClass
 
-css class of the buttons, use it to style 
-the buttons. 
+The css class of the buttons. Use it to style 
+the increment and decrement buttons as described [here](https://getbootstrap.com/docs/4.0/components/buttons/).
+Maybe `buttonsClass: btn-primary` or `btn-success` or whatever type of buttons you want.
 
 ##### buttonsWidth
 
-Increment and decrement buttons width.
+The width of the increment and decrement buttons.
 
 ##### textAlign
 
