@@ -4,12 +4,19 @@
     <meta charset="UTF-8">
     <title>bootstrap-input-spinner</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style type="text/css">
+        .code {
+            background-color: #eaeaea;
+        }
+
         pre.code {
             padding: 10px;
-            background-color: #eee;
             overflow-y: scroll;
+        }
+
+        h2 {
+            margin-top: 0.5em;
         }
 
         .input-group {
@@ -18,26 +25,66 @@
     </style>
 </head>
 <body>
-<section class="container pt-5">
+<section class="container pt-3">
     <h1>bootstrap-input-spinner</h1>
-    <p class="mb-3">
-        A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
+    <p>
+        A Bootstrap 4 / jQuery plugin to create input spinner elements for number input, by
+        <a href="https://shaack.com">shaack.com</a> engineering.
     </p>
-    <h2>Source code and documentation</h2>
-    <p><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository</a></p>
+    <p>
+        License: <a href="https://github.com/shaack/bootstrap-input-spinner/blob/master/LICENSE">MIT</a>
+    </p>
+    <h2>Features</h2>
+    <p>The Bootstrap 4 InputSpinner is</p>
+    <ul>
+        <li>
+            mobile friendly and responsive,
+        </li>
+        <li>
+            automatically changes value when holding button, boosts value change when holding button longer,
+        </li>
+        <li>
+            has internationalized number formatting,
+        </li>
+        <li>
+            handles <b>$.fn.val()</b> like the native element,
+        </li>
+        <li>
+            and dispatches <span class="code">change</span> and <span class="code">input</span> events on value change
+            like the native element.
+        </li>
+    </ul>
+    <h2>Usage</h2>
+    <p>
+        This script enables the InputSpinner for all inputs with <span class="code">type='number'</span> on this page.
+        <b>No extra css needed</b>, just Bootstrap 4.
+    </p>
+    <pre class="code">&lt;script src="./src/InputSpinner.js">&lt;/script>
+&lt;script&gt
+    $("input[type='number']").InputSpinner()
+&lt;/script&gt;</pre>
+    <h2>Ropsitory and package</h2>
+    <p>Find the source code and npm package at</p>
+    <ul>
+        <li><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository</a></li>
+        <li><a href="https://www.npmjs.com/package/bootstrap-input-spinner">npm package</a></li>
+    </ul>
     <h2>Examples</h2>
+    <p>The following contains examples of all Bootstrap 4 InputSpinners main features</p>
     <form>
-        <h4>Simple Integer</h4>
+        <h3>Simple Integer</h3>
         <p>
             <input type="number" value="500" min="0" max="1000" step="10"/>
         </p>
         <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/&gt;</pre>
-        <h4>Floating Point</h4>
+        <h3>Floating Point</h3>
         <p>
             <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
         </p>
         <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/&gt;</pre>
-        <h4>Handle `change` and `input` events</h4>
+        <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
+            read the value from JavaScript
+        with <span class="code">val()</span></h3>
         <p>
             <input type="number" id="changedInput" value="2500" min="0" max="5000" step="10"/>
         </p>
@@ -49,7 +96,7 @@ var $output = $("#valueOutput")
 $changedInput.on("change", function (event) {
     $output.html($changedInput.val())
 })</pre>
-        <h4>Programmatic change of value</h4>
+        <h3>Programmatic change of value with <span class="code">val()</span></h3>
         <p>
             Net
             <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
@@ -64,25 +111,19 @@ $changedInput.on("change", function (event) {
 $inputGross.on("change", function (event) {
     $inputNet.val($inputGross.val() / 1.19)
 })</pre>
-        <h4>Classes 'is-invalid' and 'is-valid'; properties 'required' and 'placeholder'</h4>
-        <p>To enable server-side validation, the classes 'is-invalid' and 'is-valid' of the original input are copied to
-            the created input element.
-            Also 'required' and 'placeholder' are copied.</p>
+        <h3>Classes <span class="code">is-invalid</span> and
+            <span class="code">is-valid</span>; properties <span class="code">required</span>
+            and <span class="code">placeholder</span></h3>
+        <p>The classes <span class="code">is-invalid</span> and
+            <span class="code">is-valid</span> of the original input are copied to the created input element.
+            Also <span class="code">required</span> and <span class="code">placeholder</span> are copied.</p>
         <p>
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
         <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/&gt;</pre>
         <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
-    <h4>Script</h4>
-    <p>
-        This script enables the InputSpinner for all inputs with type='number' on this page.
-        No extra css needed, just Bootstrap 4.
-    </p>
-    <pre class="code">&lt;script&gt
-    $("input[type='number']").InputSpinner()
-&lt;/script&gt;</pre>
-    <h4>Sizing</h4>
+    <h3>Sizing</h3>
     <p>You can set the group css class via configuration.</p>
     <p>
         Small
