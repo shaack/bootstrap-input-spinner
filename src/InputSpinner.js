@@ -70,7 +70,7 @@
                 maximumFractionDigits: decimals
             })
             var value = parseFloat($original[0].value)
-            var boostCount = 0
+            var boostStepsCount = 0
 
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
@@ -150,12 +150,12 @@
                 resetTimer()
                 autoDelayHandler = setTimeout(function () {
                     autoIntervalHandler = setInterval(function () {
-                        if (boostCount > config.boostThreshold) {
+                        if (boostStepsCount > config.boostThreshold) {
                             calcStep(step * config.boostMultiplier)
                         } else {
                             calcStep(step)
                         }
-                        boostCount++
+                        boostStepsCount++
                     }, config.autoInterval)
                 }, config.autoDelay)
             }
@@ -172,7 +172,7 @@
             }
 
             function resetTimer() {
-                boostCount = 0
+                boostStepsCount = 0
                 clearTimeout(autoDelayHandler)
                 clearTimeout(autoIntervalHandler)
             }
