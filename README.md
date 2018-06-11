@@ -54,7 +54,7 @@ Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
 
 Uses the following attributes
 
-- **value** // the value when showing the element
+- **value** // starting value on element creation
 - **min** // minimum value when stepping
 - **max** // maximum value when stepping
 - **step** // step size 
