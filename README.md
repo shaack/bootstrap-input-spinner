@@ -49,11 +49,12 @@ Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
 ### HTML
 
 ```html
-<input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+<input type="number" value="4.5" min="0" max="9" step="0.1" data-decimals="2"/>
 ```
 
 Uses the following attributes
 
+- **value** // the value when showing the element
 - **min** // minimum value when stepping
 - **max** // maximum value when stepping
 - **step** // step size 
