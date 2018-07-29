@@ -1,5 +1,6 @@
 /**
- * Author: Stefan Haack (https://github.com/shaack)
+ * Author and copyright: Stefan Haack (https://shaack.com)
+ * Repository: https://github.com/shaack/bootstrap-input-spinner
  * License: MIT, see file 'LICENSE'
  */
 
