@@ -18,7 +18,7 @@
         return originalVal.apply(this, arguments)
     }
 
-    $.fn.InputSpinner = function (options) {
+    $.fn.InputSpinner = $.fn.inputSpinner = function (options) {
 
         var config = {
             decrementButton: "<strong>-</strong>", // button text

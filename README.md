@@ -21,7 +21,7 @@ The Bootstrap 4 InputSpinner is
 npm install -save bootstrap-input-spinner
 ```
 
-Or just download this repository and include `src/InputSpinner.js`.
+Or just download this repository and include `src/bootstrap-input-spinner.js`.
 
 ## Usage
 
@@ -36,9 +36,9 @@ Is is a jQuery plugin.
 Enable the InputSpinner for all inputs with `type='number'` with the following script.
 
 ```html
-<script src="./src/InputSpinner.js"></script>
+<script src="./src/bootstrap-input-spinner.js"></script>
 <script>
-    $("input[type='number']").InputSpinner();
+    $("input[type='number']").inputSpinner();
 </script>
 ```
 
@@ -66,7 +66,7 @@ Use JavaScript to create the instance as jQuery plugin. Provide additional
 configuration in an object as parameter.
 
 ```javascript
-$(element).InputSpinner(config);
+$(element).inputSpinner(config);
 ```
 
 #### Configuration

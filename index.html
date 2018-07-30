@@ -60,9 +60,9 @@
         This script enables the InputSpinner for all inputs with <span class="code">type='number'</span> on this page.
         <b>No extra css needed</b>, just Bootstrap 4.
     </p>
-    <pre class="code">&lt;script src="./src/InputSpinner.js">&lt;/script>
+    <pre class="code">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
-    $("input[type='number']").InputSpinner()
+    $("input[type='number']").inputSpinner()
 &lt;/script></pre>
     <h2>Repository, documentation and npm package</h2>
     <p>Find the source code, more documentation and the npm package at</p>
@@ -130,22 +130,22 @@ $inputGross.on("change", function (event) {
         Small
         <input class="small" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
-    <pre class="code">$("input.small").InputSpinner({groupClass: "input-group-sm"})</pre>
+    <pre class="code">$("input.small").inputSpinner({groupClass: "input-group-sm"})</pre>
     <p>
         Large
         <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
-    <pre class="code">$("input.large").InputSpinner({groupClass: "input-group-lg"})</pre>
+    <pre class="code">$("input.large").inputSpinner({groupClass: "input-group-lg"})</pre>
     <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./src/InputSpinner.js"></script>
+<script src="src/bootstrap-input-spinner.js"></script>
 <script>
-    $("input[type='number']").InputSpinner()
-    $("input.small").InputSpinner({groupClass: "input-group-sm"})
-    $("input.large").InputSpinner({groupClass: "input-group-lg"})
+    $("input[type='number']").inputSpinner()
+    $("input.small").inputSpinner({groupClass: "input-group-sm"})
+    $("input.large").inputSpinner({groupClass: "input-group-lg"})
 </script>
 <!--suppress JSUnusedLocalSymbols -->
 <script>
