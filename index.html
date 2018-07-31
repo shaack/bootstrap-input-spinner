@@ -4,17 +4,9 @@
     <meta charset="UTF-8">
     <title>bootstrap-input-spinner</title>
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism-tomorrow.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style type="text/css">
-        .code {
-            background-color: #eaeaea;
-        }
-
-        pre.code {
-            padding: 10px;
-            overflow-y: scroll;
-        }
-
         h2 {
             margin-top: 0.5em;
         }
@@ -60,10 +52,10 @@
         This script enables the InputSpinner for all inputs with <span class="code">type='number'</span> on this page.
         <b>No extra css needed</b>, just Bootstrap 4.
     </p>
-    <pre class="code">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
+    <pre><code class="language-javascript">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
     $("input[type='number']").inputSpinner()
-&lt;/script></pre>
+&lt;/script></code></pre>
     <h2>Repository, documentation and npm package</h2>
     <p>Find the source code, more documentation and the npm package at</p>
     <ul>
@@ -77,12 +69,12 @@
         <p>
             <input type="number" value="500" min="0" max="1000" step="10"/>
         </p>
-        <pre class="code">&lt;input type="number" value="500" min="0" max="1000" step="10"/></pre>
+        <pre><code class="language-javascript">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
         <h3>Floating Point</h3>
         <p>
             <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
         </p>
-        <pre class="code">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></pre>
+        <pre><code class="language-javascript">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
         <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
             read the value from JavaScript
         with <span class="code">val()</span></h3>
@@ -92,11 +84,11 @@
         <p>
             Value: <span id="valueOutput"></span>
         </p>
-        <pre class="code">var $changedInput = $("#changedInput")
+        <pre><code class="language-javascript">var $changedInput = $("#changedInput")
 var $output = $("#valueOutput")
 $changedInput.on("change", function (event) {
     $output.html($changedInput.val())
-})</pre>
+})</code></pre>
         <h3>Programmatic change of value with <span class="code">val()</span></h3>
         <p>
             Net
@@ -106,12 +98,12 @@ $changedInput.on("change", function (event) {
             Gross (+19%)
             <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
         </p>
-        <pre class="code">$inputNet.on("change", function (event) {
+        <pre><code class="language-javascript">$inputNet.on("change", function (event) {
     $inputGross.val($inputNet.val() * 1.19)
 })
 $inputGross.on("change", function (event) {
     $inputNet.val($inputGross.val() / 1.19)
-})</pre>
+})</code></pre>
         <h3>Classes <span class="code">is-invalid</span> and
             <span class="code">is-valid</span>; properties <span class="code">required</span>
             and <span class="code">placeholder</span></h3>
@@ -121,7 +113,7 @@ $inputGross.on("change", function (event) {
         <p>
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
-        <pre class="code">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></pre>
+        <pre><code class="language-javascript">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
         <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
     <h3>Sizing</h3>
@@ -130,18 +122,23 @@ $inputGross.on("change", function (event) {
         Small
         <input class="small" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
-    <pre class="code">$("input.small").inputSpinner({groupClass: "input-group-sm"})</pre>
+    <pre><code class="language-javascript">$("input.small").inputSpinner({groupClass: "input-group-sm"})</code></pre>
     <p>
         Large
         <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
-    <pre class="code">$("input.large").inputSpinner({groupClass: "input-group-lg"})</pre>
+    <pre><code class="language-javascript">$("input.large").inputSpinner({groupClass: "input-group-lg"})</code></pre>
+    <h2>Thats all for now</h2>
+    <p>If you like this plugin you may also want to check out our <a href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
+    <p>And if you find bugs or have suggestions, you may write an
+        <a href="https://github.com/shaack/bootstrap-input-spinner/issues">issue</a>.</p>
     <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
 <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="src/bootstrap-input-spinner.js"></script>
+<script src="./node_modules/prismjs/prism.js"></script>
 <script>
     $("input[type='number']").inputSpinner()
     $("input.small").inputSpinner({groupClass: "input-group-sm"})
