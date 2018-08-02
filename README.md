@@ -32,7 +32,7 @@ Create the element in HTML. The attributes are compatible to the native `input[t
 ```
 
 ### Script
-Is is a jQuery plugin.
+It is a jQuery plugin.
 Enable the InputSpinner for all inputs with `type='number'` with the following script.
 
 ```html
