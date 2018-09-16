@@ -83,8 +83,8 @@ var config = {
     textAlign: "center",
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
-    boostThreshold: 15, // boost after these steps
-    boostMultiplier: 4,
+    boostThreshold: 10, // boost after these steps
+    boostMultiplier: "auto", // you can also set a constant number as multiplier
     locale: null // the locale for number rendering; if null, the browsers language is used
 }
 ```
@@ -124,7 +124,7 @@ the value, when holding the increment or decrement button.
 
 ##### autoInterval
 
-Speed of the auto value change in ms. Lower value makes it faster.
+Speed of the value change when holding the button in ms. Lower value makes it faster.
 
 ##### boostThreshold
 
@@ -133,11 +133,12 @@ After these auto value changes the speed will increase with `boostMultiplier`.
 ##### boostMultiplier
 
 The speed multiplier after `boostThreshold` steps of auto value change. 
+If set to `"auto"` (default value) the multiplier will increase over time.
 
 ##### locale
 
-Set a locale for the number formatting. Use values like `en-US` 
-or `de-DE`. If not set, the locate will be set automatically from the
+Set a locale for the number formatting. Use values like `"en-US"` 
+or `"de-DE"`. If not set, the locate will be set automatically from the
 browser language.
 
 ### Programmatic change and read of value

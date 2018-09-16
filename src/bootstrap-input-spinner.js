@@ -29,8 +29,8 @@
             textAlign: "center",
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
-            boostThreshold: 15, // boost after these steps
-            boostMultiplier: 4,
+            boostThreshold: 10, // boost after these steps
+            boostMultiplier: "auto", // you can also set a constant number as multiplier
             locale: null // the locale for number rendering; if null, the browsers language is used
         }
         Object.assign(config, options)
@@ -55,6 +55,8 @@
 
             var autoDelayHandler = null
             var autoIntervalHandler = null
+            var autoMultiplier = config.boostMultiplier === "auto"
+            var boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
 
             var $inputGroup = $(html)
             var $buttonDecrement = $inputGroup.find(".btn-decrement")
@@ -152,7 +154,12 @@
                 autoDelayHandler = setTimeout(function () {
                     autoIntervalHandler = setInterval(function () {
                         if (boostStepsCount > config.boostThreshold) {
-                            calcStep(step * config.boostMultiplier)
+                            if (autoMultiplier) {
+                                calcStep(step * parseInt(boostMultiplier, 10))
+                                boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
+                            } else {
+                                calcStep(step * boostMultiplier)
+                            }
                         } else {
                             calcStep(step)
                         }
@@ -174,6 +181,7 @@
 
             function resetTimer() {
                 boostStepsCount = 0
+                boostMultiplier = boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
                 clearTimeout(autoDelayHandler)
                 clearTimeout(autoIntervalHandler)
             }
