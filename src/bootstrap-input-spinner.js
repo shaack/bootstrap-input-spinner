@@ -64,9 +64,10 @@
             var $input = $inputGroup.find("input")
 
             var min = parseFloat($original.prop("min")) || 0
-            var max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
+            var max = parseFloat($original.prop("max")) || Infinity
             var step = parseFloat($original.prop("step")) || 1
             var decimals = parseInt($original.attr("data-decimals")) || 0
+            var loop = ($original.attr("data-loop") && $original.attr("data-loop").toLowerCase() === "true") || false
 
             var numberFormat = new Intl.NumberFormat(locale, {
                 minimumFractionDigits: decimals,
@@ -173,7 +174,17 @@
                     value = 0
                 }
                 value = Math.round(value / step) * step
-                value = Math.min(Math.max(value + step, min), max)
+                if (!loop) {
+                    value = Math.min(Math.max(value + step, min), max)
+                } else {
+                    if (value + step < min) {
+                        value = max
+                    } else if(value + step > max) {
+                        value = min
+                    } else {
+                        value += step
+                    }
+                }
                 $input[0].value = numberFormat.format(value)
                 $original[0].value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)
                 dispatchChangeEvents($original)
