@@ -64,7 +64,7 @@
             var $input = $inputGroup.find("input")
 
             var min = parseFloat($original.prop("min")) || 0
-            var max = parseFloat($original.prop("max")) || Infinity
+			var max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
             var step = parseFloat($original.prop("step")) || 1
             var decimals = parseInt($original.attr("data-decimals")) || 0
             var loop = ($original.attr("data-loop") && $original.attr("data-loop").toLowerCase() === "true") || false
