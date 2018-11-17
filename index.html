@@ -128,6 +128,11 @@ $inputGross.on("change", function (event) {
         <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre><code class="language-javascript">$("input.large").inputSpinner({groupClass: "input-group-lg"})</code></pre>
+    <h2>Loop Value</h2>
+    <p>Start from 0 when reaching 360</p>
+    <p>
+        <input type="number" id="inputLoop" value="180" data-decimals="0" min="-10" max="360" step="1" data-max-step="10"/>
+    </p>
     <h2>Thats all for now</h2>
     <p>If you like this plugin you may also want to check out our <a href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
     <p>And if you find bugs or have suggestions, you may write an
@@ -164,6 +169,14 @@ $inputGross.on("change", function (event) {
         $inputNet.val($inputGross.val() / 1.19)
     })
     $inputGross.val($inputNet.val() * 1.19)
+</script>
+<script>
+    var $inputLoop = $("#inputLoop")
+    $inputLoop.on("change", function (event) {
+        var value = $inputLoop.val()
+        value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
+        $inputLoop.val(value)
+    })
 </script>
 </body>
 </html>
