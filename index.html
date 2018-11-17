@@ -133,6 +133,12 @@ $inputGross.on("change", function (event) {
     <p>
         <input type="number" id="inputLoop" value="180" data-decimals="0" min="-10" max="360" step="1" data-max-step="10"/>
     </p>
+    <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
+$inputLoop.on("change", function (event) {
+    var value = $inputLoop.val()
+    value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
+    $inputLoop.val(value)
+})</code></pre>
     <h2>Thats all for now</h2>
     <p>If you like this plugin you may also want to check out our <a href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
     <p>And if you find bugs or have suggestions, you may write an
