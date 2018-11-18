@@ -128,11 +128,14 @@ $inputGross.on("change", function (event) {
         <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre><code class="language-javascript">$("input.large").inputSpinner({groupClass: "input-group-lg"})</code></pre>
-    <h2>Loop Value</h2>
-    <p>Start from 0 when reaching 360</p>
+    <h3>Attribute 'data-step-max' and looping the value</h3>
+    <p>This Input starts from 0 when reaching 360.</p>
     <p>
-        <input type="number" id="inputLoop" value="180" data-decimals="0" min="-10" max="360" step="1" data-max-step="10"/>
+        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1" data-step-max="10"/>
     </p>
+    <p>Use the 'data-step-max' attribute to limit the step velocity in HTML.</p>
+    <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
+    <p>"Loop" the value between 0 and 360 with the 'change' Event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
 $inputLoop.on("change", function (event) {
     var value = $inputLoop.val()

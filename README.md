@@ -61,7 +61,7 @@ Uses the following attributes
 - **min** // minimum value when stepping
 - **max** // maximum value when stepping
 - **step** // step size 
-- **data-max-step** // max boost when stepping
+- **data-step-max** // max boost when stepping
 - **data-decimals** // shown decimal places
 
 ### JavaScript

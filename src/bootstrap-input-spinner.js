@@ -66,8 +66,8 @@
             var min = parseFloat($original.prop("min")) || 0
             var max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
             var step = parseFloat($original.prop("step")) || 1
+            var stepMax = parseInt($original.attr("data-step-max")) || 0
             var decimals = parseInt($original.attr("data-decimals")) || 0
-            var maxStep = parseInt($original.attr("data-max-step")) || 0
 
             var numberFormat = new Intl.NumberFormat(locale, {
                 minimumFractionDigits: decimals,
@@ -158,8 +158,8 @@
                             if (autoMultiplier) {
                                 calcStep(step * parseInt(boostMultiplier, 10))
                                 boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
-                                if(maxStep) {
-                                    boostMultiplier = Math.min(maxStep, boostMultiplier)
+                                if(stepMax) {
+                                    boostMultiplier = Math.min(stepMax, boostMultiplier)
                                 }
                             } else {
                                 calcStep(step * boostMultiplier)
