@@ -80,19 +80,26 @@
         <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
     </p>
     <pre><code class="language-javascript">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
-    <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
+
+    <h3>Handle '<span class="code">change</span>' and '<span class="code">input</span>' events and
         read the value from JavaScript
         with <span class="code">val()</span></h3>
     <p>
-        <input type="number" id="changedInput" value="2500" min="0" max="5000" step="10"/>
+        Type in a number to see the difference between 'change' and 'input' events.
+        <input type="number" id="changedInput" value="2500" min="0" max="5000000" step="10"/>
     </p>
     <p>
-        Value: <span id="valueOutput"></span>
+        Value on input: <span id="valueOnInput"></span><br/>
+        Value on change: <span id="valueOnChange"></span>
     </p>
     <pre><code class="language-javascript">var $changedInput = $("#changedInput")
-var $output = $("#valueOutput")
+var $valueOnInput = $("#valueOnInput")
+var $valueOnChange = $("#valueOnChange")
+$changedInput.on("input", function (event) {
+    $valueOnInput.html($changedInput.val())
+})
 $changedInput.on("change", function (event) {
-    $output.html($changedInput.val())
+    $valueOnChange.html($changedInput.val())
 })</code></pre>
     <h3>Programmatic change of value with <span class="code">val()</span></h3>
     <p>
@@ -186,11 +193,14 @@ $inputLoop.on("change", function (event) {
 <!--suppress JSUnusedLocalSymbols -->
 <script>
     var $changedInput = $("#changedInput")
-    var $output = $("#valueOutput")
-    $changedInput.on("change", function (event) {
-        $output.html($changedInput.val())
+    var $valueOnInput = $("#valueOnInput")
+    var $valueOnChange = $("#valueOnChange")
+    $changedInput.on("input", function (event) {
+        $valueOnInput.html($changedInput.val())
     })
-    $output.html($changedInput.val())
+    $changedInput.on("change", function (event) {
+        $valueOnChange.html($changedInput.val())
+    })
 </script>
 <!--suppress JSUnusedLocalSymbols -->
 <script>

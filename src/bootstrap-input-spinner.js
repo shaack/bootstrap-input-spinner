@@ -109,7 +109,7 @@
 
             setValue(value)
 
-            $input.on("paste keyup change focusout", function (event) {
+            $input.on("paste input change focusout", function (event) {
                 var newValue = $input[0].value
                 var focusOut = event.type === "focusout"
                 if (!(locale === "en-US" || locale === "en-GB" || locale === "th-TH")) {
@@ -118,7 +118,7 @@
                 var newValueFloat = parseFloat(newValue)
                 newValueFloat = Math.min(Math.max(newValueFloat, min), max)
                 setValue(newValueFloat, focusOut)
-                dispatchChangeEvents($original)
+                dispatchEvent($original, event.type)
             })
 
             onPointerDown($buttonDecrement[0], function () {
@@ -147,13 +147,13 @@
                 }
             }
 
-            function dispatchChangeEvents($element) {
-                setTimeout(function () {
-                    var changeEvent = new Event("change", {bubbles: true})
-                    var inputEvent = new Event("input", {bubbles: true})
-                    $element[0].dispatchEvent(changeEvent)
-                    $element[0].dispatchEvent(inputEvent)
-                })
+            function dispatchEvent($element, type) {
+                if (type) {
+                    setTimeout(function () {
+                        var event = new Event(type, {bubbles: true})
+                        $element[0].dispatchEvent(event)
+                    })
+                }
             }
 
             function stepHandling(step) {
@@ -187,7 +187,8 @@
                 nextValue = Math.min(Math.max(nextValue + step, min), max)
                 nextValue = Math.round(nextValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
                 setValue(nextValue)
-                dispatchChangeEvents($original)
+                dispatchEvent($original, "input")
+                dispatchEvent($original, "change")
             }
 
             function resetTimer() {
