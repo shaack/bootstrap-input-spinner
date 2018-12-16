@@ -56,7 +56,7 @@
         This script enables the InputSpinner for all inputs with <span class="code">type='number'</span> on this page.
         <b>No extra css needed</b>, just Bootstrap 4.
     </p>
-    <pre><code class="language-javascript">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
+    <pre><code class="language-html">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
     $("input[type='number']").inputSpinner()
 &lt;/script></code></pre>
@@ -74,12 +74,12 @@
         <input type="number" value="500" min="0" max="1000" step="10"/>
     </p>
     <pre><code
-            class="language-javascript">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
+            class="language-html">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
     <h3>Floating Point</h3>
     <p>
         <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
     </p>
-    <pre><code class="language-javascript">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
+    <pre><code class="language-html">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
 
     <h3>Handle '<span class="code">change</span>' and '<span class="code">input</span>' events and
         read the value from JavaScript
@@ -127,7 +127,7 @@ $inputGross.on("change", function (event) {
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
         <pre><code
-                class="language-javascript">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
+                class="language-html">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
         <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
 
@@ -136,13 +136,13 @@ $inputGross.on("change", function (event) {
         Prefix
         <input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
     </p>
-    <pre><code class="language-javascript">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
+    <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
     <p>
         Suffix
         <input data-suffix="°C" value="50" min="0" max="100" type="number"/>
     </p>
     <pre><code
-            class="language-javascript">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
+            class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
 
 
     <h3>Sizing</h3>
@@ -164,7 +164,7 @@ $inputGross.on("change", function (event) {
                data-step-max="10"/>
     </p>
     <p>Use the 'data-step-max' attribute to limit the step velocity in HTML.</p>
-    <pre><code class="language-javascript">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
+    <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the 'change' event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
 $inputLoop.on("change", function (event) {
