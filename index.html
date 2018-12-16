@@ -136,13 +136,13 @@ $inputGross.on("change", function (event) {
         Prefix
         <input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
     </p>
-    <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
+    <pre><code class="language-javascript">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
     <p>
         Suffix
         <input data-suffix="°C" value="50" min="0" max="100" type="number"/>
     </p>
     <pre><code
-            class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
+            class="language-javascript">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
 
 
     <h3>Sizing</h3>
@@ -164,7 +164,7 @@ $inputGross.on("change", function (event) {
                data-step-max="10"/>
     </p>
     <p>Use the 'data-step-max' attribute to limit the step velocity in HTML.</p>
-    <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
+    <pre><code class="language-javascript">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the 'change' event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
 $inputLoop.on("change", function (event) {
