@@ -115,9 +115,7 @@
                 if (!(locale === "en-US" || locale === "en-GB" || locale === "th-TH")) {
                     newValue = newValue.replace(/[. ]/g, '').replace(/,/g, '.')
                 }
-                var newValueFloat = parseFloat(newValue)
-                newValueFloat = Math.min(Math.max(newValueFloat, min), max)
-                setValue(newValueFloat, focusOut)
+                setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
             })
 
@@ -139,11 +137,14 @@
                     }
                     value = 0.0
                 } else {
+                    newValue = parseFloat(newValue)
+                    newValue = Math.min(Math.max(newValue, min), max)
+                    newValue = Math.round(newValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
                     $original[0].value = newValue
                     if (updateInput) {
                         $input[0].value = numberFormat.format(newValue)
                     }
-                    value = parseFloat(newValue)
+                    value = newValue
                 }
             }
 
@@ -183,10 +184,7 @@
                 if (isNaN(value)) {
                     value = 0
                 }
-                var nextValue = Math.round(value / step) * step
-                nextValue = Math.min(Math.max(nextValue + step, min), max)
-                nextValue = Math.round(nextValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
-                setValue(nextValue)
+                setValue(Math.round(value / step) * step + step)
                 dispatchEvent($original, "input")
                 dispatchEvent($original, "change")
             }
