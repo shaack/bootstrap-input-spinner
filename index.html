@@ -83,7 +83,7 @@
 
     <h3>Handle '<span class="code">change</span>' and '<span class="code">input</span>' events and
         read the value from JavaScript
-        with <span class="code">val()</span></h3>
+        with '<span class="code">val()</span>'</h3>
     <p>
         Type in a number to see the difference between 'change' and 'input' events.
         <input type="number" id="changedInput" value="2500" min="0" max="5000000" data-decimals="2"/>
@@ -101,7 +101,7 @@ $changedInput.on("input", function (event) {
 $changedInput.on("change", function (event) {
     $valueOnChange.html($changedInput.val())
 })</code></pre>
-    <h3>Programmatic change of value with <span class="code">val()</span></h3>
+    <h3>Programmatic changing the value with '<span class="code">val()</span>'</h3>
     <p>
         Net
         <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
@@ -116,9 +116,9 @@ $changedInput.on("change", function (event) {
 $inputGross.on("change", function (event) {
     $inputNet.val($inputGross.val() / 1.19)
 })</code></pre>
-    <h3>Classes <span class="code">is-invalid</span> and
-        <span class="code">is-valid</span>; properties <span class="code">required</span>
-        and <span class="code">placeholder</span></h3>
+    <h3>Classes '<span class="code">is-invalid</span>' and
+        '<span class="code">is-valid</span>'; properties '<span class="code">required</span>'
+        and '<span class="code">placeholder</span>'</h3>
     <p>The classes <span class="code">is-invalid</span> and
         <span class="code">is-valid</span> of the original input are copied to the created input element.
         Also <span class="code">required</span> and <span class="code">placeholder</span> are copied.</p>
