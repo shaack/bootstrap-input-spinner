@@ -135,7 +135,7 @@
                     if (updateInput) {
                         $input[0].value = ""
                     }
-                    value = 0.0
+                    value = 0
                 } else {
                     newValue = parseFloat(newValue)
                     newValue = Math.min(Math.max(newValue, min), max)
