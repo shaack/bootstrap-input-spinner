@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style type="text/css">
         h2 {
-            margin-top: 0.5em;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            margin-top: 1rem;
         }
 
         /*noinspection CssUnusedSymbol*/
@@ -64,58 +68,76 @@
     </ul>
     <h2>Examples</h2>
     <p>The following contains examples of the InputSpinner's main features</p>
-    <form>
-        <h3>Simple Integer</h3>
-        <p>
-            <input type="number" value="500" min="0" max="1000" step="10"/>
-        </p>
-        <pre><code class="language-javascript">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
-        <h3>Floating Point</h3>
-        <p>
-            <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
-        </p>
-        <pre><code class="language-javascript">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
-        <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
-            read the value from JavaScript
+
+    <h3>Simple Integer</h3>
+    <p>
+        <input type="number" value="500" min="0" max="1000" step="10"/>
+    </p>
+    <pre><code
+            class="language-javascript">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
+    <h3>Floating Point</h3>
+    <p>
+        <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+    </p>
+    <pre><code class="language-javascript">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
+    <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
+        read the value from JavaScript
         with <span class="code">val()</span></h3>
-        <p>
-            <input type="number" id="changedInput" value="2500" min="0" max="5000" step="10"/>
-        </p>
-        <p>
-            Value: <span id="valueOutput"></span>
-        </p>
-        <pre><code class="language-javascript">var $changedInput = $("#changedInput")
+    <p>
+        <input type="number" id="changedInput" value="2500" min="0" max="5000" step="10"/>
+    </p>
+    <p>
+        Value: <span id="valueOutput"></span>
+    </p>
+    <pre><code class="language-javascript">var $changedInput = $("#changedInput")
 var $output = $("#valueOutput")
 $changedInput.on("change", function (event) {
     $output.html($changedInput.val())
 })</code></pre>
-        <h3>Programmatic change of value with <span class="code">val()</span></h3>
-        <p>
-            Net
-            <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
-        </p>
-        <p>
-            Gross (+19%)
-            <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
-        </p>
-        <pre><code class="language-javascript">$inputNet.on("change", function (event) {
+    <h3>Programmatic change of value with <span class="code">val()</span></h3>
+    <p>
+        Net
+        <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
+    </p>
+    <p>
+        Gross (+19%)
+        <input type="number" id="inputGross" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
+    </p>
+    <pre><code class="language-javascript">$inputNet.on("change", function (event) {
     $inputGross.val($inputNet.val() * 1.19)
 })
 $inputGross.on("change", function (event) {
     $inputNet.val($inputGross.val() / 1.19)
 })</code></pre>
-        <h3>Classes <span class="code">is-invalid</span> and
-            <span class="code">is-valid</span>; properties <span class="code">required</span>
-            and <span class="code">placeholder</span></h3>
-        <p>The classes <span class="code">is-invalid</span> and
-            <span class="code">is-valid</span> of the original input are copied to the created input element.
-            Also <span class="code">required</span> and <span class="code">placeholder</span> are copied.</p>
+    <h3>Classes <span class="code">is-invalid</span> and
+        <span class="code">is-valid</span>; properties <span class="code">required</span>
+        and <span class="code">placeholder</span></h3>
+    <p>The classes <span class="code">is-invalid</span> and
+        <span class="code">is-valid</span> of the original input are copied to the created input element.
+        Also <span class="code">required</span> and <span class="code">placeholder</span> are copied.</p>
+    <form>
         <p>
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
         </p>
-        <pre><code class="language-javascript">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
+        <pre><code
+                class="language-javascript">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
         <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
+
+    <h3>Prefix and Suffix</h3>
+    <p>
+        Prefix
+        <input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
+    </p>
+    <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
+    <p>
+        Suffix
+        <input data-suffix="°C" value="50" min="0" max="100" type="number"/>
+    </p>
+    <pre><code
+            class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
+
+
     <h3>Sizing</h3>
     <p>You can set the group css class via configuration.</p>
     <p>
@@ -131,7 +153,8 @@ $inputGross.on("change", function (event) {
     <h3>Attribute 'data-step-max' and looping the value</h3>
     <p>This Input starts from 0 when reaching 360.</p>
     <p>
-        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1" data-step-max="10"/>
+        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1"
+               data-step-max="10"/>
     </p>
     <p>Use the 'data-step-max' attribute to limit the step velocity in HTML.</p>
     <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
@@ -142,8 +165,10 @@ $inputLoop.on("change", function (event) {
     value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
     $inputLoop.val(value)
 })</code></pre>
+
     <h2>Thats all for now</h2>
-    <p>If you like this plugin you may also want to check out our <a href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
+    <p>If you like this plugin you may also want to check out our <a
+            href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
     <p>And if you find bugs or have suggestions, you may write an
         <a href="https://github.com/shaack/bootstrap-input-spinner/issues">issue</a>.</p>
     <br/><br/>

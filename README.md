@@ -63,6 +63,8 @@ Uses the following attributes
 - **step** // step size 
 - **data-step-max** // max boost when stepping
 - **data-decimals** // shown decimal places
+- **data-prefix** // show a prefix string in the input element
+- **data-suffix** // show a suffix string in the input element
 
 ### JavaScript
 

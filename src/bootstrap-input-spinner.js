@@ -76,6 +76,18 @@
             var value = parseFloat($original[0].value)
             var boostStepsCount = 0
 
+            var prefix = $original.attr("data-prefix") || ""
+            var suffix = $original.attr("data-suffix") || ""
+
+            if (prefix) {
+                var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
+                $inputGroup.find(".input-group-prepend").append(prefixElement)
+            }
+            if (suffix) {
+                var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
+                $inputGroup.find(".input-group-append").prepend(suffixElement)
+            }
+
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
             }
@@ -95,26 +107,17 @@
 
             $original.after($inputGroup)
 
-            if (isNaN(value)) {
-                $original[0].value = ""
-                $input[0].value = ""
-            } else {
-                $original[0].value = value
-                $input[0].value = numberFormat.format(value)
-            }
+            setValue(value)
 
-            $input.on("paste keyup change", function () {
-                var inputValue = $input[0].value
-                if (locale === "en-US" || locale === "en-GB" || locale === "th-TH") {
-                    value = parseFloat(inputValue)
-                } else {
-                    value = parseFloat(inputValue.replace(/[. ]/g, '').replace(/,/g, '.')) // i18n
+            $input.on("paste keyup change focusout", function (event) {
+                var newValue = $input[0].value
+                var focusOut = event.type === "focusout"
+                if (!(locale === "en-US" || locale === "en-GB" || locale === "th-TH")) {
+                    newValue = newValue.replace(/[. ]/g, '').replace(/,/g, '.')
                 }
-                if (isNaN(value)) {
-                    $original[0].value = ""
-                } else {
-                    $original[0].value = value
-                }
+                var newValueFloat = parseFloat(newValue)
+                newValueFloat = Math.min(Math.max(newValueFloat, min), max)
+                setValue(newValueFloat, focusOut)
                 dispatchChangeEvents($original)
             })
 
@@ -128,14 +131,18 @@
                 resetTimer()
             })
 
-            function setValue(newValue) {
+            function setValue(newValue, updateInput = true) {
                 if (isNaN(newValue) || newValue === "") {
                     $original[0].value = ""
-                    $input[0].value = ""
+                    if (updateInput) {
+                        $input[0].value = ""
+                    }
                     value = 0.0
                 } else {
                     $original[0].value = newValue
-                    $input[0].value = numberFormat.format(newValue)
+                    if (updateInput) {
+                        $input[0].value = numberFormat.format(newValue)
+                    }
                     value = parseFloat(newValue)
                 }
             }
@@ -158,7 +165,7 @@
                             if (autoMultiplier) {
                                 calcStep(step * parseInt(boostMultiplier, 10))
                                 boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
-                                if(stepMax) {
+                                if (stepMax) {
                                     boostMultiplier = Math.min(stepMax, boostMultiplier)
                                 }
                             } else {
@@ -176,10 +183,10 @@
                 if (isNaN(value)) {
                     value = 0
                 }
-                value = Math.round(value / step) * step
-                value = Math.min(Math.max(value + step, min), max)
-                $input[0].value = numberFormat.format(value)
-                $original[0].value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals)
+                var nextValue = Math.round(value / step) * step
+                nextValue = Math.min(Math.max(nextValue + step, min), max)
+                nextValue = Math.round(nextValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
+                setValue(nextValue)
                 dispatchChangeEvents($original)
             }
 
