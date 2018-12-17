@@ -14,9 +14,10 @@ The Bootstrap 4 InputSpinner is
 - **mobile friendly** and **responsive**,
 - automatically changes value when **holding button**, boosts value change when holding button longer,
 - has **internationalized** number formatting,
+- allows setting a **prefix** or a **suffix** text in the input,
 - handles **`val()`** like the native element,
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
-- works **without extra css** (only the bootstrap 4 css is needed).
+- works **without extra css**, only the bootstrap 4 standard css is needed.
 
 ## Installation
 
@@ -24,7 +25,7 @@ The Bootstrap 4 InputSpinner is
 npm install -save bootstrap-input-spinner
 ```
 
-Or just download this repository and include `src/bootstrap-input-spinner.js`.
+Or just download the GitHub repository and include `src/bootstrap-input-spinner.js`.
 
 ## Usage
 
@@ -36,7 +37,7 @@ Create the element in HTML. The attributes are compatible to the native `input[t
 
 ### Script
 It is a jQuery plugin.
-Enable the InputSpinner for all inputs with `type='number'` with the following script.
+So, enable the InputSpinner for all inputs with `type='number'` with the following script.
 
 ```html
 <script src="./src/bootstrap-input-spinner.js"></script>
@@ -52,24 +53,26 @@ Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
 ### HTML
 
 ```html
-<input type="number" value="4.5" min="0" max="9" step="0.1" data-decimals="2"/>
+<input type="number" value="4.5" min="0" max="9" step="0.1" data-decimals="2" data-suffix="°C"/>
 ```
 
-Uses the following attributes
+These are the possible attributes
 
-- **value** // starting value on element creation
-- **min** // minimum value when stepping
-- **max** // maximum value when stepping
-- **step** // step size 
-- **data-step-max** // max boost when stepping
-- **data-decimals** // shown decimal places
-- **data-prefix** // show a prefix string in the input element
-- **data-suffix** // show a suffix string in the input element
+- `value` // starting value on element creation
+- `min` // minimum value when stepping
+- `max` // maximum value when stepping
+- `step` // step size  
+- `data-step-max` // max boost when stepping
+- `data-decimals` // shown decimal places
+- `data-prefix` // show a prefix text in the input element
+- `data-suffix` // show a suffix text in the input element
+
+The InputSpinner also handles the standard input attributes `required` and `placeholder`.
 
 ### JavaScript
 
-Use JavaScript to create the instance as jQuery plugin. Provide additional
-configuration in an object as parameter.
+Use JavaScript to create the instance as a jQuery plugin. You may provide additional
+configuration in an object as a config parameter.
 
 ```javascript
 $(element).inputSpinner(config);
@@ -85,7 +88,7 @@ var config = {
     incrementButton: "<strong>+</strong>", // ..
     groupClass: "", // css class of the input-group (sizing with input-group-sm or input-group-lg)
     buttonsClass: "btn-outline-secondary",
-    buttonsWidth: "2.5em",
+    buttonsWidth: "2.5rem",
     textAlign: "center",
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
