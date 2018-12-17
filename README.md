@@ -5,7 +5,7 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner.png)
-(The floating point example in the screenshot has german localization)
+*Screenshot with floating point example and german localization.*
 
 ## Features
 
