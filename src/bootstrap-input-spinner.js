@@ -96,7 +96,6 @@
                 copyAttributes()
             })
             observer.observe($original[0], {attributes: true})
-
             copyAttributes()
 
             $original.after($inputGroup)
@@ -123,7 +122,10 @@
                 resetTimer()
             })
 
-            function setValue(newValue, updateInput = true) {
+            function setValue(newValue, updateInput) {
+                if(updateInput === undefined) {
+                    updateInput = true
+                }
                 if (isNaN(newValue) || newValue === "") {
                     $original[0].value = ""
                     if (updateInput) {
