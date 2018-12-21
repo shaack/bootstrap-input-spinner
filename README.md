@@ -16,6 +16,7 @@ The Bootstrap 4 InputSpinner is
 - has **internationalized** number formatting,
 - allows setting a **prefix** or a **suffix** text in the input,
 - handles **`val()`** like the native element,
+- **dynamically handles** changing **attribute values**,
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
 - works **without extra css**, only the bootstrap 4 standard css is needed.
 
@@ -161,6 +162,16 @@ $(element).val(newValue) // write
 ```
 
 > **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value you have to use `element.setValue(newValue)` or `$(element).val(newValue)`  
+
+### Handling attributes
+
+The attributes
+- `placeholder`,
+- `required`,
+- `disbled` and 
+- `class`
+
+are handled dynamically. The `class` attribute is copied to the input-group and the resulting input element. 
 
 ### Events
 

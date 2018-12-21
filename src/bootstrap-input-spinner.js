@@ -92,18 +92,12 @@
                 setValue(newValue)
             }
 
-            if ($original.prop("class").indexOf("is-invalid") !== -1) { // TODO dynamically copy all classes
-                $input.addClass("is-invalid")
-            }
-            if ($original.prop("class").indexOf("is-valid") !== -1) {
-                $input.addClass("is-valid")
-            }
-            if ($original.prop("required")) {
-                $input.prop("required", true)
-            }
-            if ($original.prop("placeholder")) {
-                $input.prop("placeholder", $original.prop("placeholder"))
-            }
+            var observer = new MutationObserver(function (event) {
+                cloneAttributes()
+            })
+            observer.observe($original[0], {attributes: true})
+
+            cloneAttributes()
 
             $original.after($inputGroup)
 
@@ -194,6 +188,17 @@
                 boostMultiplier = boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
                 clearTimeout(autoDelayHandler)
                 clearTimeout(autoIntervalHandler)
+            }
+
+            function cloneAttributes() {
+                $input.prop("required", $original.prop("required"))
+                $input.prop("placeholder", $original.prop("placeholder"))
+                var disabled = $original.prop("disabled")
+                $input.prop("disabled", disabled)
+                $buttonIncrement.prop("disabled", disabled)
+                $buttonDecrement.prop("disabled", disabled)
+                $input.prop("class", "form-control " + $original.prop("class"))
+                $inputGroup.prop("class", "input-group " + $original.prop("class") + " " + config.groupClass)
             }
 
         })
