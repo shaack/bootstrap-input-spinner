@@ -16,7 +16,7 @@ The Bootstrap 4 InputSpinner is
 - has **internationalized** number formatting,
 - allows setting a **prefix** or a **suffix** text in the input,
 - handles **`val()`** like the native element,
-- **dynamically handles** changing **attribute values**,
+- **dynamically handles** changing **attribute values** like `disabled` or `class`,
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
 - works **without extra css**, only the bootstrap 4 standard css is needed.
 

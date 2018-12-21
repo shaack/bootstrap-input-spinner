@@ -19,6 +19,11 @@
         .input-group, input#classInput {
             width: 250px;
         }
+
+        .code {
+            background-color: #f1f2f3;
+            font-family: Courier, monospace;
+        }
     </style>
 </head>
 <body>
@@ -35,19 +40,25 @@
     <p>The Bootstrap 4 InputSpinner is</p>
     <ul>
         <li>
-            mobile friendly and responsive,
+            <b>mobile friendly</b> and <b>responsive</b>,
         </li>
         <li>
-            automatically changes value when holding button, boosts value change when holding button longer,
+            automatically changes value when <b>holding button</b>, boosts value change when holding button longer,
         </li>
         <li>
-            has internationalized number formatting,
+            has <b>internationalized</b> number formatting,
         </li>
         <li>
-            handles <span class="code">val()</span> like the native element
+            allows setting a <b>prefix</b> or a <b>suffix</b> text in the input,
         </li>
         <li>
-            and dispatches <span class="code">change</span> and <span class="code">input</span> events on value change
+            handles <b><span class="code">val()</span></b> like the native element,
+        </li>
+        <li>
+            <b>dynamically handles</b> changing <b>attribute values</b> like <span class="code">disabled</span> oder <span class="code">class</span>,
+        </li>
+        <li>
+            dispatches <span class="code">change</span> and <span class="code">input</span> <b>events on value change</b>
             like the native element.
         </li>
     </ul>
@@ -82,11 +93,11 @@
     <pre><code
             class="language-html">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
 
-    <h3>Handle '<span class="code">change</span>' and '<span class="code">input</span>' events and
+    <h3>Handle <span class="code">change</span> and <span class="code">input</span> events and
         read the value from JavaScript
-        with '<span class="code">val()</span>'</h3>
+        with <span class="code">val()</span></h3>
     <p>
-        Type in a number to see the difference between 'change' and 'input' events.
+        Type in a number to see the difference between <span class="code">change</span> and <span class="code">input</span> events.
         <input type="number" id="changedInput" value="2500" min="0" max="5000000" data-decimals="2"/>
     </p>
     <p>
@@ -102,7 +113,7 @@ $changedInput.on("input", function (event) {
 $changedInput.on("change", function (event) {
     $valueOnChange.html($changedInput.val())
 })</code></pre>
-    <h3>Programmatic changing the value with '<span class="code">val()</span>'</h3>
+    <h3>Programmatic changing the value with <span class="code">val()</span></h3>
     <p>
         Net
         <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
@@ -117,7 +128,7 @@ $changedInput.on("change", function (event) {
 $inputGross.on("change", function (event) {
     $inputNet.val($inputGross.val() / 1.19)
 })</code></pre>
-    <h3>Attributes 'placeholder' and 'required'</h3>
+    <h3>Attributes <span class="code">placeholder</span> and <span class="code">required</span></h3>
     <form>
         <p>
             <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
@@ -127,7 +138,7 @@ $inputGross.on("change", function (event) {
         <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
     </form>
 
-    <h3>Attribute 'disabled', dynamically changing</h3>
+    <h3>Attribute <span class="code">disabled</span>, dynamically changing</h3>
     <p>Attributes are handled dynamically.</p>
     <form>
         <p>
@@ -151,7 +162,7 @@ $inputGross.on("change", function (event) {
 &lt;/script></code></pre>
     </form>
 
-    <h3>Dynamically handling of the 'class' attribute</h3>
+    <h3>Dynamically handling of the <span class="code">class</span> attribute</h3>
     <p>
         <input id="inputChangeClass" class="is-valid" type="number" value="50"/>
     </p>
@@ -198,15 +209,15 @@ $inputGross.on("change", function (event) {
         <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre><code class="language-javascript">$("input.large").inputSpinner({groupClass: "input-group-lg"})</code></pre>
-    <h3>Attribute 'data-step-max' and looping the value</h3>
+    <h3>Attribute <span class="code">data-step-max</span> and looping the value</h3>
     <p>This Input starts from 0 when reaching 360.</p>
     <p>
         <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1"
                data-step-max="10"/>
     </p>
-    <p>Use the 'data-step-max' attribute to limit the step velocity in HTML.</p>
+    <p>Use the <span class="code">data-step-max</span> attribute to limit the step velocity in HTML.</p>
     <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
-    <p>"Loop" the value between 0 and 360 with the 'change' event in JavaScript.</p>
+    <p>"Loop" the value between 0 and 360 with the <span class="code">change</span> event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
 $inputLoop.on("change", function (event) {
     var value = $inputLoop.val()
