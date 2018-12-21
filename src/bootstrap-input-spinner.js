@@ -152,26 +152,28 @@
             }
 
             function stepHandling(step) {
-                calcStep(step)
-                resetTimer()
-                autoDelayHandler = setTimeout(function () {
-                    autoIntervalHandler = setInterval(function () {
-                        if (boostStepsCount > config.boostThreshold) {
-                            if (autoMultiplier) {
-                                calcStep(step * parseInt(boostMultiplier, 10))
-                                boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
-                                if (stepMax) {
-                                    boostMultiplier = Math.min(stepMax, boostMultiplier)
+                if(!$input[0].disabled) {
+                    calcStep(step)
+                    resetTimer()
+                    autoDelayHandler = setTimeout(function () {
+                        autoIntervalHandler = setInterval(function () {
+                            if (boostStepsCount > config.boostThreshold) {
+                                if (autoMultiplier) {
+                                    calcStep(step * parseInt(boostMultiplier, 10))
+                                    boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
+                                    if (stepMax) {
+                                        boostMultiplier = Math.min(stepMax, boostMultiplier)
+                                    }
+                                } else {
+                                    calcStep(step * boostMultiplier)
                                 }
                             } else {
-                                calcStep(step * boostMultiplier)
+                                calcStep(step)
                             }
-                        } else {
-                            calcStep(step)
-                        }
-                        boostStepsCount++
-                    }, config.autoInterval)
-                }, config.autoDelay)
+                            boostStepsCount++
+                        }, config.autoInterval)
+                    }, config.autoDelay)
+                }
             }
 
             function calcStep(step) {
