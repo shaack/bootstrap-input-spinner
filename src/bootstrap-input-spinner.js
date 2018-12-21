@@ -92,12 +92,12 @@
                 setValue(newValue)
             }
 
-            var observer = new MutationObserver(function (event) {
-                cloneAttributes()
+            var observer = new MutationObserver(function () {
+                copyAttributes()
             })
             observer.observe($original[0], {attributes: true})
 
-            cloneAttributes()
+            copyAttributes()
 
             $original.after($inputGroup)
 
@@ -190,7 +190,7 @@
                 clearTimeout(autoIntervalHandler)
             }
 
-            function cloneAttributes() {
+            function copyAttributes() {
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
                 var disabled = $original.prop("disabled")
