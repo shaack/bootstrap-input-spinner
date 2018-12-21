@@ -168,7 +168,7 @@ $(element).val(newValue) // write
 The attributes
 - `placeholder`,
 - `required`,
-- `disbled` and 
+- `disabled` and 
 - `class`
 
 are handled dynamically. The `class` attribute is copied to the input-group and the resulting input element. 
