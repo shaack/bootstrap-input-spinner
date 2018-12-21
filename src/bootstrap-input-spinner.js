@@ -228,7 +228,9 @@
             callback(e)
         })
         element.addEventListener("touchstart", function (e) {
-            e.preventDefault()
+            if(e.cancelable) {
+                e.preventDefault()
+            }
             callback(e)
         })
         element.addEventListener("keydown", function (e) {
