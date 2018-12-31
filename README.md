@@ -192,3 +192,12 @@ $(element).on("change", function (event) {
     newValue = $(this).val()
 })
 ```
+
+#### Browser support
+
+It works in all modern browsers. If you need IE support, just include the `Object.assign` polyfill, like this
+```html
+<script src="./node_modules/@shaack/polyfills/src/polyfills/object-assign.js"></script>
+```
+
+
