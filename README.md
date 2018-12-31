@@ -193,9 +193,11 @@ $(element).on("change", function (event) {
 })
 ```
 
-#### Browser support
+## Browser support
 
-It works in all modern browsers. If you need IE support, just include the `Object.assign` polyfill, like this
+The spinner works in all modern browsers. 
+If you need IE support, just include 
+the [`Object.assign` polyfill](https://github.com/shaack/polyfills/blob/master/src/polyfills/object-assign.js), like this:
 ```html
 <script src="./node_modules/@shaack/polyfills/src/polyfills/object-assign.js"></script>
 ```
