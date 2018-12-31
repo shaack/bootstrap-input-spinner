@@ -33,7 +33,9 @@
             boostMultiplier: "auto", // you can also set a constant number as multiplier
             locale: null // the locale for number rendering; if null, the browsers language is used
         }
-        Object.assign(config, options)
+        for (var option in options) {
+            config[option] = options[option]
+        }
 
         var html = '<div class="input-group ' + config.groupClass + '">' +
             '<div class="input-group-prepend">' +
