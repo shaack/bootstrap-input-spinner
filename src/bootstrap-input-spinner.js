@@ -147,7 +147,13 @@
             function dispatchEvent($element, type) {
                 if (type) {
                     setTimeout(function () {
-                        var event = new Event(type, {bubbles: true})
+                        var event;
+                        if(typeof(Event) === 'function') {
+                            event = new Event(type, {bubbles: true})
+                        } else { // IE
+                            event = document.createEvent('Event');
+                            event.initEvent(type, true, true);
+                        }
                         $element[0].dispatchEvent(event)
                     })
                 }
