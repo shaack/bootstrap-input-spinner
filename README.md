@@ -193,6 +193,24 @@ $(element).on("change", function (event) {
 })
 ```
 
+## Minified version
+
+I don't provide a minified version because I think it should be up to the using programmer 
+to create minified versions, with all the used script sources concatenated to one file.
+
+But, if you want it, it is easy to create your minified version with uglify: https://www.npmjs.com/package/uglify-js
+
+Just install uglify
+```bash
+npm install uglify-js -g
+```
+and then in the src-folder
+```bash
+uglifyjs bootstrap-input-spinner.js --compress --mangle > bootstrap-input-spinner.min.js
+```
+
+Violà! :)
+
 ## Browser support
 
 The spinner works in all modern browsers and in the Internet Explorer. Not tested with IE < 11.
