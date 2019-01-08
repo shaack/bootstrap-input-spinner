@@ -170,7 +170,9 @@
                             if (boostStepsCount > config.boostThreshold) {
                                 if (autoMultiplier) {
                                     calcStep(step * parseInt(boostMultiplier, 10))
-                                    boostMultiplier = Math.min(1000000, boostMultiplier * 1.1)
+                                    if(boostMultiplier < 100000000) {
+                                        boostMultiplier = boostMultiplier * 1.1
+                                    }
                                     if (stepMax) {
                                         boostMultiplier = Math.min(stepMax, boostMultiplier)
                                     }
