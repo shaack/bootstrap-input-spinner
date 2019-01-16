@@ -11,7 +11,7 @@
     var originalVal = $.fn.val
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
-            if (this[0]["bootstrap-input-spinner"] && this[0].setValue) {
+            if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].setValue) {
                 this[0].setValue(value)
             }
         }
