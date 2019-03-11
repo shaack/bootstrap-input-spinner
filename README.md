@@ -166,12 +166,9 @@ $(element).val(newValue) // write
 ### Handling attributes
 
 The attributes
-- `placeholder`,
-- `required`,
-- `disabled` and 
-- `class`
+`min`, `max`, `step`, `stepMax`, `decimals`, `placeholder`, `required`, `disabled` and `class`
 
-are handled dynamically. The `class` attribute is copied to the input-group and the resulting input element. 
+are handled dynamically. The `class` attribute value is copied to the input-group and the resulting input element. 
 
 ### Events
 

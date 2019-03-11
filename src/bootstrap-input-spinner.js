@@ -65,11 +65,13 @@
             var $buttonIncrement = $inputGroup.find(".btn-increment")
             var $input = $inputGroup.find("input")
 
-            var min = parseFloat($original.prop("min")) || 0
-            var max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
-            var step = parseFloat($original.prop("step")) || 1
-            var stepMax = parseInt($original.attr("data-step-max")) || 0
-            var decimals = parseInt($original.attr("data-decimals")) || 0
+            var min = null
+            var max = null
+            var step = null
+            var stepMax = null
+            var decimals = null
+
+            updateAttributes()
 
             var numberFormat = new Intl.NumberFormat(locale, {
                 minimumFractionDigits: decimals,
@@ -95,10 +97,10 @@
             }
 
             var observer = new MutationObserver(function () {
-                copyAttributes()
+                updateAttributes()
+                setValue(value, true)
             })
             observer.observe($original[0], {attributes: true})
-            copyAttributes()
 
             $original.after($inputGroup)
 
@@ -204,7 +206,8 @@
                 clearTimeout(autoIntervalHandler)
             }
 
-            function copyAttributes() {
+            function updateAttributes() {
+                // copy properties from original to the new inut
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
                 var disabled = $original.prop("disabled")
@@ -213,6 +216,12 @@
                 $buttonDecrement.prop("disabled", disabled)
                 $input.prop("class", "form-control " + $original.prop("class"))
                 $inputGroup.prop("class", "input-group " + $original.prop("class") + " " + config.groupClass)
+                // update the main attributes
+                min = parseFloat($original.prop("min")) || 0
+                max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
+                step = parseFloat($original.prop("step")) || 1
+                stepMax = parseInt($original.attr("data-step-max")) || 0
+                decimals = parseInt($original.attr("data-decimals")) || 0
             }
 
         })

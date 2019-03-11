@@ -16,7 +16,7 @@
         }
 
         /*noinspection CssUnusedSymbol*/
-        .input-group, input#classInput {
+        .input-group, input.test-value-input {
             width: 250px;
         }
 
@@ -55,10 +55,12 @@
             handles <b><span class="code">val()</span></b> like the native element,
         </li>
         <li>
-            <b>dynamically handles</b> changing <b>attribute values</b> like <span class="code">disabled</span> oder <span class="code">class</span>,
+            <b>dynamically handles</b> changing <b>attribute values</b> like <span class="code">disabled</span> oder
+            <span class="code">class</span>,
         </li>
         <li>
-            dispatches <span class="code">change</span> and <span class="code">input</span> <b>events on value change</b>
+            dispatches <span class="code">change</span> and <span class="code">input</span> <b>events on value
+            change</b>
             like the native element.
         </li>
     </ul>
@@ -97,7 +99,8 @@
         read the value from JavaScript
         with <span class="code">val()</span></h3>
     <p>
-        Type in a number to see the difference between <span class="code">change</span> and <span class="code">input</span> events.
+        Type in a number to see the difference between <span class="code">change</span> and <span
+            class="code">input</span> events.
         <input type="number" id="changedInput" value="2500" min="0" max="5000000" data-decimals="2"/>
     </p>
     <p>
@@ -168,11 +171,11 @@ $inputGross.on("change", function (event) {
     </p>
     <p>
         <label for="classInput">CSS Class</label>
-        <input id="classInput" type="text" class="form-control" value="is-valid"/>
+        <input id="classInput" type="text" class="form-control test-value-input" value="is-valid"/>
         Try to change the class to "is-invalid" or "text-info".
     </p>
 
-<pre><code class="language-html">&lt;input id="inputChangeClass" class="is-valid" type="number" value="50"/>
+    <pre><code class="language-html">&lt;input id="inputChangeClass" class="is-valid" type="number" value="50"/>
 &lt;label for="classInput">CSS Class&lt;/label>
 &lt;input id="classInput" type="text" class="form-control" value="is-valid"/>
 &lt;script>
@@ -182,6 +185,48 @@ $inputGross.on("change", function (event) {
         $inputChangeClass.prop("class", this.value);
     })
 &lt;/script></code></pre>
+
+    <h3>Dynamically handling of <span class="code">min</span>, <span class="code">max</span> and <span
+            class="code">step</span></h3>
+    <div class="row">
+        <div class="col-lg-4">
+            <p>
+                <label for="minInput">min</label>
+                <input id="minInput" type="text" class="form-control test-value-input" value="0"/>
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <p>
+                <label for="maxInput">max</label>
+                <input id="maxInput" type="text" class="form-control test-value-input" value="100"/>
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <p>
+                <label for="stepInput">step</label>
+                <input id="stepInput" type="text" class="form-control test-value-input" value="10"/>
+            </p>
+        </div>
+    </div>
+    <p>
+        <label for="minMaxTester">Try here</label>
+        <input id="minMaxTester" type="number" value="50" min="0" max="100" step="10"/>
+    </p>
+    <pre><code class="language-javascript">var $minInput = $("#minInput")
+var $maxInput = $("#maxInput")
+var $stepInput = $("#stepInput")
+var $minMaxTester = $("#minMaxTester")
+$minInput.on("change", function (event) {
+    $minMaxTester.prop("min", $minInput.val())
+})
+$maxInput.on("change", function (event) {
+    $minMaxTester.prop("max", $maxInput.val())
+})
+$stepInput.on("change", function (event) {
+    $minMaxTester.prop("step", $stepInput.val())
+})
+</code></pre>
+
 
     <h3>Prefix and Suffix</h3>
     <p>
@@ -245,8 +290,8 @@ $inputLoop.on("change", function (event) {
 <script>
     var $inputChangeClass = $("#inputChangeClass")
     var $classInput = $("#classInput")
-    $classInput.on("input", function() {
-        $inputChangeClass.prop("class", this.value);
+    $classInput.on("input", function () {
+        $inputChangeClass.prop("class", this.value)
     })
 </script>
 <script>
@@ -266,6 +311,22 @@ $inputLoop.on("change", function (event) {
     })
     $changedInput.on("change", function (event) {
         $valueOnChange.html($changedInput.val())
+    })
+</script>
+<!--suppress JSUnusedLocalSymbols -->
+<script>
+    var $minInput = $("#minInput")
+    var $maxInput = $("#maxInput")
+    var $stepInput = $("#stepInput")
+    var $minMaxTester = $("#minMaxTester")
+    $minInput.on("change", function (event) {
+        $minMaxTester.prop("min", $minInput.val())
+    })
+    $maxInput.on("change", function (event) {
+        $minMaxTester.prop("max", $maxInput.val())
+    })
+    $stepInput.on("change", function (event) {
+        $minMaxTester.prop("step", $stepInput.val())
     })
 </script>
 <!--suppress JSUnusedLocalSymbols -->
