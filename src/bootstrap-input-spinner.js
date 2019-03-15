@@ -23,7 +23,7 @@
         var config = {
             decrementButton: "<strong>-</strong>", // button text
             incrementButton: "<strong>+</strong>", // ..
-            groupClass: "", // css class of the input-group (sizing with input-group-sm, input-group-lg)
+            groupClass: "", // css class of the resulting input-group
             buttonsClass: "btn-outline-secondary",
             buttonsWidth: "2.5rem",
             textAlign: "center",
@@ -127,7 +127,7 @@
             })
 
             function setValue(newValue, updateInput) {
-                if(updateInput === undefined) {
+                if (updateInput === undefined) {
                     updateInput = true
                 }
                 if (isNaN(newValue) || newValue === "") {
@@ -151,12 +151,12 @@
             function dispatchEvent($element, type) {
                 if (type) {
                     setTimeout(function () {
-                        var event;
-                        if(typeof(Event) === 'function') {
+                        var event
+                        if (typeof (Event) === 'function') {
                             event = new Event(type, {bubbles: true})
                         } else { // IE
-                            event = document.createEvent('Event');
-                            event.initEvent(type, true, true);
+                            event = document.createEvent('Event')
+                            event.initEvent(type, true, true)
                         }
                         $element[0].dispatchEvent(event)
                     })
@@ -164,7 +164,7 @@
             }
 
             function stepHandling(step) {
-                if(!$input[0].disabled) {
+                if (!$input[0].disabled) {
                     calcStep(step)
                     resetTimer()
                     autoDelayHandler = setTimeout(function () {
@@ -172,7 +172,7 @@
                             if (boostStepsCount > config.boostThreshold) {
                                 if (autoMultiplier) {
                                     calcStep(step * parseInt(boostMultiplier, 10))
-                                    if(boostMultiplier < 100000000) {
+                                    if (boostMultiplier < 100000000) {
                                         boostMultiplier = boostMultiplier * 1.1
                                     }
                                     if (stepMax) {
@@ -214,8 +214,19 @@
                 $input.prop("disabled", disabled)
                 $buttonIncrement.prop("disabled", disabled)
                 $buttonDecrement.prop("disabled", disabled)
-                $input.prop("class", "form-control " + $original.prop("class"))
-                $inputGroup.prop("class", "input-group " + $original.prop("class") + " " + config.groupClass)
+
+                var originalClass = $original.prop("class")
+                var groupClass = ""
+                if (/form-control-sm/g.test(originalClass)) {
+                    groupClass = "input-group-sm"
+                } else if (/form-control-lg/g.test(originalClass)) {
+                    groupClass = "input-group-lg"
+                }
+                var inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
+
+                $inputGroup.prop("class", "input-group " + groupClass + " " + config.groupClass)
+                $input.prop("class", "form-control " + inputClass)
+
                 // update the main attributes
                 min = parseFloat($original.prop("min")) || 0
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
@@ -249,7 +260,7 @@
             callback(e)
         })
         element.addEventListener("touchstart", function (e) {
-            if(e.cancelable) {
+            if (e.cancelable) {
                 e.preventDefault()
             }
             callback(e)

@@ -87,7 +87,7 @@ The default configuration is
 var config = {
     decrementButton: "<strong>-</strong>", // button text
     incrementButton: "<strong>+</strong>", // ..
-    groupClass: "", // css class of the input-group (sizing with input-group-sm or input-group-lg)
+    groupClass: "", // css class of the resulting input-group
     buttonsClass: "btn-outline-secondary",
     buttonsWidth: "2.5rem",
     textAlign: "center",
@@ -167,8 +167,12 @@ $(element).val(newValue) // write
 
 The attributes
 `min`, `max`, `step`, `stepMax`, `decimals`, `placeholder`, `required`, `disabled` and `class`
+are handled dynamically. The `class` attribute value is dynamically copied to the input element.
 
-are handled dynamically. The `class` attribute value is copied to the input-group and the resulting input element. 
+#### Sizing
+
+If the original elements class is set to `form-control-sm` of `form-control-lg` the class of the resulting input-group is 
+dynamically set to `input-group-sm` or `input-group-lg`. 
 
 ### Events
 

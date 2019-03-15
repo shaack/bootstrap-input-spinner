@@ -243,17 +243,20 @@ $stepInput.on("change", function (event) {
 
 
     <h3>Sizing</h3>
-    <p>You can set the group css class via configuration.</p>
+    <p class="text-info">Please note: The sizing changed with version 1.11 from setting the group class in the configuration to automatically use
+    the original elements class.</p>
+    <p>Sizing now works out of the box. If the original input has the class <span class="code">form-control-sm</span> or <span class="code">form-control-lg</span>,
+        the resulting group gets the class <span class="code">input-group-sm</span> or <span class="code">input-group-lg</span>.</p>
     <p>
         Small
-        <input class="small" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
+        <input type="number" class="form-control-sm" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
-    <pre><code class="language-javascript">$("input.small").inputSpinner({groupClass: "input-group-sm"})</code></pre>
+    <pre><code class="language-html">&lt;input type="number" class="form-control-sm" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
     <p>
         Large
-        <input class="large" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
+        <input type="number" class="form-control-lg" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
-    <pre><code class="language-javascript">$("input.large").inputSpinner({groupClass: "input-group-lg"})</code></pre>
+    <pre><code class="language-html">&lt;input type="number" class="form-control-lg" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
     <h3>Attribute <span class="code">data-step-max</span> and looping the value</h3>
     <p>This Input starts from 0 when reaching 360.</p>
     <p>
@@ -284,8 +287,6 @@ $inputLoop.on("change", function (event) {
 <script src="./node_modules/prismjs/prism.js"></script>
 <script>
     $("input[type='number']").inputSpinner()
-    $("input.small").inputSpinner({groupClass: "input-group-sm"})
-    $("input.large").inputSpinner({groupClass: "input-group-lg"})
 </script>
 <script>
     var $inputChangeClass = $("#inputChangeClass")
