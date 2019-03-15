@@ -207,7 +207,7 @@
             }
 
             function updateAttributes() {
-                // copy properties from original to the new inut
+                // copy properties from original to the new input
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
                 var disabled = $original.prop("disabled")
@@ -217,13 +217,13 @@
 
                 var originalClass = $original.prop("class")
                 var groupClass = ""
+                // sizing
                 if (/form-control-sm/g.test(originalClass)) {
                     groupClass = "input-group-sm"
                 } else if (/form-control-lg/g.test(originalClass)) {
                     groupClass = "input-group-lg"
                 }
                 var inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
-
                 $inputGroup.prop("class", "input-group " + groupClass + " " + config.groupClass)
                 $input.prop("class", "form-control " + inputClass)
 
