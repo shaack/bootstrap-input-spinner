@@ -111,8 +111,6 @@ Additional css class for the `input-group`, results in
 <div class="input-group ' + config.groupClass + '">
 ```
 
-You can use it for sizing with `groupClass: input-group-sm` or `input-group-lg`.
-
 ##### buttonsClass
 
 The css class of the buttons. Use it to style 
