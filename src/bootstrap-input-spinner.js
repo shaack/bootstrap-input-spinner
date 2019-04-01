@@ -214,7 +214,9 @@
                 $input.prop("disabled", disabled)
                 $buttonIncrement.prop("disabled", disabled)
                 $buttonDecrement.prop("disabled", disabled)
-
+                if (disabled) {
+                    resetTimer()
+                }
                 var originalClass = $original.prop("class")
                 var groupClass = ""
                 // sizing
