@@ -186,6 +186,21 @@ $inputGross.on("change", function (event) {
     })
 &lt;/script></code></pre>
 
+    <h3>Sizing</h3>
+    <p>Sizing works out of the box. Just set the original inputs class to <span class="code">form-control-sm</span> or <span class="code">form-control-lg</span>, and
+        the resulting group gets the class <span class="code">input-group-sm</span> or <span class="code">input-group-lg</span>.</p>
+    <p>
+        Small
+        <input class="form-control-sm" type="number"  value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
+    </p>
+    <pre><code class="language-html">&lt;input class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
+    <p>
+        Large
+        <input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
+    </p>
+    <pre><code class="language-html">&lt;input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
+
+
     <h3>Dynamically handling of <span class="code">min</span>, <span class="code">max</span> and <span
             class="code">step</span></h3>
     <div class="row">
@@ -242,28 +257,13 @@ $stepInput.on("change", function (event) {
             class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
 
 
-    <h3>Sizing</h3>
-    <p class="text-info">Please note: The sizing changed with version 1.11 from setting the group class in the configuration to automatically use
-    the original elements class.</p>
-    <p>Sizing works out of the box. If the original input has the class <span class="code">form-control-sm</span> or <span class="code">form-control-lg</span>,
-        the resulting group gets the class <span class="code">input-group-sm</span> or <span class="code">input-group-lg</span>.</p>
-    <p>
-        Small
-        <input type="number" class="form-control-sm" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
-    </p>
-    <pre><code class="language-html">&lt;input type="number" class="form-control-sm" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
-    <p>
-        Large
-        <input type="number" class="form-control-lg" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
-    </p>
-    <pre><code class="language-html">&lt;input type="number" class="form-control-lg" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
     <h3>Attribute <span class="code">data-step-max</span> and looping the value</h3>
     <p>This Input starts from 0 when reaching 360.</p>
     <p>
         <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1"
                data-step-max="10"/>
     </p>
-    <p>Use the <span class="code">data-step-max</span> attribute to limit the step velocity in HTML.</p>
+    <p>Use the <span class="code">data-step-max</span> attribute to limit the step velocity.</p>
     <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the <span class="code">change</span> event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
