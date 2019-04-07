@@ -27,7 +27,6 @@
             buttonsClass: "btn-outline-secondary",
             buttonsWidth: "2.5rem",
             textAlign: "center",
-            inputType: "text", // the type property of the input (text, number, email, etc)
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
@@ -42,7 +41,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="' + config.inputType + '" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -213,8 +212,6 @@
                 $input.prop("placeholder", $original.prop("placeholder"))
                 var disabled = $original.prop("disabled")
                 $input.prop("disabled", disabled)
-                var inputType = $original.prop("type")
-                $input.prop("type", inputType)
                 $buttonIncrement.prop("disabled", disabled)
                 $buttonDecrement.prop("disabled", disabled)
                 if (disabled) {
