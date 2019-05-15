@@ -97,7 +97,6 @@
             }
 
             var observer = new MutationObserver(function () {
-                console.log("MutationObserver")
                 updateAttributes()
                 setValue(value, true)
             })
