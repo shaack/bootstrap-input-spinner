@@ -97,6 +97,7 @@
             }
 
             var observer = new MutationObserver(function () {
+                console.log("MutationObserver")
                 updateAttributes()
                 setValue(value, true)
             })
@@ -234,7 +235,14 @@
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
                 stepMax = parseInt($original.attr("data-step-max")) || 0
-                decimals = parseInt($original.attr("data-decimals")) || 0
+                var newDecimals = parseInt($original.attr("data-decimals")) || 0
+                if(decimals !== newDecimals) {
+                    decimals = newDecimals
+                    numberFormat = new Intl.NumberFormat(locale, {
+                        minimumFractionDigits: decimals,
+                        maximumFractionDigits: decimals
+                    })
+                }
             }
 
         })
