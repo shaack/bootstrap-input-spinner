@@ -110,7 +110,7 @@
                 var newValue = $input[0].value
                 var focusOut = event.type === "focusout"
                 // Remove Number Format
-                newValue = parseLocaleNumber(newValue);
+                newValue = parseLocaleNumber(newValue)
                 setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
             })
@@ -234,7 +234,7 @@
                 step = parseFloat($original.prop("step")) || 1
                 stepMax = parseInt($original.attr("data-step-max")) || 0
                 var newDecimals = parseInt($original.attr("data-decimals")) || 0
-                if(decimals !== newDecimals) {
+                if (decimals !== newDecimals) {
                     decimals = newDecimals
                     numberFormat = new Intl.NumberFormat(locale, {
                         minimumFractionDigits: decimals,
@@ -242,17 +242,15 @@
                     })
                 }
             }
-            
-            function parseLocaleNumber(stringNumber) {
-                var numberFormat = new Intl.NumberFormat(locale);
 
-                var thousandSeparator = numberFormat.format(1111).replace(/1/g, '');
-                var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '');
-            
+            function parseLocaleNumber(stringNumber) {
+                var numberFormat = new Intl.NumberFormat(locale)
+                var thousandSeparator = numberFormat.format(1111).replace(/1/g, '')
+                var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
                 return parseFloat(stringNumber
                     .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
                     .replace(new RegExp('\\' + decimalSeparator), '.')
-                );
+                )
             }
         })
 
