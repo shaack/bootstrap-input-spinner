@@ -109,7 +109,6 @@
             $input.on("paste input change focusout", function (event) {
                 var newValue = $input[0].value
                 var focusOut = event.type === "focusout"
-                // Remove Number Format
                 newValue = parseLocaleNumber(newValue)
                 setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
