@@ -31,17 +31,29 @@
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
             boostMultiplier: "auto", // you can also set a constant number as multiplier
-            locale: null // the locale for number rendering; if null, the browsers language is used
+            locale: null, // the locale for number rendering; if null, the browsers language is used
+            bootstrapVer : 4, // bootstrap 3 or 4
+            inputMaxleng : 10 // value input max length
         }
         for (var option in options) {
             config[option] = options[option]
         }
 
-        var html = '<div class="input-group ' + config.groupClass + '">' +
+        var htmlv3 = '<div class="input-group ' + config.groupClass + '">' +
+            '<span class="input-group-btn">' +
+            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
+            '</span>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" maxlength="'+ config.inputMaxleng + '" class="form-control"/>' +
+            '<span class="input-group-btn">' +
+            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
+            '</span>' +
+            '</div>'
+
+        var htmlv4 = '<div class="input-group ' + config.groupClass + '">' +
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" maxlength="'+ config.inputMaxleng + '" class="form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -49,6 +61,8 @@
 
         var locale = config.locale || navigator.language || "en-US"
 
+        var html=(config.bootstrapVer==3) ? htmlv3 : htmlv4;
+        var inputGroupClass=(config.bootstrapVer==3)? ".input-group-btn" : ".input-group-append";
         this.each(function () {
 
             var $original = $(this)
@@ -85,11 +99,11 @@
 
             if (prefix) {
                 var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
-                $inputGroup.find(".input-group-prepend").append(prefixElement)
+                $inputGroup.find(inputGroupClass).append(prefixElement)
             }
             if (suffix) {
                 var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
-                $inputGroup.find(".input-group-append").prepend(suffixElement)
+                $inputGroup.find(inputGroupClass).prepend(suffixElement)
             }
 
             $original[0].setValue = function (newValue) {
