@@ -12,7 +12,10 @@
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
             if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].setValue) {
-                this[0].setValue(value)
+                var element = this[0];
+                setTimeout(function () {
+                    element.setValue(value)
+                })
             }
         }
         return originalVal.apply(this, arguments)
@@ -125,6 +128,7 @@
             })
 
             function setValue(newValue, updateInput) {
+                console.log("setValue", newValue, updateInput)
                 if (updateInput === undefined) {
                     updateInput = true
                 }
