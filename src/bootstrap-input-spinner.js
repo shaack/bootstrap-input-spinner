@@ -128,7 +128,6 @@
             })
 
             function setValue(newValue, updateInput) {
-                console.log("setValue", newValue, updateInput)
                 if (updateInput === undefined) {
                     updateInput = true
                 }
