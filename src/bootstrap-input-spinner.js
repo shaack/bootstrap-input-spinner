@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-(function ($) {
+;(function ($) {
     "use strict"
 
     var spacePressed = false
