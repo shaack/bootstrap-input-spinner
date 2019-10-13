@@ -256,6 +256,7 @@
             }
         })
 
+        return this
     }
 
     function onPointerUp(element, callback) {
