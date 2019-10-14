@@ -214,6 +214,6 @@ Violà! :)
 
 The spinner works in all modern browsers and in the Internet Explorer. Not tested with IE < 11.
 
-For older browsers (IE 9 or so), that doesn't support `Intl`, when you get a error message like
+For older browsers (IE 9 or so), that doesn't support `Intl`, when you get an error message like
 **"Intl is not defined"** (See [issue #34](https://github.com/shaack/bootstrap-input-spinner/issues/34)),
 just use a shim or polyfill like [Intl.js](https://github.com/andyearnshaw/Intl.js), and it works.
