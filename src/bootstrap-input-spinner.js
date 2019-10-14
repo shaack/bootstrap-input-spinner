@@ -165,7 +165,7 @@
             }
 
             function stepHandling(step) {
-                if (!$input[0].disabled) {
+                if (!$input[0].disabled && !$input[0].readonly) {
                     calcStep(step)
                     resetTimer()
                     autoDelayHandler = setTimeout(function () {
@@ -212,10 +212,12 @@
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
                 var disabled = $original.prop("disabled")
+                var readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
-                $buttonIncrement.prop("disabled", disabled)
-                $buttonDecrement.prop("disabled", disabled)
-                if (disabled) {
+                $input.prop("readonly", readonly)
+                $buttonIncrement.prop("disabled", disabled || readonly)
+                $buttonDecrement.prop("disabled", disabled || readonly)
+                if (disabled || readonly) {
                     resetTimer()
                 }
                 var originalClass = $original.prop("class")

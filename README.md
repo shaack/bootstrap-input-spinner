@@ -164,7 +164,7 @@ $(element).val(newValue) // write
 ### Handling attributes
 
 The attributes
-`min`, `max`, `step`, `stepMax`, `decimals`, `placeholder`, `required`, `disabled` and `class`
+`min`, `max`, `step`, `stepMax`, `decimals`, `placeholder`, `required`, `disabled`, `readonly` and `class`
 are handled dynamically. The `class` attribute value is dynamically copied to the input element.
 
 #### Sizing
