@@ -65,6 +65,7 @@ These are the possible attributes
 - `step` // step size  
 - `data-step-max` // max boost when stepping
 - `data-decimals` // shown decimal places
+- `data-unwanted-grouping` // "true" to disable grouping (thousands separator)
 - `data-prefix` // show a prefix text in the input element
 - `data-suffix` // show a suffix text in the input element
 
