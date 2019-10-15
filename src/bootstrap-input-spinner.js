@@ -163,7 +163,7 @@
             }
 
             function stepHandling(step) {
-                if (!$input[0].disabled && !$input[0].readonly) {
+                if (!$input[0].disabled && !$input[0].readOnly) {
                     calcStep(step)
                     resetTimer()
                     autoDelayHandler = setTimeout(function () {
