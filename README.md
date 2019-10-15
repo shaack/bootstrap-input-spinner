@@ -57,7 +57,7 @@ Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
 <input type="number" value="4.5" min="0" max="9" step="0.1" data-decimals="2" data-suffix="°C"/>
 ```
 
-These are the possible attributes
+Use these attributes to configure the behaviour
 
 - `value` // starting value on element creation
 - `min` // minimum value when stepping
@@ -69,7 +69,7 @@ These are the possible attributes
 - `data-prefix` // show a prefix text in the input element
 - `data-suffix` // show a suffix text in the input element
 
-The InputSpinner also handles the standard input attributes `required` and `placeholder`.
+The InputSpinner also handles the standard input attributes `required`, `disabled`, `readonly` and `placeholder`.
 
 ### JavaScript
 
