@@ -73,15 +73,11 @@
             var step = null
             var stepMax = null
             var decimals = null
-            var unwantedGrouping = false
+            var digitGrouping = true
+            var numberFormat = null
 
             updateAttributes()
 
-            var numberFormat = new Intl.NumberFormat(locale, {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals,
-                useGrouping: !unwantedGrouping
-            })
             var value = parseFloat($original[0].value)
             var boostStepsCount = 0
 
@@ -240,14 +236,14 @@
                 step = parseFloat($original.prop("step")) || 1
                 stepMax = parseInt($original.attr("data-step-max")) || 0
                 var newDecimals = parseInt($original.attr("data-decimals")) || 0
-                var newUnwantedGrouping = $original.attr("data-unwanted-grouping") === "true"
-                if (decimals !== newDecimals || unwantedGrouping !== newUnwantedGrouping) {
+                var newDigitGrouping = !($original.attr("data-digit-grouping") === "false")
+                if (decimals !== newDecimals || digitGrouping !== newDigitGrouping) {
                     decimals = newDecimals
-                    unwantedGrouping = newUnwantedGrouping
+                    digitGrouping = newDigitGrouping
                     numberFormat = new Intl.NumberFormat(locale, {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals,
-                        useGrouping: !unwantedGrouping
+                        useGrouping: digitGrouping
                     })
                 }
             }
