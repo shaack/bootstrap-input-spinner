@@ -73,7 +73,7 @@
             var step = null
             var stepMax = null
             var decimals = null
-            var digitGrouping = true
+            var digitGrouping = null
             var numberFormat = null
 
             updateAttributes()
