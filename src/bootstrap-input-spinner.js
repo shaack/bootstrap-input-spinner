@@ -7,7 +7,7 @@
 ;(function ($) {
     "use strict"
 
-    var spacePressed = false
+    var triggerKeyPressed = false
     var originalVal = $.fn.val
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
@@ -270,8 +270,8 @@
             callback(e)
         })
         element.addEventListener("keyup", function (e) {
-            if (e.keyCode === 32) {
-                spacePressed = false
+            if ((e.keyCode === 32 || e.keyCode === 13)) {
+                triggerKeyPressed = false
                 callback(e)
             }
         })
@@ -289,8 +289,8 @@
             callback(e)
         })
         element.addEventListener("keydown", function (e) {
-            if (e.keyCode === 32 && !spacePressed) {
-                spacePressed = true
+            if ((e.keyCode === 32 || e.keyCode === 13) && !triggerKeyPressed) {
+                triggerKeyPressed = true
                 callback(e)
             }
         })
