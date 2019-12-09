@@ -20,6 +20,14 @@
         }
         return originalVal.apply(this, arguments)
     }
+    $.fn.destroy = function () {
+        if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].destroy) {
+            var element = this[0];
+            setTimeout(function () {
+                element.destroy()
+            })
+        }
+    }
 
     $.fn.InputSpinner = $.fn.inputSpinner = function (options) {
 
@@ -96,6 +104,9 @@
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
             }
+            $original[0].destroy = function () {
+                destroy()
+            }
 
             var observer = new MutationObserver(function () {
                 updateAttributes()
@@ -145,6 +156,13 @@
                     }
                     value = newValue
                 }
+            }
+
+            function destroy() {
+                observer.disconnect();
+                resetTimer();
+                $input.off("paste input change focusout");
+                $original.next('div').remove();
             }
 
             function dispatchEvent($element, type) {
