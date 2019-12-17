@@ -44,7 +44,7 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="text" inputmode="numeric" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" inputmode="decimal" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
@@ -209,6 +209,7 @@
                 // copy properties from original to the new input
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
+                $input.attr("inputmode", $original.attr("inputmode") || "decimal")
                 var disabled = $original.prop("disabled")
                 var readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
