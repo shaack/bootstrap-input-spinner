@@ -12,7 +12,7 @@
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
             if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].setValue) {
-                var element = this[0];
+                var element = this[0]
                 setTimeout(function () {
                     element.setValue(value)
                 })
