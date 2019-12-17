@@ -68,6 +68,7 @@ Use these attributes to configure the behaviour
 - `min` // minimum value when stepping
 - `max` // maximum value when stepping
 - `step` // step size  
+- `inputmode` // the "inputmode" of the input, defaults to "decimal" (shows decimal keyboard on touch devices)
 - `data-step-max` // max boost when stepping
 - `data-decimals` // shown decimal places
 - `data-digit-grouping` // "false" to disable grouping (thousands separator), default is "true"
@@ -100,8 +101,7 @@ var config = {
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
     boostThreshold: 10, // boost after these steps
-    boostMultiplier: "auto", // you can also set a constant number as multiplier
-    locale: null // the locale for number rendering; if null, the browsers language is used
+    boostMultiplier: "auto" // you can also set a constant number as multiplier
 }
 ```
 
