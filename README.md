@@ -105,6 +105,8 @@ var config = {
 }
 ```
 
+The locale for number formatting is detected from the browser settings.
+
 ##### decrementButton, incrementButton
 
 HTML of the texts inside the buttons.
@@ -148,12 +150,6 @@ After these auto value changes the speed will increase with `boostMultiplier`.
 
 The speed multiplier after `boostThreshold` steps of auto value change. 
 If set to `"auto"` (default value) the multiplier will increase over time.
-
-##### locale
-
-Set a locale for the number formatting. Use values like `"en-US"` 
-or `"de-DE"`. If not set, the locate will be set automatically from the
-browser language.
 
 ### Programmatic change and read of value
 
