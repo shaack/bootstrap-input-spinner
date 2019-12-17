@@ -33,8 +33,7 @@
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
-            boostMultiplier: "auto", // you can also set a constant number as multiplier
-            locale: null // the locale for number rendering; if null, the browsers language is used
+            boostMultiplier: "auto" // you can also set a constant number as multiplier
         }
         for (var option in options) {
             config[option] = options[option]
@@ -50,7 +49,7 @@
             '</div>' +
             '</div>'
 
-        var locale = config.locale || navigator.language || "en-US"
+        var locale = navigator.language || "en-US"
 
         this.each(function () {
 
