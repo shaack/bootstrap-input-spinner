@@ -1,3 +1,4 @@
+
 /**
  * Author and copyright: Stefan Haack (https://shaack.com)
  * Repository: https://github.com/shaack/bootstrap-input-spinner
@@ -12,13 +13,24 @@
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
             if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].setValue) {
-                var element = this[0]
+                var element = this[0];
                 setTimeout(function () {
                     element.setValue(value)
                 })
             }
         }
         return originalVal.apply(this, arguments)
+    }
+    $.fn.destroySpinner = function () {
+        if (this[0]){
+            $.each(this,function( index, textfield) {
+                if(textfield.destroySpinner){
+                    setTimeout(function () {
+                        textfield.destroySpinner()
+                    });
+                }
+            });
+        }
     }
 
     $.fn.InputSpinner = $.fn.inputSpinner = function (options) {
@@ -33,7 +45,8 @@
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
-            boostMultiplier: "auto" // you can also set a constant number as multiplier
+            boostMultiplier: "auto", // you can also set a constant number as multiplier
+            locale: null // the locale for number rendering; if null, the browsers language is used
         }
         for (var option in options) {
             config[option] = options[option]
@@ -43,13 +56,13 @@
             '<div class="input-group-prepend">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
             '</div>' +
-            '<input type="text" inputmode="decimal" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
+            '<input type="text" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
             '<div class="input-group-append">' +
             '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
             '</div>' +
             '</div>'
 
-        var locale = navigator.language || "en-US"
+        var locale = config.locale || navigator.language || "en-US"
 
         this.each(function () {
 
@@ -94,6 +107,9 @@
 
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
+            }
+            $original[0].destroySpinner = function () {
+                destroySpinner()
             }
 
             var observer = new MutationObserver(function () {
@@ -144,6 +160,14 @@
                     }
                     value = newValue
                 }
+            }
+
+            function destroySpinner() {
+                observer.disconnect();
+                resetTimer();
+                $input.off("paste input change focusout");
+                $original.next('div').remove();
+                $original.show();
             }
 
             function dispatchEvent($element, type) {
@@ -208,7 +232,6 @@
                 // copy properties from original to the new input
                 $input.prop("required", $original.prop("required"))
                 $input.prop("placeholder", $original.prop("placeholder"))
-                $input.attr("inputmode", $original.attr("inputmode") || "decimal")
                 var disabled = $original.prop("disabled")
                 var readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
