@@ -248,13 +248,28 @@
                 }
             }
 
-            function parseLocaleNumber(stringNumber) {
+            function removeThousandSeparators(stringNumber) {
                 var numberFormat = new Intl.NumberFormat(locale)
                 var thousandSeparator = numberFormat.format(1111).replace(/1/g, '')
-                var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
-                return parseFloat(stringNumber
+                if (!thousandSeparator) return stringNumber
+                return stringNumber
                     .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
+            }
+
+            function unifyDecimalSeparator(stringNumber) {
+                var numberFormat = new Intl.NumberFormat(locale)
+                var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
+                return stringNumber
                     .replace(new RegExp('\\' + decimalSeparator), '.')
+            }
+
+            function parseLocaleNumber(stringNumber) {
+                return parseFloat(
+                    removeThousandSeparators(
+                        unifyDecimalSeparator(
+                            stringNumber
+                        )
+                    )
                 )
             }
         })
