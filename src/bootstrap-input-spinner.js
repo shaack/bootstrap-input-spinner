@@ -251,7 +251,9 @@
             function removeThousandSeparators(stringNumber) {
                 var numberFormat = new Intl.NumberFormat(locale)
                 var thousandSeparator = numberFormat.format(1111).replace(/1/g, '')
-                if (!thousandSeparator) return stringNumber
+                // early exit to avoid SyntaxError on blank
+                if (thousandSeparator === '') return stringNumber
+
                 return stringNumber
                     .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
             }
