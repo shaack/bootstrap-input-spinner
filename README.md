@@ -1,10 +1,5 @@
 # bootstrap-input-spinner
 
-![GitHub repo size](https://img.shields.io/github/repo-size/shaack/bootstrap-input-spinner)
-![GitHub contributors](https://img.shields.io/github/contributors/shaack/bootstrap-input-spinner)
-![GitHub stars](https://img.shields.io/github/stars/shaack/bootstrap-input-spinner?style=social)
-![GitHub forks](https://img.shields.io/github/forks/shaack/bootstrap-input-spinner?style=social)
-
 A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
