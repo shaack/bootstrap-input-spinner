@@ -56,13 +56,24 @@
             var $original = $(this)
             $original[0]["bootstrap-input-spinner"] = true
             $original.hide()
+            var $parent = $original.parent()
 
             var autoDelayHandler = null
             var autoIntervalHandler = null
             var autoMultiplier = config.boostMultiplier === "auto"
             var boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
+            var ignoreAdd = false
 
             var $inputGroup = $(html)
+
+            if ($parent.hasClass('input-group')) {
+                $parent.addClass(config.groupClass)
+                $inputGroup = $($inputGroup.html())
+                $original.before($inputGroup)
+                $inputGroup = $parent
+                ignoreAdd = true
+            }
+
             var $buttonDecrement = $inputGroup.find(".btn-decrement")
             var $buttonIncrement = $inputGroup.find(".btn-increment")
             var $input = $inputGroup.find("input")
@@ -102,7 +113,9 @@
             })
             observer.observe($original[0], {attributes: true})
 
-            $original.after($inputGroup)
+            if (!ignoreAdd) {
+                $original.after($inputGroup)
+            }
 
             setValue(value)
 
