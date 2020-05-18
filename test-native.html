@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>input type="number"</title>
+    <style>
+        body {
+            margin: 40px;
+        }
+    </style>
+</head>
+<body>
+<h1>This is just for testing the behaviour of the native number input</h1>
+<p>step 2, min 0<br/>
+    <input type="number" step="2" min="0" max="100"/>
+</p>
+<p>step 10, min 1<br/>
+    <input type="number" step="10" min="1" max="100"/>
+</p>
+<p>step 20, min -99<br/>
+    <input type="number" step="20" min="-99" max="100"/>
+</p>
+<p>decimal<br/>
+    <input type="number" step="20" min="-99" max="100" inputmode="decimal"/>
+</p>
+<p>numeric<br/>
+    <input type="number" step="20" min="-99" max="100" inputmode="numeric"/>
+</p>
+
+</body>
+</html>
