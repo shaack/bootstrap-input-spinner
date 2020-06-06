@@ -284,24 +284,17 @@ $inputLoop.on("change", function (event) {
     value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
     $inputLoop.val(value)
 })</code></pre>
-    <h3>Change min max and value</h3>
-    <p>This is for testing <a href="https://github.com/shaack/bootstrap-input-spinner/issues/45">issue #45</a></p>
+    <h3>Destroying the spinner</h3>
+    <p>Destroying the bootstrap-input-spinner removes the spinner and shows the original element, like before calling
+        <span class="code">element.inputSpinner()</span>.</p>
+    <p>Just call</p>
+    <pre><code class="language-javascript">$(element).inputSpinner("destroy")</code></pre>
     <div class="mb-3">
-        <input type="number" id="minMaxValue"/>
+        <input type="number" id="inputDestroyCreate" value="50"/>
     </div>
-    <button id="buttonTest1" class="btn btn-primary">test1</button>
-    <button id="buttonTest2" class="btn btn-primary">test2</button>
-    <pre>
-<code class="language-javascript">$("#buttonTest1").click(function() {
-    $("#minMaxValue").attr("min", 11)
-    $("#minMaxValue").attr("max", 1000)
-    $("#minMaxValue").val(45)
-})
-$("#buttonTest2").click(function() {
-    $("#minMaxValue").attr("min", 1)
-    $("#minMaxValue").attr("max", 10)
-    $("#minMaxValue").val(5)
-})</code></pre>
+    <button id="buttonDestroy" class="btn btn-primary">destroy</button>
+    <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
+    <pre><code class="language-javascript"></code></pre>
     <h2>Thats all for now</h2>
     <p>If you like this plugin you may also want to check out our <a
             href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
@@ -384,15 +377,11 @@ $("#buttonTest2").click(function() {
     })
 </script>
 <script>
-    $("#buttonTest1").click(function() {
-        $("#minMaxValue").attr("min", 11)
-        $("#minMaxValue").attr("max", 1000)
-        $("#minMaxValue").val(45)
-    })
-    $("#buttonTest2").click(function() {
-        $("#minMaxValue").attr("min", 1)
-        $("#minMaxValue").attr("max", 10)
-        $("#minMaxValue").val(5)
+    var $buttonDestroy = $("#buttonDestroy")
+    var $buttonCreate = $("#buttonCreate")
+    var $inputDestroyCreate = $("#inputDestroyCreate")
+    $buttonDestroy.click(function() {
+        $inputDestroyCreate.inputSpinner("destroy")
     })
 </script>
 </body>

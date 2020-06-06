@@ -29,7 +29,7 @@
         }
     }
 
-    $.fn.InputSpinner = $.fn.inputSpinner = function (options) {
+    $.fn.inputSpinner = function (options) {
 
         var config = {
             decrementButton: "<strong>-</strong>", // button text
