@@ -294,7 +294,6 @@ $inputLoop.on("change", function (event) {
     </div>
     <button id="buttonDestroy" class="btn btn-primary">destroy</button>
     <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
-    <pre><code class="language-javascript"></code></pre>
     <h2>Thats all for now</h2>
     <p>If you like this plugin you may also want to check out our <a
             href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>.</p>
@@ -382,6 +381,13 @@ $inputLoop.on("change", function (event) {
     var $inputDestroyCreate = $("#inputDestroyCreate")
     $buttonDestroy.click(function() {
         $inputDestroyCreate.inputSpinner("destroy")
+        $buttonDestroy.attr("disabled", true)
+        $buttonCreate.attr("disabled", false)
+    })
+    $buttonCreate.click(function() {
+        $inputDestroyCreate.inputSpinner()
+        $buttonDestroy.attr("disabled", false)
+        $buttonCreate.attr("disabled", true)
     })
 </script>
 </body>

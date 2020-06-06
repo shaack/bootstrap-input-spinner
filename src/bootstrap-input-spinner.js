@@ -31,6 +31,13 @@
 
     $.fn.inputSpinner = function (options) {
 
+        if(options === "destroy") {
+            this.each(function() {
+                this.destroyInputSpinner()
+            })
+            return this
+        }
+
         var config = {
             decrementButton: "<strong>-</strong>", // button text
             incrementButton: "<strong>+</strong>", // ..
@@ -103,7 +110,7 @@
             $original[0].setValue = function (newValue) {
                 setValue(newValue)
             }
-            $original[0].destroy = function () {
+            $original[0].destroyInputSpinner = function () {
                 destroy()
             }
 
@@ -162,6 +169,7 @@
                 resetTimer();
                 $input.off("paste input change focusout");
                 $original.next('div').remove();
+                $original.show()
             }
 
             function dispatchEvent($element, type) {
