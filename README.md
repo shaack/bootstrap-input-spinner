@@ -189,6 +189,16 @@ $(element).on("change", function (event) {
 })
 ```
 
+### Methods
+
+Methods are passed as string values instead of the options object.
+
+#### destroy
+Removes the InputSpinner and shows the original input element.
+```javascript
+$(element).inputSpinner("destroy")
+```
+
 ## Minified version
 
 I don't provide a minified version because I think it should be up to the using programmer 

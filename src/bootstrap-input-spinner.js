@@ -20,18 +20,10 @@
         }
         return originalVal.apply(this, arguments)
     }
-    $.fn.destroy = function () {
-        if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].destroy) {
-            var element = this[0];
-            setTimeout(function () {
-                element.destroy()
-            })
-        }
-    }
 
-    $.fn.inputSpinner = function (options) {
+    $.fn.inputSpinner = function (methodOrOptions) {
 
-        if(options === "destroy") {
+        if(methodOrOptions === "destroy") {
             this.each(function() {
                 this.destroyInputSpinner()
             })
@@ -50,8 +42,8 @@
             boostThreshold: 10, // boost after these steps
             boostMultiplier: "auto" // you can also set a constant number as multiplier
         }
-        for (var option in options) {
-            config[option] = options[option]
+        for (var option in methodOrOptions) {
+            config[option] = methodOrOptions[option]
         }
 
         var html = '<div class="input-group ' + config.groupClass + '">' +
