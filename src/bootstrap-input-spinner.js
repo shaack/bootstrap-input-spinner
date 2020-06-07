@@ -23,8 +23,8 @@
 
     $.fn.inputSpinner = function (methodOrOptions) {
 
-        if(methodOrOptions === "destroy") {
-            this.each(function() {
+        if (methodOrOptions === "destroy") {
+            this.each(function () {
                 this.destroyInputSpinner()
             })
             return this
@@ -157,10 +157,10 @@
             }
 
             function destroy() {
-                observer.disconnect();
-                resetTimer();
-                $input.off("paste input change focusout");
-                $original.next('div').remove();
+                observer.disconnect()
+                resetTimer()
+                $input.off("paste input change focusout")
+                $inputGroup.remove()
                 $original.show()
             }
 
