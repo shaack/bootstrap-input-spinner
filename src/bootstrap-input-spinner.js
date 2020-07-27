@@ -43,6 +43,7 @@
             boostMultiplier: "auto" // you can also set a constant number as multiplier
         }
         for (var option in methodOrOptions) {
+            // noinspection JSUnfilteredForInLoop
             config[option] = methodOrOptions[option]
         }
 
@@ -157,6 +158,7 @@
             }
 
             function destroy() {
+                $original.prop("required", $input.prop("required"))
                 observer.disconnect()
                 resetTimer()
                 $input.off("paste input change focusout")
@@ -224,7 +226,10 @@
 
             function updateAttributes() {
                 // copy properties from original to the new input
-                $input.prop("required", $original.prop("required"))
+                if($original.prop("required")) {
+                    $input.prop("required", $original.prop("required"))
+                    $original.removeAttr('required')
+                }
                 $input.prop("placeholder", $original.prop("placeholder"))
                 $input.attr("inputmode", $original.attr("inputmode") || "decimal")
                 var disabled = $original.prop("disabled")
