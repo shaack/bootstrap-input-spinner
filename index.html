@@ -8,11 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style type="text/css">
         h2 {
-            margin-top: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
         }
 
         h3 {
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
         /*noinspection CssUnusedSymbol*/
@@ -27,7 +29,7 @@
     </style>
 </head>
 <body>
-<section class="container pt-3">
+<section class="container py-5">
     <h1>bootstrap-input-spinner</h1>
     <p>
         A Bootstrap 4 / jQuery plugin to create input spinner elements for number input, by
@@ -292,22 +294,21 @@ $inputLoop.on("change", function (event) {
     </div>
     <button id="buttonDestroy" class="btn btn-primary">destroy</button>
     <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
-    <h2>Thats all about the inputSpinner, but we have more</h2>
 
-    <p>You may also want to check out our other Bootstrap 4 extensions</p>
-    <ul>
-        <li>
-            <a href="https://shaack.com/projekte/bootstrap-input-spinner/">bootstrap-input-spinner</a>
-        </li>
-        <li>
-            <a href="https://shaack.com/projekte/bootstrap-show-modal/">bootstrap-show-modal</a>
-        </li>
-        <li>
-            <a href="https://github.com/shaack/bootstrap-detect-breakpoint">bootstrap-detect-breakpoint</a>
-        </li>
-    </ul>
+    <div class="card my-5 border-info">
+        <a href="https://shaack.com/en/open-source-components">
+        <div class="card-body">
+            <h4 class="mb-2">More Bootstrap 4 Components (from shaack.com)</h4>
+            You may want to check out our further Bootstrap 4 extensions,
+                <b>bootstrap-show-modal</b>,
+                <b>bootstrap-detect-breakpoint</b>,
+                <b>auto-resize-textarea</b> and
+                <b>external-links-blank</b>
 
-    <p>And if you find bugs or have suggestions, you may write an
+        </div>
+        </a>
+    </div>
+    <p>If you find bugs or have suggestions, you may write an
         <a href="https://github.com/shaack/bootstrap-input-spinner/issues">issue</a>.</p>
     <br/><br/>
 </section>
@@ -389,12 +390,12 @@ $inputLoop.on("change", function (event) {
     var $buttonDestroy = $("#buttonDestroy")
     var $buttonCreate = $("#buttonCreate")
     var $inputDestroyCreate = $("#inputDestroyCreate")
-    $buttonDestroy.click(function() {
+    $buttonDestroy.click(function () {
         $inputDestroyCreate.inputSpinner("destroy")
         $buttonDestroy.attr("disabled", true)
         $buttonCreate.attr("disabled", false)
     })
-    $buttonCreate.click(function() {
+    $buttonCreate.click(function () {
         $inputDestroyCreate.inputSpinner()
         $buttonDestroy.attr("disabled", false)
         $buttonCreate.attr("disabled", true)
