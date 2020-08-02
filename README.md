@@ -9,9 +9,9 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 
 ## Features
 
-The Bootstrap 4 InputSpinner is
+The Bootstrap 4 InputSpinner
 
-- **mobile friendly** and **responsive**,
+- is **mobile friendly** and **responsive**,
 - automatically changes value when **holding button**, boosts value change when holding button longer,
 - has **internationalized** number formatting,
 - allows setting a **prefix** or a **suffix** text in the input,
