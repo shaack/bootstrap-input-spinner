@@ -31,8 +31,8 @@
         }
 
         var config = {
-            decrementButton: "<strong>-</strong>", // button text
-            incrementButton: "<strong>+</strong>", // ..
+            decrementButton: "<strong>&minus;</strong>", // button text
+            incrementButton: "<strong>&plus;</strong>", // ..
             groupClass: "", // css class of the resulting input-group
             buttonsClass: "btn-outline-secondary",
             buttonsWidth: "2.5rem",
