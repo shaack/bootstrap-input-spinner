@@ -269,6 +269,9 @@
                         useGrouping: digitGrouping
                     })
                 }
+                
+                // clone the data-* attributes
+                $input.data($original.data());
             }
 
             function parseLocaleNumber(stringNumber) {
