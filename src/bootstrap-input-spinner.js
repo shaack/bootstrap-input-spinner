@@ -226,7 +226,7 @@
 
             function updateAttributes() {
                 // copy properties from original to the new input
-                if($original.prop("required")) {
+                if ($original.prop("required")) {
                     $input.prop("required", $original.prop("required"))
                     $original.removeAttr('required')
                 }
@@ -268,6 +268,11 @@
                         maximumFractionDigits: decimals,
                         useGrouping: digitGrouping
                     })
+                }
+                if ($original.attr("hidden")) {
+                    $inputGroup.attr("hidden", $original.attr("hidden"))
+                } else {
+                    $inputGroup.removeAttr("hidden")
                 }
             }
 
