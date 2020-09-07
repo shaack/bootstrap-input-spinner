@@ -40,22 +40,28 @@
             autoDelay: 500, // ms holding before auto value change
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
-            boostMultiplier: "auto" // you can also set a constant number as multiplier
+            boostMultiplier: "auto", // you can also set a constant number as multiplier
+            template: // the template of the input
+                '<div class="input-group ${groupClass}"><div class="input-group-prepend">' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
+                '</div>' +
+                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
+                '<div class="input-group-append">' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
+                '</div></div>'
         }
         for (var option in methodOrOptions) {
             // noinspection JSUnfilteredForInLoop
             config[option] = methodOrOptions[option]
         }
 
-        var html = '<div class="input-group ' + config.groupClass + '">' +
-            '<div class="input-group-prepend">' +
-            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-decrement ' + config.buttonsClass + '" type="button">' + config.decrementButton + '</button>' +
-            '</div>' +
-            '<input type="text" inputmode="decimal" style="text-align: ' + config.textAlign + '" class="form-control"/>' +
-            '<div class="input-group-append">' +
-            '<button style="min-width: ' + config.buttonsWidth + '" class="btn btn-increment ' + config.buttonsClass + '" type="button">' + config.incrementButton + '</button>' +
-            '</div>' +
-            '</div>'
+        var html = config.template
+            .replace(/\${groupClass}/g, config.groupClass)
+            .replace(/\${buttonsWidth}/g, config.buttonsWidth)
+            .replace(/\${buttonsClass}/g, config.buttonsClass)
+            .replace(/\${decrementButton}/g, config.decrementButton)
+            .replace(/\${incrementButton}/g, config.incrementButton)
+            .replace(/\${textAlign}/g, config.textAlign)
 
         var locale = navigator.language || "en-US"
 

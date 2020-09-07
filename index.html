@@ -21,6 +21,9 @@
         .input-group, input.test-value-input {
             max-width: 250px;
         }
+        .input-group-wide {
+            max-width: 320px;
+        }
 
         .code {
             background-color: #f1f2f3;
@@ -286,6 +289,23 @@ $inputLoop.on("change", function (event) {
     value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
     $inputLoop.val(value)
 })</code></pre>
+
+    <h3>Styling with templates (New!)</h3>
+    <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
+    <h5>How about... buttons right.</h5>
+    <p>
+    <input data-prefix="¥" id="templateButtonsRight" value="1000"/>
+    </p>
+    <p>
+    Here is the template for "buttons right":
+    </p>
+    <pre><code class="language-html">&lt;div class="input-group ${groupClass}">
+&lt;div class="input-group-prepend">&lt;/div>' +
+&lt;input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>
+&lt;div class="input-group-append">
+&lt;button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}&lt;/button>
+&lt;button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}&lt;/button>
+&lt;/div>&lt;/div></code></pre>
     <h3>Destroying the spinner</h3>
     <p>To Remove the InputSpinner and show the original input element, use</p>
     <pre><code class="language-javascript">$(element).inputSpinner("destroy")</code></pre>
@@ -384,6 +404,17 @@ $inputLoop.on("change", function (event) {
         var value = $inputLoop.val()
         value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
         $inputLoop.val(value)
+    })
+</script>
+<script>
+    $("#templateButtonsRight").inputSpinner({template:
+            '<div class="input-group ${groupClass}">' +
+            '<div class="input-group-prepend"></div>' +
+            '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
+            '<div class="input-group-append">' +
+            '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
+            '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
+            '</div></div>'
     })
 </script>
 <script>
