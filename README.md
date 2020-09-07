@@ -96,7 +96,15 @@ var config = {
     autoDelay: 500, // ms holding before auto value change
     autoInterval: 100, // speed of auto value change
     boostThreshold: 10, // boost after these steps
-    boostMultiplier: "auto" // you can also set a constant number as multiplier
+    boostMultiplier: "auto", // you can also set a constant number as multiplier
+    template: // the template of the input
+                '<div class="input-group ${groupClass}"><div class="input-group-prepend">' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
+                '</div>' +
+                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
+                '<div class="input-group-append">' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
+                '</div></div>'
 }
 ```
 
