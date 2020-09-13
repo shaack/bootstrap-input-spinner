@@ -1,32 +1,72 @@
 <html>
 <head>
     <title>input type="number"</title>
-    <style>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism-tomorrow.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style type="text/css">
         body {
-            margin: 40px;
+            padding: 2rem;
+        }
+
+        h2 {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        }
+
+        h3 {
+            margin-top: 2rem;
+        }
+
+        /*noinspection CssUnusedSymbol*/
+        .input-group, input.test-value-input {
+            max-width: 250px;
+        }
+
+        .input-group-wide {
+            max-width: 320px;
+        }
+
+        .code {
+            background-color: #f1f2f3;
+            font-family: Courier, monospace;
+        }
+        p input:first-child {
+            margin-bottom: 0.5rem;
+            width: 250px;
         }
     </style>
-</head>
 <body>
-<h1>This is just for testing the behaviour of the native number input</h1>
-<p>step 1, start value 1.01<br/>
-    <input type="number" step="1" min="0" max="100" value="1.01"/>
+<h1>This is for testing the behaviour of the native number input, compared to the bootstrap-input-spinner.</h1>
+First: Native Element, second: bootstrap-input-spinner.
+<h3>step 1, start value 1.01</h3>
+<p>
+    <input type="number" step="1" value="1.01"/>
+    <input type="number" class="bootstrap-input-spinner" step="1" value="1.01"/>
 </p>
-<p>step 2, min 0<br/>
+<h3>step 2, min 0</h3>
+<p>
     <input type="number" step="2" min="0" max="100"/>
+    <input type="number" class="bootstrap-input-spinner" step="2" min="0" max="100"/>
 </p>
-<p>step 10, min 1<br/>
+<h3>step 10, min 1</h3>
+<p>
     <input type="number" step="10" min="1" max="100"/>
+    <input type="number" class="bootstrap-input-spinner" step="10" min="1" max="100"/>
 </p>
-<p>step 20, min -99<br/>
+<h3>step 20, min -99</h3>
+<p>
     <input type="number" step="20" min="-99" max="100"/>
-</p>
-<p>decimal<br/>
-    <input type="number" step="20" min="-99" max="100" inputmode="decimal"/>
-</p>
-<p>numeric<br/>
-    <input type="number" step="20" min="-99" max="100" inputmode="numeric"/>
+    <input type="number" class="bootstrap-input-spinner" step="20" min="-99" max="100"/>
 </p>
 
+<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="src/bootstrap-input-spinner.js"></script>
+<script src="./node_modules/prismjs/prism.js"></script>
+<script>
+    $(".bootstrap-input-spinner").inputSpinner()
+</script>
 </body>
 </html>
