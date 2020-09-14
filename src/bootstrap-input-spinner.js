@@ -21,16 +21,16 @@
         return originalVal.apply(this, arguments)
     }
 
-    $.fn.inputSpinner = function (methodOrOptions) {
+    $.fn.inputSpinner = function (methodOrProps) {
 
-        if (methodOrOptions === "destroy") {
+        if (methodOrProps === "destroy") {
             this.each(function () {
                 this.destroyInputSpinner()
             })
             return this
         }
 
-        var config = {
+        var props = {
             decrementButton: "<strong>&minus;</strong>", // button text
             incrementButton: "<strong>&plus;</strong>", // ..
             groupClass: "", // css class of the resulting input-group
@@ -41,25 +41,26 @@
             autoInterval: 100, // speed of auto value change
             boostThreshold: 10, // boost after these steps
             boostMultiplier: "auto", // you can also set a constant number as multiplier
+            buttonsOnly: false, // Set this `true` to disable the possibility to enter or paste the number via keyboard.
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
-                '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button></div>' +
-                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
-                '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button></div>' +
+                '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
+                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control form-control-text-input"/>' +
+                '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
                 '</div>'
         }
-        for (var option in methodOrOptions) {
+        for (var option in methodOrProps) {
             // noinspection JSUnfilteredForInLoop
-            config[option] = methodOrOptions[option]
+            props[option] = methodOrProps[option]
         }
 
-        var html = config.template
-            .replace(/\${groupClass}/g, config.groupClass)
-            .replace(/\${buttonsWidth}/g, config.buttonsWidth)
-            .replace(/\${buttonsClass}/g, config.buttonsClass)
-            .replace(/\${decrementButton}/g, config.decrementButton)
-            .replace(/\${incrementButton}/g, config.incrementButton)
-            .replace(/\${textAlign}/g, config.textAlign)
+        var html = props.template
+            .replace(/\${groupClass}/g, props.groupClass)
+            .replace(/\${buttonsWidth}/g, props.buttonsWidth)
+            .replace(/\${buttonsClass}/g, props.buttonsClass)
+            .replace(/\${decrementButton}/g, props.decrementButton)
+            .replace(/\${incrementButton}/g, props.incrementButton)
+            .replace(/\${textAlign}/g, props.textAlign)
 
         var locale = navigator.language || "en-US"
 
@@ -71,8 +72,8 @@
 
             var autoDelayHandler = null
             var autoIntervalHandler = null
-            var autoMultiplier = config.boostMultiplier === "auto"
-            var boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
+            var autoMultiplier = props.boostMultiplier === "auto"
+            var boostMultiplier = autoMultiplier ? 1 : props.boostMultiplier
 
             var $inputGroup = $(html)
             var $buttonDecrement = $inputGroup.find(".btn-decrement")
@@ -86,6 +87,12 @@
             var decimals = null
             var digitGrouping = null
             var numberFormat = null
+
+            console.log("buttonsOnly", props.buttonsOnly)
+            if (props.buttonsOnly) {
+                console.log("bo", $input)
+                $input.prop("readonly", true)
+            }
 
             updateAttributes()
 
@@ -186,31 +193,31 @@
             }
 
             function stepHandling(step) {
-                if (!$input[0].disabled && !$input[0].readOnly) {
-                    calcStep(step)
-                    resetTimer()
-                    autoDelayHandler = setTimeout(function () {
-                        autoIntervalHandler = setInterval(function () {
-                            if (boostStepsCount > config.boostThreshold) {
-                                if (autoMultiplier) {
-                                    calcStep(step * parseInt(boostMultiplier, 10))
-                                    if (boostMultiplier < 100000000) {
-                                        boostMultiplier = boostMultiplier * 1.1
-                                    }
-                                    if (stepMax) {
-                                        boostMultiplier = Math.min(stepMax, boostMultiplier)
-                                    }
-                                } else {
-                                    calcStep(step * boostMultiplier)
+
+                calcStep(step)
+                resetTimer()
+                autoDelayHandler = setTimeout(function () {
+                    autoIntervalHandler = setInterval(function () {
+                        if (boostStepsCount > props.boostThreshold) {
+                            if (autoMultiplier) {
+                                calcStep(step * parseInt(boostMultiplier, 10))
+                                if (boostMultiplier < 100000000) {
+                                    boostMultiplier = boostMultiplier * 1.1
+                                }
+                                if (stepMax) {
+                                    boostMultiplier = Math.min(stepMax, boostMultiplier)
                                 }
                             } else {
-                                calcStep(step)
+                                calcStep(step * boostMultiplier)
                             }
-                            boostStepsCount++
-                        }, config.autoInterval)
-                    }, config.autoDelay)
-                }
+                        } else {
+                            calcStep(step)
+                        }
+                        boostStepsCount++
+                    }, props.autoInterval)
+                }, props.autoDelay)
             }
+
 
             function calcStep(step) {
                 if (isNaN(value)) {
@@ -223,7 +230,7 @@
 
             function resetTimer() {
                 boostStepsCount = 0
-                boostMultiplier = boostMultiplier = autoMultiplier ? 1 : config.boostMultiplier
+                boostMultiplier = boostMultiplier = autoMultiplier ? 1 : props.boostMultiplier
                 clearTimeout(autoDelayHandler)
                 clearTimeout(autoIntervalHandler)
             }
@@ -239,7 +246,8 @@
                 var disabled = $original.prop("disabled")
                 var readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
-                $input.prop("readonly", readonly)
+                $input.prop("readonly", readonly || props.buttonsOnly)
+                $input.val("123")
                 $buttonIncrement.prop("disabled", disabled || readonly)
                 $buttonDecrement.prop("disabled", disabled || readonly)
                 if (disabled || readonly) {
@@ -254,7 +262,7 @@
                     groupClass = "input-group-lg"
                 }
                 var inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
-                $inputGroup.prop("class", "input-group " + groupClass + " " + config.groupClass)
+                $inputGroup.prop("class", "input-group " + groupClass + " " + props.groupClass)
                 $input.prop("class", "form-control " + inputClass)
 
                 // update the main attributes

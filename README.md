@@ -86,9 +86,9 @@ $(element).inputSpinner(config);
 The default configuration is
 
 ```javascript
-var config = {
-    decrementButton: "<strong>-</strong>", // button text
-    incrementButton: "<strong>+</strong>", // ..
+ var props = {
+    decrementButton: "<strong>&minus;</strong>", // button text
+    incrementButton: "<strong>&plus;</strong>", // ..
     groupClass: "", // css class of the resulting input-group
     buttonsClass: "btn-outline-secondary",
     buttonsWidth: "2.5rem",
@@ -97,11 +97,12 @@ var config = {
     autoInterval: 100, // speed of auto value change
     boostThreshold: 10, // boost after these steps
     boostMultiplier: "auto", // you can also set a constant number as multiplier
+    buttonsOnly: false, // Set this `true` to disable the possibility to enter or paste the number via keyboard.
     template: // the template of the input
         '<div class="input-group ${groupClass}">' +
-        '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button></div>' +
-        '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
-        '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button></div>' +
+        '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
+        '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control form-control-text-input"/>' +
+        '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
         '</div>'
 }
 ```
@@ -151,6 +152,11 @@ After these auto value changes the speed will increase with `boostMultiplier`.
 
 The speed multiplier after `boostThreshold` steps of auto value change. 
 If set to `"auto"` (default value) the multiplier will increase over time.
+
+##### buttonsOnly
+
+In `buttonsOnly` mode (set `true`) no direct text input is allowed, the text-input 
+gets the attribute `readOnly`. But the plus and minus buttons still allow to change the value.
 
 ### Programmatic change and read of value
 
