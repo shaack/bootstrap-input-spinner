@@ -48,13 +48,13 @@
             is <b>mobile friendly</b> and <b>responsive</b>,
         </li>
         <li>
-            automatically changes value when <b>holding button</b>, boosts value change when holding button longer,
-        </li>
-        <li>
             has <b>internationalized</b> number formatting,
         </li>
         <li>
-            allows setting a <b>prefix</b> or a <b>suffix</b> text in the input,
+            automatically changes value when <b>holding button</b>, boosts value change when holding button longer,
+        </li>
+        <li>
+            allows setting a <b>prefix</b> or <b>suffix</b> text in the input,
         </li>
         <li>
             handles <code>val()</code> like the native element,
@@ -73,7 +73,7 @@
     </ul>
     <h2>Usage</h2>
     <p>
-        This script enables the InputSpinner for all inputs with <code>type='number'</code> on this page.
+        This script enables the InputSpinner for all inputs with <code>type='number'</code>.
         <b>No extra css needed</b>, just Bootstrap 4.
     </p>
     <pre><code class="language-html">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
@@ -188,6 +188,7 @@ $inputGross.on("change", function (event) {
     <p>
         <input class="buttons-only" value="5" min="1" max="10"/>
     </p>
+    <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true})</code></pre>
 
     <h3>Dynamically handling of the <code>class</code> attribute</h3>
     <p>
