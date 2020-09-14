@@ -80,6 +80,7 @@
             var $buttonIncrement = $inputGroup.find(".btn-increment")
             var $input = $inputGroup.find("input")
 
+            // var base = null // base value for step calculations
             var min = null
             var max = null
             var step = null
@@ -240,7 +241,6 @@
                 var readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
                 $input.prop("readonly", readonly || props.buttonsOnly)
-                $input.val("123")
                 $buttonIncrement.prop("disabled", disabled || readonly)
                 $buttonDecrement.prop("disabled", disabled || readonly)
                 if (disabled || readonly) {
