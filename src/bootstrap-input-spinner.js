@@ -187,7 +187,6 @@
             }
 
             function stepHandling(step) {
-
                 calcStep(step)
                 resetTimer()
                 autoDelayHandler = setTimeout(function () {
@@ -260,7 +259,7 @@
                 $input.prop("class", "form-control " + inputClass)
 
                 // update the main attributes
-                min = parseFloat($original.prop("min")) || 0
+                min = parseFloat($original.prop("min")) || -Infinity
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
                 stepMax = parseInt($original.attr("data-step-max")) || 0
