@@ -88,12 +88,6 @@
             var digitGrouping = null
             var numberFormat = null
 
-            console.log("buttonsOnly", props.buttonsOnly)
-            if (props.buttonsOnly) {
-                console.log("bo", $input)
-                $input.prop("readonly", true)
-            }
-
             updateAttributes()
 
             var value = parseFloat($original[0].value)
