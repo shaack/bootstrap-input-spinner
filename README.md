@@ -160,7 +160,7 @@ gets the attribute `readOnly`. But the plus and minus buttons still allow to cha
 
 ### Programmatic change and read of value
 
-The change or read the value just use the jQuery `val()` function
+To change or read the value just use the jQuery `val()` function
 on the input, like this
 
 ```javascript
