@@ -12,13 +12,13 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 The Bootstrap 4 InputSpinner
 
 - is **mobile friendly** and **responsive**,
-- automatically changes value when **holding button**, boosts value change when holding button longer,
+- automatically changes the value when **holding a button**,
 - has **internationalized** number formatting,
 - allows setting a **prefix** or a **suffix** text in the input,
 - handles **`val()`** like the native element,
 - **dynamically handles** changing **attribute values** like `disabled` or `class`,
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
-- works **without extra css**, only the bootstrap 4 standard css is needed.
+- works **without extra css**, only bootstrap 4 is needed.
 
 ## Installation
 
