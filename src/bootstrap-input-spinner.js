@@ -259,7 +259,7 @@
                 $input.prop("class", "form-control " + inputClass)
 
                 // update the main attributes
-                min = parseFloat($original.prop("min")) || -Infinity
+                min = isNaN($original.prop("min")) || $original.prop("min") === "" ? -Infinity : parseFloat($original.prop("min"))
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
                 stepMax = parseInt($original.attr("data-step-max")) || 0
