@@ -293,14 +293,12 @@ $dataDecimalsInput.on("change", function (event) {
             class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
 
 
-    <h3>Attribute <code>data-step-max</code> and looping the value</h3>
-    <p>This Input starts from 0 when reaching 360.</p>
+    <h3>Looping the value</h3>
+    <p>This input starts from 0 when reaching 360.</p>
     <p>
-        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="1"
-               data-step-max="10"/>
+        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="10"/>
     </p>
-    <p>Use the <code>data-step-max</code> attribute to limit the step velocity.</p>
-    <pre><code class="language-html">&lt;input step="1" data-step-max="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
+    <pre><code class="language-html">&lt;input step="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the <code>change</code> event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
 $inputLoop.on("change", function (event) {

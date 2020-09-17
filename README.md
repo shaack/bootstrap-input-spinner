@@ -64,7 +64,6 @@ Use these attributes to configure the behaviour
 - `max` // maximum value when stepping
 - `step` // step size  
 - `inputmode` // the "inputmode" of the input, defaults to "decimal" (shows decimal keyboard on touch devices)
-- `data-step-max` // max boost when stepping
 - `data-decimals` // shown decimal places
 - `data-digit-grouping` // "false" to disable grouping (thousands separator), default is "true"
 - `data-prefix` // show a prefix text in the input element
@@ -86,18 +85,16 @@ $(element).inputSpinner(config);
 The default configuration is
 
 ```javascript
- var props = {
+var props = {
     decrementButton: "<strong>&minus;</strong>", // button text
     incrementButton: "<strong>&plus;</strong>", // ..
     groupClass: "", // css class of the resulting input-group
     buttonsClass: "btn-outline-secondary",
     buttonsWidth: "2.5rem",
-    textAlign: "center",
-    autoDelay: 500, // ms holding before auto value change
-    autoInterval: 100, // speed of auto value change
-    boostThreshold: 10, // boost after these steps
-    boostMultiplier: "auto", // you can also set a constant number as multiplier
-    buttonsOnly: false, // Set this `true` to disable the possibility to enter or paste the number via keyboard.
+    textAlign: "center", // alignment of the entered number
+    autoDelay: 500, // ms threshold before auto value change
+    autoInterval: 50, // speed of auto value change
+    buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
     template: // the template of the input
         '<div class="input-group ${groupClass}">' +
         '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
@@ -137,21 +134,11 @@ The text alignment inside the `<input>`
 
 ##### autoDelay
 
-The delay in ms after which the input automatically changes 
-the value, when holding the increment or decrement button.
+The delay in ms after which the input automatically changes the value, when holding the increment or decrement button.
 
 ##### autoInterval
 
-Speed of the value change when holding the button in ms. Lower value makes it faster.
-
-##### boostThreshold
-
-After these auto value changes the speed will increase with `boostMultiplier`.
-
-##### boostMultiplier
-
-The speed multiplier after `boostThreshold` steps of auto value change. 
-If set to `"auto"` (default value) the multiplier will increase over time.
+Speed of the value change when holding the button in ms. A lower value makes it faster.
 
 ##### buttonsOnly
 
@@ -173,7 +160,7 @@ $(element).val(newValue) // write
 ### Handling attributes
 
 The attributes
-`min`, `max`, `step`, `stepMax`, `decimals`, `placeholder`, `required`, `disabled`, `readonly` and `class`
+`min`, `max`, `step`, `decimals`, `placeholder`, `required`, `disabled`, `readonly` and `class`
 are handled dynamically. The `class` attribute value is dynamically copied to the input element.
 
 #### Sizing

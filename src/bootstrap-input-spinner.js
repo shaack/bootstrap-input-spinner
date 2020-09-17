@@ -36,12 +36,10 @@
             groupClass: "", // css class of the resulting input-group
             buttonsClass: "btn-outline-secondary",
             buttonsWidth: "2.5rem",
-            textAlign: "center",
-            autoDelay: 500, // ms holding before auto value change
-            autoInterval: 100, // speed of auto value change
-            boostThreshold: 10, // boost after these steps
-            boostMultiplier: "auto", // you can also set a constant number as multiplier
-            buttonsOnly: false, // Set this `true` to disable the possibility to enter or paste the number via keyboard.
+            textAlign: "center", // alignment of the entered number
+            autoDelay: 500, // ms threshold before auto value change
+            autoInterval: 50, // speed of auto value change
+            buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
                 '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
@@ -72,8 +70,6 @@
 
             var autoDelayHandler = null
             var autoIntervalHandler = null
-            var autoMultiplier = props.boostMultiplier === "auto"
-            var boostMultiplier = autoMultiplier ? 1 : props.boostMultiplier
 
             var $inputGroup = $(html)
             var $buttonDecrement = $inputGroup.find(".btn-decrement")
@@ -84,7 +80,6 @@
             var min = null
             var max = null
             var step = null
-            var stepMax = null
             var decimals = null
             var digitGrouping = null
             var numberFormat = null
@@ -192,22 +187,7 @@
                 resetTimer()
                 autoDelayHandler = setTimeout(function () {
                     autoIntervalHandler = setInterval(function () {
-                        if (boostStepsCount > props.boostThreshold) {
-                            if (autoMultiplier) {
-                                calcStep(step * parseInt(boostMultiplier, 10))
-                                if (boostMultiplier < 100000000) {
-                                    boostMultiplier = boostMultiplier * 1.1
-                                }
-                                if (stepMax) {
-                                    boostMultiplier = Math.min(stepMax, boostMultiplier)
-                                }
-                            } else {
-                                calcStep(step * boostMultiplier)
-                            }
-                        } else {
-                            calcStep(step)
-                        }
-                        boostStepsCount++
+                        calcStep(step)
                     }, props.autoInterval)
                 }, props.autoDelay)
             }
@@ -223,8 +203,6 @@
             }
 
             function resetTimer() {
-                boostStepsCount = 0
-                boostMultiplier = boostMultiplier = autoMultiplier ? 1 : props.boostMultiplier
                 clearTimeout(autoDelayHandler)
                 clearTimeout(autoIntervalHandler)
             }
@@ -262,7 +240,6 @@
                 min = isNaN($original.prop("min")) || $original.prop("min") === "" ? -Infinity : parseFloat($original.prop("min"))
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
-                stepMax = parseInt($original.attr("data-step-max")) || 0
                 var newDecimals = parseInt($original.attr("data-decimals")) || 0
                 var newDigitGrouping = !($original.attr("data-digit-grouping") === "false")
                 if (decimals !== newDecimals || digitGrouping !== newDigitGrouping) {
