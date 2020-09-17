@@ -143,7 +143,7 @@ Speed of the value change when holding the button in ms. A lower value makes it 
 ##### buttonsOnly
 
 In `buttonsOnly` mode (set `true`) no direct text input is allowed, the text-input 
-gets the attribute `readOnly`. But the plus and minus buttons still allow to change the value.
+gets the attribute `readonly`. But the plus and minus buttons still allow to change the value.
 
 ### Programmatic change and read of value
 
