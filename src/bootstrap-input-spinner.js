@@ -40,6 +40,7 @@
             autoDelay: 500, // ms threshold before auto value change
             autoInterval: 50, // speed of auto value change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
+            locale: navigator.language,
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
                 '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
@@ -60,7 +61,7 @@
             .replace(/\${incrementButton}/g, props.incrementButton)
             .replace(/\${textAlign}/g, props.textAlign)
 
-        var locale = navigator.language || "en-US"
+        var locale = props.locale || "en-US"
 
         this.each(function () {
 
