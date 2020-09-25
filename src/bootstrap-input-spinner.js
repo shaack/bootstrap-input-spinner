@@ -40,7 +40,7 @@
             autoDelay: 500, // ms threshold before auto value change
             autoInterval: 50, // speed of auto value change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
-            locale: navigator.language,
+            locale: navigator.language, // the locale, per default detected automatically from the browser
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
                 '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
