@@ -88,7 +88,6 @@
             updateAttributes()
 
             var value = parseFloat($original[0].value)
-            var boostStepsCount = 0
 
             var prefix = $original.attr("data-prefix") || ""
             var suffix = $original.attr("data-suffix") || ""
@@ -128,10 +127,14 @@
             })
 
             onPointerDown($buttonDecrement[0], function () {
-                stepHandling(-step)
+                if(!$buttonDecrement.prop("disabled")) {
+                    stepHandling(-step)
+                }
             })
             onPointerDown($buttonIncrement[0], function () {
-                stepHandling(step)
+                if(!$buttonIncrement.prop("disabled")) {
+                    stepHandling(step)
+                }
             })
             onPointerUp(document.body, function () {
                 resetTimer()
