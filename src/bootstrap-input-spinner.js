@@ -80,9 +80,6 @@
             if (!$label[0]) {
                 $label = $original.closest("label")
             }
-            if ($label[0]) {
-
-            }
 
             // var base = null // base value for step calculations
             var min = null
