@@ -76,6 +76,13 @@
             var $buttonDecrement = $inputGroup.find(".btn-decrement")
             var $buttonIncrement = $inputGroup.find(".btn-increment")
             var $input = $inputGroup.find("input")
+            var $label = $("label[for='" + $original.attr("id") + "']")
+            if (!$label[0]) {
+                $label = $original.closest("label")
+            }
+            if ($label[0]) {
+
+            }
 
             // var base = null // base value for step calculations
             var min = null
@@ -127,12 +134,12 @@
             })
 
             onPointerDown($buttonDecrement[0], function () {
-                if(!$buttonDecrement.prop("disabled")) {
+                if (!$buttonDecrement.prop("disabled")) {
                     stepHandling(-step)
                 }
             })
             onPointerDown($buttonIncrement[0], function () {
-                if(!$buttonIncrement.prop("disabled")) {
+                if (!$buttonIncrement.prop("disabled")) {
                     stepHandling(step)
                 }
             })
@@ -169,6 +176,9 @@
                 $input.off("paste input change focusout")
                 $inputGroup.remove()
                 $original.show()
+                if($label[0]) {
+                    $label.attr("for", $original.attr("id"))
+                }
             }
 
             function dispatchEvent($element, type) {
@@ -259,6 +269,12 @@
                     $inputGroup.attr("hidden", $original.attr("hidden"))
                 } else {
                     $inputGroup.removeAttr("hidden")
+                }
+                if($original.attr("id")) {
+                    $input.attr("id", $original.attr("id") + "_MP_cBdLN29i2")
+                    if($label[0]) {
+                        $label.attr("for", $input.attr("id"))
+                    }
                 }
             }
 
