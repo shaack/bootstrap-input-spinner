@@ -105,8 +105,6 @@ var props = {
 }
 ```
 
-The locale for number formatting is detected from the browser settings.
-
 ##### decrementButton, incrementButton
 
 HTML of the texts inside the buttons.
@@ -116,7 +114,7 @@ HTML of the texts inside the buttons.
 Additional css class for the `input-group`, results in
 
 ```html
-<div class="input-group ' + config.groupClass + '">
+<div class="input-group ${groupClass}">
 ```
 
 ##### buttonsClass
@@ -145,6 +143,10 @@ Speed of the value change when holding the button in ms. A lower value makes it 
 
 In `buttonsOnly` mode (set `true`) no direct text input is allowed, the text-input 
 gets the attribute `readonly`. But the plus and minus buttons still allow to change the value.
+
+##### locale
+
+Used to format the number in the UI. Detected automatically from the users browser, can be set to "de", "en",… or "de_DE", "en_GB",….
 
 ### Programmatic change and read of value
 
