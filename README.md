@@ -95,6 +95,7 @@ var props = {
     autoDelay: 500, // ms threshold before auto value change
     autoInterval: 50, // speed of auto value change
     buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
+    keyboardStepping: false, // set this to `true` to allow the use of the up and down arrow keys to step
     locale: navigator.language, // the locale, per default detected automatically from the browser
     template: // the template of the input
         '<div class="input-group ${groupClass}">' +
@@ -141,8 +142,12 @@ Speed of the value change when holding the button in ms. A lower value makes it 
 
 ##### buttonsOnly
 
-In `buttonsOnly` mode (set `true`) no direct text input is allowed, the text-input 
+In `buttonsOnly` mode (set `true`) no direct text input is allowed, the text-input
 gets the attribute `readonly`. But the plus and minus buttons still allow to change the value.
+
+##### keyboardStepping
+
+In `keyboardStepping` mode (set `true`) allows the use of the up/down arrow keys to increase/decrease the number by the step.
 
 ##### locale
 
