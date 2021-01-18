@@ -40,6 +40,7 @@
             autoDelay: 500, // ms threshold before auto value change
             autoInterval: 50, // speed of auto value change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
+            keyboardStepping: false, // set this to `true` to allow the use of the up and down arrow keys to step
             locale: navigator.language, // the locale, per default detected automatically from the browser
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
@@ -128,6 +129,26 @@
                 newValue = parseLocaleNumber(newValue)
                 setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
+            }).on("keydown", function(event) {
+                if (props.keyboardStepping) {
+                    if (event.which === 38) { // up arrow pressed
+                        event.preventDefault();
+                        if (!$buttonDecrement.prop("disabled")) {
+                            stepHandling(step)
+                        }
+                    } else if (event.which === 40) { // down arrow pressed
+                        event.preventDefault();
+                        if (!$buttonIncrement.prop("disabled")) {
+                            stepHandling(-step)
+                        }
+                    }
+                }
+            }).on("keyup", function(event) {
+                // up/down arrow released
+                if (props.keyboardStepping && (event.which === 38 || event.which === 40)) {
+                    event.preventDefault();
+                    resetTimer();
+                }
             })
 
             onPointerDown($buttonDecrement[0], function () {
