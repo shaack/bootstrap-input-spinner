@@ -40,7 +40,7 @@
             autoDelay: 500, // ms threshold before auto value change
             autoInterval: 50, // speed of auto value change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
-            keyboardStepping: false, // set this to `true` to allow the use of the up and down arrow keys to step
+            keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
             locale: navigator.language, // the locale, per default detected automatically from the browser
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
@@ -129,25 +129,25 @@
                 newValue = parseLocaleNumber(newValue)
                 setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
-            }).on("keydown", function(event) {
+            }).on("keydown", function (event) {
                 if (props.keyboardStepping) {
                     if (event.which === 38) { // up arrow pressed
-                        event.preventDefault();
+                        event.preventDefault()
                         if (!$buttonDecrement.prop("disabled")) {
                             stepHandling(step)
                         }
                     } else if (event.which === 40) { // down arrow pressed
-                        event.preventDefault();
+                        event.preventDefault()
                         if (!$buttonIncrement.prop("disabled")) {
                             stepHandling(-step)
                         }
                     }
                 }
-            }).on("keyup", function(event) {
+            }).on("keyup", function (event) {
                 // up/down arrow released
                 if (props.keyboardStepping && (event.which === 38 || event.which === 40)) {
-                    event.preventDefault();
-                    resetTimer();
+                    event.preventDefault()
+                    resetTimer()
                 }
             })
 
@@ -194,7 +194,7 @@
                 $input.off("paste input change focusout")
                 $inputGroup.remove()
                 $original.show()
-                if($label[0]) {
+                if ($label[0]) {
                     $label.attr("for", $original.attr("id"))
                 }
             }
@@ -288,9 +288,9 @@
                 } else {
                     $inputGroup.removeAttr("hidden")
                 }
-                if($original.attr("id")) {
+                if ($original.attr("id")) {
                     $input.attr("id", $original.attr("id") + "_MP_cBdLN29i2")
-                    if($label[0]) {
+                    if ($label[0]) {
                         $label.attr("for", $input.attr("id"))
                     }
                 }

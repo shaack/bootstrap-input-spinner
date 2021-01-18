@@ -95,7 +95,7 @@ var props = {
     autoDelay: 500, // ms threshold before auto value change
     autoInterval: 50, // speed of auto value change
     buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
-    keyboardStepping: false, // set this to `true` to allow the use of the up and down arrow keys to step
+    keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
     locale: navigator.language, // the locale, per default detected automatically from the browser
     template: // the template of the input
         '<div class="input-group ${groupClass}">' +
