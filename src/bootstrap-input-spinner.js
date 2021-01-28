@@ -328,8 +328,10 @@
 
     function onPointerDown(element, callback) {
         element.addEventListener("mousedown", function (e) {
-            e.preventDefault()
-            callback(e)
+            if(e.button === 0) {
+                e.preventDefault()
+                callback(e)
+            }
         })
         element.addEventListener("touchstart", function (e) {
             if (e.cancelable) {
