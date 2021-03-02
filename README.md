@@ -4,8 +4,11 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
 
-![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner.png)
-*Screenshot with floating point example and german localization.*
+![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
+*Examples with floating-point and german localization*
+
+![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/time-editor.png)
+*Supports custom editors to parse and render everything*
 
 ## Features
 
@@ -17,6 +20,7 @@ The Bootstrap 4 InputSpinner
 - allows setting a **prefix** or a **suffix** text in the input,
 - handles **`val()`** like the native element,
 - **dynamically handles** changing **attribute values** like `disabled` or `class`,
+- supports **templates** and **custom editors**, (*new!*)
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
 - works **without extra css**, only bootstrap 4 is needed.
 
