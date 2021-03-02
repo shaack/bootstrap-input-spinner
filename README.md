@@ -158,7 +158,7 @@ de_DE", "en_GB",….
 ##### editor (*new!*)
 
 An Editor defines, how the input is parsed and rendered. The default editor of the spinner is the `I18nEditor`, which
-renders and parses an internationalized number value. There are additional editors in `/src/input-spinner-custom-editors.js`. An
+renders and parses an internationalized number value. There are custom editors in `/src/input-spinner-custom-editors.js`. An
 Editor must implement the two functions `parse(customValue)`, to parse the input to a number and `render(number)` to
 render the number to the spinner input.
 

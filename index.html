@@ -363,7 +363,8 @@ $inputLoop.on("change", function (event) {
 
     <h3>Custom Editors (<i>new!</i>)</h3>
 
-    <p>An Editor defines, how the input is parsed and rendered.</p>
+    <p>An Editor defines, how the input is parsed and rendered. The inputSpinner is shipped with some custom Editors in
+        <code>/src/input-spinner-custom-editors.js</code>.</p>
 
     <h4>RawEditor</h4>
 
@@ -376,7 +377,8 @@ $inputLoop.on("change", function (event) {
     <script>
         $("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.RawEditor})
     </script>
-    <pre><code class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.RawEditor})</code></pre>
+    <pre><code
+            class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.RawEditor})</code></pre>
 
     <h4>TimeEditor</h4>
 
@@ -393,7 +395,8 @@ $inputLoop.on("change", function (event) {
             $("#timeValue").text($timeEditorInput.val())
         })
     </script>
-    <pre><code class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.TimeEditor})</code></pre>
+    <pre><code
+            class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.TimeEditor})</code></pre>
 
     <h3>Styling with templates (<i>new!</i>)</h3>
     <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
