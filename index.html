@@ -17,19 +17,14 @@
             margin-top: 2rem;
         }
 
-        /*noinspection CssUnusedSymbol*/
         .input-group, input.test-value-input {
             max-width: 250px;
         }
-        .input-group-wide {
-            max-width: 320px;
-        }
-
-        .code {
-            background-color: #f1f2f3;
-            font-family: Courier, monospace;
-        }
     </style>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="src/bootstrap-input-spinner.js"></script>
+    <script src="./node_modules/prismjs/prism.js"></script>
 </head>
 <body>
 <section class="container py-5">
@@ -93,10 +88,7 @@
     <p>
         <input type="number"/>
     </p>
-    <pre><code
-            class="language-html">&lt;input type="number"/></code></pre>
-
-
+    <pre><code class="language-html">&lt;input type="number"/></code></pre>
     <h3>Simple Integer</h3>
     <p>
         <input type="number" value="500" min="0" max="1000" step="10"/>
@@ -122,6 +114,17 @@
         Value on input: <span id="valueOnInput"></span><br/>
         Value on change: <span id="valueOnChange"></span>
     </p>
+    <script>
+        var $changedInput = $("#changedInput")
+        var $valueOnInput = $("#valueOnInput")
+        var $valueOnChange = $("#valueOnChange")
+        $changedInput.on("input", function (event) {
+            $valueOnInput.html($changedInput.val())
+        })
+        $changedInput.on("change", function (event) {
+            $valueOnChange.html($changedInput.val())
+        })
+    </script>
     <pre><code class="language-javascript">var $changedInput = $("#changedInput")
 var $valueOnInput = $("#valueOnInput")
 var $valueOnChange = $("#valueOnChange")
@@ -140,6 +143,17 @@ $changedInput.on("change", function (event) {
         Gross (+19%)
         <input type="number" id="inputGross" value="100" min="0" max="11900" step="0.01" data-decimals="2"/>
     </p>
+    <script>
+        var $inputNet = $("#inputNet")
+        var $inputGross = $("#inputGross")
+        $inputNet.on("change", function (event) {
+            $inputGross.val($inputNet.val() * 1.19)
+        })
+        $inputGross.on("change", function (event) {
+            $inputNet.val($inputGross.val() / 1.19)
+        })
+        $inputGross.val($inputNet.val() * 1.19)
+    </script>
     <pre><code class="language-javascript">$inputNet.on("change", function (event) {
     $inputGross.val($inputNet.val() * 1.19)
 })
@@ -166,6 +180,13 @@ $inputGross.on("change", function (event) {
             <input type="checkbox" checked class="form-check-input" id="disabledSwitch">
             <label class="form-check-label" for="disabledSwitch">Disabled</label>
         </div>
+        <script>
+            var $inputDisabled = $("#inputDisabled")
+            var $disabledSwitch = $("#disabledSwitch")
+            $disabledSwitch.on("change", function () {
+                $inputDisabled.prop("disabled", $(this).prop("checked"))
+            })
+        </script>
         <pre><code class="language-html">&lt;input id="inputDisabled" disabled type="number" value="50"/>
 &lt;div class="form-check">
     &lt;input type="checkbox" checked class="form-check-input" id="disabledSwitch"/>
@@ -199,7 +220,13 @@ $inputGross.on("change", function (event) {
         <input id="classInput" type="text" class="form-control test-value-input" value="is-valid"/>
         Try to change the class to "is-invalid" or "text-info".
     </p>
-
+    <script>
+        var $inputChangeClass = $("#inputChangeClass")
+        var $classInput = $("#classInput")
+        $classInput.on("input", function () {
+            $inputChangeClass.prop("class", this.value)
+        })
+    </script>
     <pre><code class="language-html">&lt;input id="inputChangeClass" class="is-valid" type="number" value="50"/>
 &lt;label for="classInput">CSS Class&lt;/label>
 &lt;input id="classInput" type="text" class="form-control" value="is-valid"/>
@@ -259,6 +286,25 @@ $inputGross.on("change", function (event) {
         <label for="minMaxTester">Try here</label>
         <input id="minMaxTester" type="number" value="50" min="0" max="100" step="0.05" data-decimals="2"/>
     </p>
+    <script>
+        var $minInput = $("#minInput")
+        var $maxInput = $("#maxInput")
+        var $stepInput = $("#stepInput")
+        var $dataDecimalsInput = $("#dataDecimalsInput")
+        var $minMaxTester = $("#minMaxTester")
+        $minInput.on("change", function (event) {
+            $minMaxTester.attr("min", $minInput.val())
+        })
+        $maxInput.on("change", function (event) {
+            $minMaxTester.attr("max", $maxInput.val())
+        })
+        $stepInput.on("change", function (event) {
+            $minMaxTester.attr("step", $stepInput.val())
+        })
+        $dataDecimalsInput.on("change", function (event) {
+            $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
+        })
+    </script>
     <pre><code class="language-javascript">var $minInput = $("#minInput")
 var $maxInput = $("#maxInput")
 var $stepInput = $("#stepInput")
@@ -277,7 +323,6 @@ $dataDecimalsInput.on("change", function (event) {
     $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
 })
 </code></pre>
-
 
     <h3>Prefix and Suffix</h3>
     <p>
@@ -298,6 +343,14 @@ $dataDecimalsInput.on("change", function (event) {
     <p>
         <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="10"/>
     </p>
+    <script>
+        var $inputLoop = $("#inputLoop")
+        $inputLoop.on("change", function (event) {
+            var value = $inputLoop.val()
+            value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
+            $inputLoop.val(value)
+        })
+    </script>
     <pre><code class="language-html">&lt;input step="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the <code>change</code> event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
@@ -311,11 +364,23 @@ $inputLoop.on("change", function (event) {
     <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
     <h5>How about... buttons right</h5>
     <p>
-    <input data-prefix="¥" id="templateButtonsRight" value="1000"/>
+        <input data-prefix="¥" id="templateButtonsRight" value="1000"/>
     </p>
     <p>
-    This is the template for "buttons right":
+        This is the template for "buttons right":
     </p>
+    <script>
+        $("#templateButtonsRight").inputSpinner({
+            template:
+                '<div class="input-group ${groupClass}">' +
+                '<div class="input-group-prepend"></div>' +
+                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
+                '<div class="input-group-append">' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
+                '</div></div>'
+        })
+    </script>
     <pre><code class="language-html">&lt;div class="input-group ${groupClass}">
 &lt;div class="input-group-prepend">&lt;/div>
 &lt;input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>
@@ -343,15 +408,30 @@ $inputLoop.on("change", function (event) {
     </div>
     <button id="buttonDestroy" class="btn btn-primary">destroy</button>
     <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
+    <script>
+        var $buttonDestroy = $("#buttonDestroy")
+        var $buttonCreate = $("#buttonCreate")
+        var $inputDestroyCreate = $("#inputDestroyCreate")
+        $buttonDestroy.click(function () {
+            $inputDestroyCreate.inputSpinner("destroy")
+            $buttonDestroy.attr("disabled", true)
+            $buttonCreate.attr("disabled", false)
+        })
+        $buttonCreate.click(function () {
+            $inputDestroyCreate.inputSpinner()
+            $buttonDestroy.attr("disabled", false)
+            $buttonCreate.attr("disabled", true)
+        })
+    </script>
 
     <div class="card my-5 border-info">
         <a href="https://shaack.com/en/open-source-components">
-        <div class="card-body">
-            <h4 class="mb-2">More Bootstrap 4 Components (from shaack.com)</h4>
-            You may want to check out our further Bootstrap 4 extensions,
+            <div class="card-body">
+                <h4 class="mb-2">More Bootstrap 4 Components (from shaack.com)</h4>
+                You may want to check out our further Bootstrap 4 extensions,
                 <b>bootstrap-show-modal</b> and
                 <b>bootstrap-detect-breakpoint</b>.
-        </div>
+            </div>
         </a>
     </div>
     <p>If you find bugs or have suggestions, you may write an
@@ -359,105 +439,9 @@ $inputLoop.on("change", function (event) {
     <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
-<script src="./node_modules/jquery/dist/jquery.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="src/bootstrap-input-spinner.js"></script>
-<script src="./node_modules/prismjs/prism.js"></script>
 <script>
     $("input[type='number']").inputSpinner()
     $(".buttons-only").inputSpinner({buttonsOnly: true})
-</script>
-<script>
-    var $inputChangeClass = $("#inputChangeClass")
-    var $classInput = $("#classInput")
-    $classInput.on("input", function () {
-        $inputChangeClass.prop("class", this.value)
-    })
-</script>
-<script>
-    var $inputDisabled = $("#inputDisabled")
-    var $disabledSwitch = $("#disabledSwitch")
-    $disabledSwitch.on("change", function () {
-        $inputDisabled.prop("disabled", $(this).prop("checked"))
-    })
-</script>
-<!--suppress JSUnusedLocalSymbols -->
-<script>
-    var $changedInput = $("#changedInput")
-    var $valueOnInput = $("#valueOnInput")
-    var $valueOnChange = $("#valueOnChange")
-    $changedInput.on("input", function (event) {
-        $valueOnInput.html($changedInput.val())
-    })
-    $changedInput.on("change", function (event) {
-        $valueOnChange.html($changedInput.val())
-    })
-</script>
-<!--suppress JSUnusedLocalSymbols -->
-<script>
-    var $minInput = $("#minInput")
-    var $maxInput = $("#maxInput")
-    var $stepInput = $("#stepInput")
-    var $dataDecimalsInput = $("#dataDecimalsInput")
-    var $minMaxTester = $("#minMaxTester")
-    $minInput.on("change", function (event) {
-        $minMaxTester.attr("min", $minInput.val())
-    })
-    $maxInput.on("change", function (event) {
-        $minMaxTester.attr("max", $maxInput.val())
-    })
-    $stepInput.on("change", function (event) {
-        $minMaxTester.attr("step", $stepInput.val())
-    })
-    $dataDecimalsInput.on("change", function (event) {
-        $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
-    })
-</script>
-<!--suppress JSUnusedLocalSymbols -->
-<script>
-    var $inputNet = $("#inputNet")
-    var $inputGross = $("#inputGross")
-    $inputNet.on("change", function (event) {
-        $inputGross.val($inputNet.val() * 1.19)
-    })
-    $inputGross.on("change", function (event) {
-        $inputNet.val($inputGross.val() / 1.19)
-    })
-    $inputGross.val($inputNet.val() * 1.19)
-</script>
-<script>
-    var $inputLoop = $("#inputLoop")
-    $inputLoop.on("change", function (event) {
-        var value = $inputLoop.val()
-        value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
-        $inputLoop.val(value)
-    })
-</script>
-<script>
-    $("#templateButtonsRight").inputSpinner({template:
-            '<div class="input-group ${groupClass}">' +
-            '<div class="input-group-prepend"></div>' +
-            '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
-            '<div class="input-group-append">' +
-            '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
-            '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
-            '</div></div>'
-    })
-</script>
-<script>
-    var $buttonDestroy = $("#buttonDestroy")
-    var $buttonCreate = $("#buttonCreate")
-    var $inputDestroyCreate = $("#inputDestroyCreate")
-    $buttonDestroy.click(function () {
-        $inputDestroyCreate.inputSpinner("destroy")
-        $buttonDestroy.attr("disabled", true)
-        $buttonCreate.attr("disabled", false)
-    })
-    $buttonCreate.click(function () {
-        $inputDestroyCreate.inputSpinner()
-        $buttonDestroy.attr("disabled", false)
-        $buttonCreate.attr("disabled", true)
-    })
 </script>
 </body>
 </html>
