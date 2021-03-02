@@ -7,6 +7,34 @@
 ;(function ($) {
     "use strict"
 
+    // the default editor for rendering
+    var I18nEditor = function (props, element) {
+        var locale = props.locale || "en-US"
+
+        this.parse = function(customFormat) {
+            var numberFormat = new Intl.NumberFormat(locale)
+            var thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
+            var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
+            return parseFloat(customFormat
+                .replace(new RegExp(' ', 'g'), '')
+                .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
+                .replace(new RegExp('\\' + decimalSeparator), '.')
+            )
+        }
+
+        this.render = function(number) {
+            var decimals = parseInt(element.getAttribute("data-decimals")) || 0
+            var digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
+            var numberFormat = new Intl.NumberFormat(locale, {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
+                useGrouping: digitGrouping
+            })
+            return numberFormat.format(number)
+        }
+    }
+
+
     var triggerKeyPressed = false
     var originalVal = $.fn.val
     $.fn.val = function (value) {
@@ -42,6 +70,7 @@
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
             keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
             locale: navigator.language, // the locale, per default detected automatically from the browser
+            editor: I18nEditor, // change the editor
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
                 '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
@@ -62,13 +91,12 @@
             .replace(/\${incrementButton}/g, props.incrementButton)
             .replace(/\${textAlign}/g, props.textAlign)
 
-        var locale = props.locale || "en-US"
-
         this.each(function () {
 
             var $original = $(this)
             $original[0]["bootstrap-input-spinner"] = true
             $original.hide()
+            $original[0].inputSpinnerEditor = new props.editor(props, this)
 
             var autoDelayHandler = null
             var autoIntervalHandler = null
@@ -82,13 +110,9 @@
                 $label = $original.closest("label")
             }
 
-            // var base = null // base value for step calculations
             var min = null
             var max = null
             var step = null
-            var decimals = null
-            var digitGrouping = null
-            var numberFormat = null
 
             updateAttributes()
 
@@ -126,7 +150,7 @@
             $input.on("paste input change focusout", function (event) {
                 var newValue = $input[0].value
                 var focusOut = event.type === "focusout"
-                newValue = parseLocaleNumber(newValue)
+                newValue = $original[0].inputSpinnerEditor.parse(newValue)
                 setValue(newValue, focusOut)
                 dispatchEvent($original, event.type)
             }).on("keydown", function (event) {
@@ -178,10 +202,11 @@
                 } else {
                     newValue = parseFloat(newValue)
                     newValue = Math.min(Math.max(newValue, min), max)
-                    newValue = Math.round(newValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
+                    // newValue = Math.round(newValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
                     $original[0].value = newValue
                     if (updateInput) {
-                        $input[0].value = numberFormat.format(newValue)
+                        // $input[0].value = numberFormat.format(newValue)
+                        $input[0].value = $original[0].inputSpinnerEditor.render(newValue)
                     }
                     value = newValue
                 }
@@ -272,6 +297,8 @@
                 min = isNaN($original.prop("min")) || $original.prop("min") === "" ? -Infinity : parseFloat($original.prop("min"))
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
+                // $original.editor = new props.editor($original[0].getAttribute, props) // update the editor, if it depends on input attributes
+                /*
                 var newDecimals = parseInt($original.attr("data-decimals")) || 0
                 var newDigitGrouping = !($original.attr("data-digit-grouping") === "false")
                 if (decimals !== newDecimals || digitGrouping !== newDigitGrouping) {
@@ -283,6 +310,7 @@
                         useGrouping: digitGrouping
                     })
                 }
+                */
                 if ($original.attr("hidden")) {
                     $inputGroup.attr("hidden", $original.attr("hidden"))
                 } else {
@@ -296,6 +324,7 @@
                 }
             }
 
+            /*
             function parseLocaleNumber(stringNumber) {
                 var numberFormat = new Intl.NumberFormat(locale)
                 var thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
@@ -306,6 +335,7 @@
                     .replace(new RegExp('\\' + decimalSeparator), '.')
                 )
             }
+             */
         })
 
         return this
@@ -328,7 +358,7 @@
 
     function onPointerDown(element, callback) {
         element.addEventListener("mousedown", function (e) {
-            if(e.button === 0) {
+            if (e.button === 0) {
                 e.preventDefault()
                 callback(e)
             }
