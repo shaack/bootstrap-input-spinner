@@ -5,7 +5,7 @@
  */
 
 
-inputSpinnerCustomEditors = {
+var inputSpinnerCustomEditors = {
     RawEditor: function (props, element) {
         this.parse = function (customFormat) {
             // parse nothing
