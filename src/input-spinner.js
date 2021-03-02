@@ -34,7 +34,6 @@
         }
     }
 
-
     var triggerKeyPressed = false
     var originalVal = $.fn.val
     $.fn.val = function (value) {
@@ -70,7 +69,7 @@
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
             keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
             locale: navigator.language, // the locale, per default detected automatically from the browser
-            editor: I18nEditor, // change the editor
+            editor: I18nEditor, // the editor (parsing and rendering of the input)
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
                 '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
