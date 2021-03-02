@@ -7,7 +7,7 @@
 ;(function ($) {
     "use strict"
 
-    // the default editor for rendering
+    // the default editor for parsing and rendering
     var I18nEditor = function (props, element) {
         var locale = props.locale || "en-US"
 
@@ -296,20 +296,6 @@
                 min = isNaN($original.prop("min")) || $original.prop("min") === "" ? -Infinity : parseFloat($original.prop("min"))
                 max = isNaN($original.prop("max")) || $original.prop("max") === "" ? Infinity : parseFloat($original.prop("max"))
                 step = parseFloat($original.prop("step")) || 1
-                // $original.editor = new props.editor($original[0].getAttribute, props) // update the editor, if it depends on input attributes
-                /*
-                var newDecimals = parseInt($original.attr("data-decimals")) || 0
-                var newDigitGrouping = !($original.attr("data-digit-grouping") === "false")
-                if (decimals !== newDecimals || digitGrouping !== newDigitGrouping) {
-                    decimals = newDecimals
-                    digitGrouping = newDigitGrouping
-                    numberFormat = new Intl.NumberFormat(locale, {
-                        minimumFractionDigits: decimals,
-                        maximumFractionDigits: decimals,
-                        useGrouping: digitGrouping
-                    })
-                }
-                */
                 if ($original.attr("hidden")) {
                     $inputGroup.attr("hidden", $original.attr("hidden"))
                 } else {
@@ -322,19 +308,6 @@
                     }
                 }
             }
-
-            /*
-            function parseLocaleNumber(stringNumber) {
-                var numberFormat = new Intl.NumberFormat(locale)
-                var thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
-                var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
-                return parseFloat(stringNumber
-                    .replace(new RegExp(' ', 'g'), '')
-                    .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
-                    .replace(new RegExp('\\' + decimalSeparator), '.')
-                )
-            }
-             */
         })
 
         return this
