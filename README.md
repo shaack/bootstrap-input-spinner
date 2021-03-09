@@ -7,9 +7,6 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
 *Examples with floating-point and german localization*
 
-![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/time-editor.png)
-*Supports custom editors to parse and render everything*
-
 ## Features
 
 The Bootstrap 4 InputSpinner
@@ -186,6 +183,9 @@ var RawEditor = function (props, element) {
 configuration of the Editor, like in `I18nEditor`, which uses `props` for the language and `element` for the attributes.
 
 The `TimeEditor` renders and parses the number to time in hours and minutes, separated by a colon.
+
+![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/time-editor.png)
+*Supports custom editors to parse and render everything*
 
 ##### template (*new!*)
 

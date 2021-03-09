@@ -120,20 +120,24 @@
         var $valueOnInput = $("#valueOnInput")
         var $valueOnChange = $("#valueOnChange")
         $changedInput.on("input", function (event) {
-            $valueOnInput.html($changedInput.val())
+            $valueOnInput.html($(event.target).val())
+            // or $valueOnInput.html(event.target.value) // in vanilla js
+            // or $valueOnInput.html($changedInput.val())
         })
         $changedInput.on("change", function (event) {
-            $valueOnChange.html($changedInput.val())
+            $valueOnChange.html($(event.target).val())
         })
     </script>
     <pre><code class="language-javascript">var $changedInput = $("#changedInput")
 var $valueOnInput = $("#valueOnInput")
 var $valueOnChange = $("#valueOnChange")
 $changedInput.on("input", function (event) {
-    $valueOnInput.html($changedInput.val())
+    $valueOnInput.html($(event.target).val())
+    // or $valueOnInput.html(event.target.value) // in vanilla js
+    // or $valueOnInput.html($changedInput.val())
 })
 $changedInput.on("change", function (event) {
-    $valueOnChange.html($changedInput.val())
+    $valueOnChange.html($(event.target).val())
 })</code></pre>
     <h3>Programmatic changing the value with <code>val()</code></h3>
     <p>
@@ -148,18 +152,22 @@ $changedInput.on("change", function (event) {
         var $inputNet = $("#inputNet")
         var $inputGross = $("#inputGross")
         $inputNet.on("change", function (event) {
-            $inputGross.val($inputNet.val() * 1.19)
+            $inputGross.val($(event.target).val() * 1.19)
+            // or $inputGross.val(event.target.value * 1.19)
+            // or $inputGross.val($inputNet.val() * 1.19)
         })
         $inputGross.on("change", function (event) {
-            $inputNet.val($inputGross.val() / 1.19)
+            $inputNet.val($(event.target).val() / 1.19)
         })
         $inputGross.val($inputNet.val() * 1.19)
     </script>
     <pre><code class="language-javascript">$inputNet.on("change", function (event) {
-    $inputGross.val($inputNet.val() * 1.19)
+    $inputGross.val($(event.target).val() * 1.19)
+    // or $inputGross.val(event.target.value * 1.19) // in vanilla js
+    // or $inputGross.val($inputNet.val() * 1.19)
 })
 $inputGross.on("change", function (event) {
-    $inputNet.val($inputGross.val() / 1.19)
+    $inputNet.val($(event.target).val() / 1.19)
 })</code></pre>
     <h3>Attributes <code>placeholder</code> and <code>required</code></h3>
     <form>
