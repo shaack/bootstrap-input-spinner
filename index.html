@@ -153,8 +153,6 @@ $changedInput.on("change", function (event) {
         var $inputGross = $("#inputGross")
         $inputNet.on("change", function (event) {
             $inputGross.val($(event.target).val() * 1.19)
-            // or $inputGross.val(event.target.value * 1.19)
-            // or $inputGross.val($inputNet.val() * 1.19)
         })
         $inputGross.on("change", function (event) {
             $inputNet.val($(event.target).val() / 1.19)
@@ -163,8 +161,9 @@ $changedInput.on("change", function (event) {
     </script>
     <pre><code class="language-javascript">$inputNet.on("change", function (event) {
     $inputGross.val($(event.target).val() * 1.19)
-    // or $inputGross.val(event.target.value * 1.19) // in vanilla js
+    // or $inputGross[0].setValue(event.target.value * 1.19) // in vanilla js
     // or $inputGross.val($inputNet.val() * 1.19)
+    // do all the same
 })
 $inputGross.on("change", function (event) {
     $inputNet.val($(event.target).val() / 1.19)
