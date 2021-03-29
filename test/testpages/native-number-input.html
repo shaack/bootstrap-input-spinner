@@ -1,42 +1,10 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
     <title>input type="number"</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../node_modules/prismjs/themes/prism-tomorrow.css"/>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="test.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <style type="text/css">
-        body {
-            padding: 2rem;
-        }
-
-        h2 {
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-        }
-
-        h3 {
-            margin-top: 2rem;
-        }
-
-        /*noinspection CssUnusedSymbol*/
-        .input-group, input.test-value-input {
-            max-width: 250px;
-        }
-
-        .input-group-wide {
-            max-width: 320px;
-        }
-
-        .code {
-            background-color: #f1f2f3;
-            font-family: Courier, monospace;
-        }
-        p input:first-child {
-            margin-bottom: 0.5rem;
-            width: 250px;
-        }
-    </style>
 <body>
 <h1>This is for testing the behaviour of the native number input, compared to the bootstrap-input-spinner.</h1>
 First: Native Element, second: bootstrap-input-spinner.
@@ -77,10 +45,9 @@ First: Native Element, second: bootstrap-input-spinner.
     <input type="number" class="bootstrap-input-spinner" step="20" min="-99" max="100"/>
 </p>
 
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../src/input-spinner.js"></script>
-<script src="../node_modules/prismjs/prism.js"></script>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../src/input-spinner.js"></script>
 <script>
     $(".bootstrap-input-spinner").inputSpinner()
 </script>

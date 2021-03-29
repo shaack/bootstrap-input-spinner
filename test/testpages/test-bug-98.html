@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Test bug #98</title>
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="test.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</head>
+<body>
+<h1>Test page for fixing <a href="https://github.com/shaack/bootstrap-input-spinner/issues/98">issue #98</a></h1>
+<div style="max-width: 520px">
+    <div class="form-row">
+        <label class="col-4"><b>Change this:</b></label>
+        <div class="col-8 mb-1">
+            <input type="number" value="0" id="source_b" class="form-control"/>
+        </div>
+    </div>
+    <div class="box_b">
+        <div class="form-row">
+            <label class="col-4">Mirror 1:</label>
+            <div class="col-8 mb-1">
+                <input type="number" value="0" id="mirror_1b" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-row">
+            <label class="col-4">Mirror 2:</label>
+            <div class="col-8">
+                <input type="number" value="0" id="mirror_2b" class="form-control"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../src/input-spinner.js"></script>
+<script>
+    $('input').inputSpinner()
+    $(document).on('change', 'input#source_b', function (e) {
+        $('.box_b input').val($(e.target).val())
+    })
+</script>
+</body>
+</html>

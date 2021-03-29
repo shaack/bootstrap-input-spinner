@@ -38,11 +38,10 @@
     var originalVal = $.fn.val
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
-            if (this[0] && this[0]["bootstrap-input-spinner"] && this[0].setValue) {
-                var element = this[0]
-                setTimeout(function () {
-                    element.setValue(value)
-                })
+            for (var i = 0; i < this.length; i++) {
+                if (this[i]["bootstrap-input-spinner"] && this[i].setValue) {
+                    this[i].setValue(value)
+                }
             }
         }
         return originalVal.apply(this, arguments)

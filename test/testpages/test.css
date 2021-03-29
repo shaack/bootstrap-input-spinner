@@ -1,0 +1,20 @@
+body {
+    padding: 2rem;
+}
+
+h1 {
+margin-bottom: 2rem;
+}
+
+h3 {
+    margin-top: 2rem;
+}
+
+.input-group, input.test-value-input {
+    max-width: 250px;
+}
+
+p input:first-child {
+    margin-bottom: 0.5rem;
+    width: 250px;
+}
