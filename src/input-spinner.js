@@ -96,101 +96,106 @@
 
         this.each(function () {
 
-            var $original = $(this)
-            $original[0]["bootstrap-input-spinner"] = true
-            $original.hide()
-            $original[0].inputSpinnerEditor = new props.editor(props, this)
+            if (this["bootstrap-input-spinner"]) {
+                console.warn("element", this, "is already a bootstrap-input-spinner")
+            } else {
 
-            var autoDelayHandler = null
-            var autoIntervalHandler = null
+                var $original = $(this)
+                $original[0]["bootstrap-input-spinner"] = true
+                $original.hide()
+                $original[0].inputSpinnerEditor = new props.editor(props, this)
 
-            var $inputGroup = $(html)
-            var $buttonDecrement = $inputGroup.find(".btn-decrement")
-            var $buttonIncrement = $inputGroup.find(".btn-increment")
-            var $input = $inputGroup.find("input")
-            var $label = $("label[for='" + $original.attr("id") + "']")
-            if (!$label[0]) {
-                $label = $original.closest("label")
-            }
+                var autoDelayHandler = null
+                var autoIntervalHandler = null
 
-            var min = null
-            var max = null
-            var step = null
+                var $inputGroup = $(html)
+                var $buttonDecrement = $inputGroup.find(".btn-decrement")
+                var $buttonIncrement = $inputGroup.find(".btn-increment")
+                var $input = $inputGroup.find("input")
+                var $label = $("label[for='" + $original.attr("id") + "']")
+                if (!$label[0]) {
+                    $label = $original.closest("label")
+                }
 
-            updateAttributes()
+                var min = null
+                var max = null
+                var step = null
 
-            var value = parseFloat($original[0].value)
-
-            var prefix = $original.attr("data-prefix") || ""
-            var suffix = $original.attr("data-suffix") || ""
-
-            if (prefix) {
-                var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
-                $inputGroup.find(".input-group-prepend").append(prefixElement)
-            }
-            if (suffix) {
-                var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
-                $inputGroup.find(".input-group-append").prepend(suffixElement)
-            }
-
-            $original[0].setValue = function (newValue) {
-                setValue(newValue)
-            }
-            $original[0].destroyInputSpinner = function () {
-                destroy()
-            }
-
-            var observer = new MutationObserver(function () {
                 updateAttributes()
-                setValue(value, true)
-            })
-            observer.observe($original[0], {attributes: true})
 
-            $original.after($inputGroup)
+                var value = parseFloat($original[0].value)
 
-            setValue(value)
+                var prefix = $original.attr("data-prefix") || ""
+                var suffix = $original.attr("data-suffix") || ""
 
-            $input.on("paste input change focusout", function (event) {
-                var newValue = $input[0].value
-                var focusOut = event.type === "focusout"
-                newValue = $original[0].inputSpinnerEditor.parse(newValue)
-                setValue(newValue, focusOut)
-                dispatchEvent($original, event.type)
-            }).on("keydown", function (event) {
-                if (props.keyboardStepping) {
-                    if (event.which === 38) { // up arrow pressed
-                        event.preventDefault()
-                        if (!$buttonDecrement.prop("disabled")) {
-                            stepHandling(step)
-                        }
-                    } else if (event.which === 40) { // down arrow pressed
-                        event.preventDefault()
-                        if (!$buttonIncrement.prop("disabled")) {
-                            stepHandling(-step)
+                if (prefix) {
+                    var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
+                    $inputGroup.find(".input-group-prepend").append(prefixElement)
+                }
+                if (suffix) {
+                    var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
+                    $inputGroup.find(".input-group-append").prepend(suffixElement)
+                }
+
+                $original[0].setValue = function (newValue) {
+                    setValue(newValue)
+                }
+                $original[0].destroyInputSpinner = function () {
+                    destroy()
+                }
+
+                var observer = new MutationObserver(function () {
+                    updateAttributes()
+                    setValue(value, true)
+                })
+                observer.observe($original[0], {attributes: true})
+
+                $original.after($inputGroup)
+
+                setValue(value)
+
+                $input.on("paste input change focusout", function (event) {
+                    var newValue = $input[0].value
+                    var focusOut = event.type === "focusout"
+                    newValue = $original[0].inputSpinnerEditor.parse(newValue)
+                    setValue(newValue, focusOut)
+                    dispatchEvent($original, event.type)
+                }).on("keydown", function (event) {
+                    if (props.keyboardStepping) {
+                        if (event.which === 38) { // up arrow pressed
+                            event.preventDefault()
+                            if (!$buttonDecrement.prop("disabled")) {
+                                stepHandling(step)
+                            }
+                        } else if (event.which === 40) { // down arrow pressed
+                            event.preventDefault()
+                            if (!$buttonIncrement.prop("disabled")) {
+                                stepHandling(-step)
+                            }
                         }
                     }
-                }
-            }).on("keyup", function (event) {
-                // up/down arrow released
-                if (props.keyboardStepping && (event.which === 38 || event.which === 40)) {
-                    event.preventDefault()
-                    resetTimer()
-                }
-            })
+                }).on("keyup", function (event) {
+                    // up/down arrow released
+                    if (props.keyboardStepping && (event.which === 38 || event.which === 40)) {
+                        event.preventDefault()
+                        resetTimer()
+                    }
+                })
 
-            onPointerDown($buttonDecrement[0], function () {
-                if (!$buttonDecrement.prop("disabled")) {
-                    stepHandling(-step)
-                }
-            })
-            onPointerDown($buttonIncrement[0], function () {
-                if (!$buttonIncrement.prop("disabled")) {
-                    stepHandling(step)
-                }
-            })
-            onPointerUp(document.body, function () {
-                resetTimer()
-            })
+                onPointerDown($buttonDecrement[0], function () {
+                    if (!$buttonDecrement.prop("disabled")) {
+                        stepHandling(-step)
+                    }
+                })
+                onPointerDown($buttonIncrement[0], function () {
+                    if (!$buttonIncrement.prop("disabled")) {
+                        stepHandling(step)
+                    }
+                })
+                onPointerUp(document.body, function () {
+                    resetTimer()
+                })
+            }
 
             function setValue(newValue, updateInput) {
                 if (updateInput === undefined) {
@@ -222,6 +227,7 @@
                 $input.off("paste input change focusout")
                 $inputGroup.remove()
                 $original.show()
+                $original[0]["bootstrap-input-spinner"] = undefined
                 if ($label[0]) {
                     $label.attr("for", $original.attr("id"))
                 }
@@ -251,7 +257,6 @@
                     }, props.autoInterval)
                 }, props.autoDelay)
             }
-
 
             function calcStep(step) {
                 if (isNaN(value)) {
