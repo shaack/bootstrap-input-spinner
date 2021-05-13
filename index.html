@@ -23,8 +23,8 @@
     </style>
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="src/input-spinner.js"></script>
-    <script src="src/input-spinner-custom-editors.js"></script>
+    <script src="src/bootstrap-input-spinner.js"></script>
+    <script src="src/custom-editors.js"></script>
     <script src="./node_modules/prismjs/prism.js"></script>
 </head>
 <body>
@@ -72,7 +72,7 @@
         This script enables the InputSpinner for all inputs with <code>type='number'</code>.
         <b>No extra css needed</b>, just Bootstrap 4.
     </p>
-    <pre><code class="language-html">&lt;script src="./src/input-spinner.js">&lt;/script>
+    <pre><code class="language-html">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
     $("input[type='number']").inputSpinner()
 &lt;/script></code></pre>
@@ -371,7 +371,7 @@ $inputLoop.on("change", function (event) {
     <h3>Custom Editors (<i>new!</i>)</h3>
 
     <p>An Editor defines, how the input is parsed and rendered. The inputSpinner is shipped with some custom Editors in
-        <code>/src/input-spinner-custom-editors.js</code>.</p>
+        <code>/src/custom-editors.js</code>.</p>
 
     <h4>RawEditor</h4>
 
@@ -382,10 +382,10 @@ $inputLoop.on("change", function (event) {
         <input id="rawEditor" value="1000"/>
     </p>
     <script>
-        $("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.RawEditor})
+        $("#rawEditor").inputSpinner({editor: customEditors.RawEditor})
     </script>
     <pre><code
-            class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.RawEditor})</code></pre>
+            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.RawEditor})</code></pre>
 
     <h4>TimeEditor</h4>
 
@@ -396,14 +396,14 @@ $inputLoop.on("change", function (event) {
     </p>
     <script>
         var $timeEditorInput = $("#timeEditor")
-        $timeEditorInput.inputSpinner({editor: inputSpinnerCustomEditors.TimeEditor})
+        $timeEditorInput.inputSpinner({editor: customEditors.TimeEditor})
         $("#timeValue").text($timeEditorInput.val())
         $timeEditorInput.on("change", function (event) {
             $("#timeValue").text($timeEditorInput.val())
         })
     </script>
     <pre><code
-            class="language-js">$("#rawEditor").inputSpinner({editor: inputSpinnerCustomEditors.TimeEditor})</code></pre>
+            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.TimeEditor})</code></pre>
 
     <h3>Styling with templates (<i>new!</i>)</h3>
     <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>

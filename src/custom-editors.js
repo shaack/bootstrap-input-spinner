@@ -4,7 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-var inputSpinnerCustomEditors = {
+var customEditors = {
     RawEditor: function (props, element) {
         this.parse = function (customFormat) {
             // parse nothing

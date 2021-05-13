@@ -29,7 +29,7 @@ The Bootstrap 4 InputSpinner
 npm install bootstrap-input-spinner
 ```
 
-Or just download the GitHub repository and include `src/input-spinner.js`.
+Or just download the GitHub repository and include `src/bootstrap-input-spinner.js`.
 
 ### HTML
 
@@ -45,7 +45,7 @@ It is a jQuery plugin. So, enable the InputSpinner for all inputs with `type='nu
 
 ```html
 
-<script src="src/input-spinner.js"></script>
+<script src="src/bootstrap-input-spinner.js"></script>
 <script>
     $("input[type='number']").inputSpinner();
 </script>
@@ -159,7 +159,7 @@ de_DE", "en_GB",….
 ##### editor (*new!*)
 
 An Editor defines, how the input is parsed and rendered. The default editor of the spinner is the `I18nEditor`, which
-renders and parses an internationalized number value. There are custom editors in `/src/input-spinner-custom-editors.js`. An
+renders and parses an internationalized number value. There are custom editors in `/src/custom-editors.js`. An
 Editor must implement the two functions `parse(customValue)`, to parse the input to a number and `render(number)` to
 render the number to the spinner input.
 
@@ -262,7 +262,7 @@ npm install uglify-js -g
 and then in the src-folder
 
 ```bash
-uglifyjs input-spinner.js --compress --mangle > bootstrap-input-spinner.min.js
+uglifyjs bootstrap-input-spinner.js --compress --mangle > bootstrap-input-spinner.min.js
 ```
 
 Violà! :)
