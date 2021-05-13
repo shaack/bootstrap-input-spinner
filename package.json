@@ -4,7 +4,7 @@
   "description": "A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.",
   "browser": "./src/bootstrap-input-spinner.js",
   "scripts": {
-    "test": "tput setaf 4;echo open test/test.html in your browser for testing."
+    "test": "tput setaf 4;echo open test/index.html in your browser for testing."
   },
   "repository": {
     "type": "git",
@@ -31,8 +31,7 @@
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
-    "prismjs": "^1.23.0"
+    "prismjs": "^1.23.0",
+    "teevi": "^2.1.9"
   }
 }

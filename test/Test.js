@@ -1,17 +1,12 @@
-var assert = chai.assert
-
-afterEach(function () {
-    // destroy and remove all spinners
-    $("input[type='number']").inputSpinner("destroy")
-    $("input").remove()
-})
+import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 
 describe('bootstrap-input-spinner', function () {
     it('Should display the spinner', function () {
         addInput()
-        $("input[type='number']").inputSpinner()
+        const $input = $("input[type='number']")
+        $input.inputSpinner()
+        $input.inputSpinner("destroy")
     })
-    // TODO more testing
 })
 
 function addInput() {
