@@ -31,14 +31,14 @@
 <section class="container py-5">
     <h1>bootstrap-input-spinner</h1>
     <p>
-        A Bootstrap 4 / jQuery plugin to create input spinner elements for number input, by
+        A Bootstrap 5 / jQuery plugin to create input spinner elements for number input, by
         <a href="https://shaack.com/en">shaack.com</a> engineering.
     </p>
     <p>
         License: <a href="https://github.com/shaack/bootstrap-input-spinner/blob/master/LICENSE">MIT</a>
     </p>
     <h2>Features</h2>
-    <p>The Bootstrap 4 InputSpinner</p>
+    <p>The Bootstrap 5 InputSpinner</p>
     <ul>
         <li>
             is <b>mobile friendly</b> and <b>responsive</b>,
@@ -64,13 +64,13 @@
             change</b> like the native element,
         </li>
         <li>
-            <b>needs no extra css</b>, just Bootstrap 4.
+            <b>needs no extra css</b>, just Bootstrap 5.
         </li>
     </ul>
     <h2>Usage</h2>
     <p>
         This script enables the InputSpinner for all inputs with <code>type='number'</code>.
-        <b>No extra css needed</b>, just Bootstrap 4.
+        <b>No extra css needed</b>, just Bootstrap 5.
     </p>
     <pre><code class="language-html">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
@@ -418,21 +418,17 @@ $inputLoop.on("change", function (event) {
         $("#templateButtonsRight").inputSpinner({
             template:
                 '<div class="input-group ${groupClass}">' +
-                '<div class="input-group-prepend"></div>' +
                 '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
-                '<div class="input-group-append">' +
                 '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
                 '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
-                '</div></div>'
+                '</div>'
         })
     </script>
     <pre><code class="language-html">&lt;div class="input-group ${groupClass}">
-&lt;div class="input-group-prepend">&lt;/div>
 &lt;input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>
-&lt;div class="input-group-append">
 &lt;button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}&lt;/button>
 &lt;button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}&lt;/button>
-&lt;/div>&lt;/div></code></pre>
+&lt;/div></code></pre>
     <p>You can... or must use the following variables in your template:</p>
     <ul>
         <li>${groupClass}</li>
@@ -473,8 +469,8 @@ $inputLoop.on("change", function (event) {
     <div class="card my-5 border-info">
         <a href="https://shaack.com/en/open-source-components">
             <div class="card-body">
-                <h4 class="mb-2">More Bootstrap 4 components (from shaack.com)</h4>
-                You may want to check out our further Bootstrap 4 extensions,
+                <h4 class="mb-2">More Bootstrap 5 components (from shaack.com)</h4>
+                You may want to check out our further Bootstrap 5 extensions,
                 <b>bootstrap-show-modal</b> and
                 <b>bootstrap-detect-breakpoint</b>.
             </div>
