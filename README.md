@@ -11,8 +11,8 @@ A Bootstrap / jQuery plugin to create input spinner elements for number input.
 > <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. 
 > npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
 
-- **[Current npm package](https://www.npmjs.com/package/bootstrap-input-spinner?activeTab=readme)**
-- **[Boostrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.1)**
+- **[Current, Bootstrap 5 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner)**
+- **[Boostrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)**
 
 ## Features
 
@@ -26,17 +26,17 @@ The Bootstrap InputSpinner
 - **dynamically handles** changing **attribute values** like `disabled` or `class`,
 - supports **templates** and **custom editors**, (*new!*)
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
-- works **without extra css**, only bootstrap 5 is needed.
+- works **without extra css**, only Bootstrap 5 is needed.
 
 ## Quickstart
 
 ### Installation
 
-Current version, Bootstrap 5
+Current version, Bootstrap 5 compatible
 ```bash
 npm install bootstrap-input-spinner
 ```
-Bootstrap 4 version
+Bootstrap 4 compatible version
 ```bash
 nom install bootstrap-input-spinner@2.1.2
 ```
@@ -64,7 +64,7 @@ It is a jQuery plugin. So, enable the InputSpinner for all inputs with `type='nu
 </script>
 ```
 
-Thats it. **No extra css needed**, just Bootstrap 5 and jQuery.
+That's it. **No extra css needed**, just Bootstrap 5 and jQuery.
 
 ## API Reference
 
@@ -130,7 +130,7 @@ HTML of the texts inside the buttons.
 
 ##### groupClass
 
-Additional css class for the `input-group` of the rendered bootstrap input.
+Additional css class for the `input-group` of the rendered Bootstrap input.
 
 ##### buttonsClass
 
