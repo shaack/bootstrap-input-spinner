@@ -1,6 +1,6 @@
 # bootstrap-input-spinner
 
-A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
+A Bootstrap 5 / jQuery plugin to create input spinner elements for number input.
 
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
 
@@ -9,7 +9,7 @@ A Bootstrap 4 / jQuery plugin to create input spinner elements for number input.
 
 ## Features
 
-The Bootstrap 4 InputSpinner
+The Bootstrap 5 InputSpinner
 
 - is **mobile friendly** and **responsive**,
 - automatically changes the value when **holding a button**,
@@ -19,7 +19,7 @@ The Bootstrap 4 InputSpinner
 - **dynamically handles** changing **attribute values** like `disabled` or `class`,
 - supports **templates** and **custom editors**, (*new!*)
 - dispatches **`change`** and **`input`** **events on value change** like the native element and
-- works **without extra css**, only bootstrap 4 is needed.
+- works **without extra css**, only bootstrap 5 is needed.
 
 ## Quickstart
 
@@ -51,7 +51,7 @@ It is a jQuery plugin. So, enable the InputSpinner for all inputs with `type='nu
 </script>
 ```
 
-Thats it. **No extra css needed**, just Bootstrap 4 and jQuery.
+Thats it. **No extra css needed**, just Bootstrap 5 and jQuery.
 
 ## API Reference
 
@@ -104,9 +104,9 @@ var props = {
     editor: I18nEditor, // the editor (parsing and rendering of the input)
     template: // the template of the input
         '<div class="input-group ${groupClass}">' +
-        '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
+        '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button>' +
         '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control form-control-text-input"/>' +
-        '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
+        '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button>' +
         '</div>'
 }
 ```

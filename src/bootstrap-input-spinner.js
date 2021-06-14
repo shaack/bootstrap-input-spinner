@@ -75,9 +75,9 @@
             editor: I18nEditor, // the editor (parsing and rendering of the input)
             template: // the template of the input
                 '<div class="input-group ${groupClass}">' +
-                '<div class="input-group-prepend"><button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button></div>' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass} btn-minus" type="button">${decrementButton}</button>' +
                 '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control form-control-text-input"/>' +
-                '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button>' +
                 '</div>'
         }
 
@@ -130,11 +130,11 @@
 
                 if (prefix) {
                     var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
-                    $inputGroup.find(".input-group-prepend").append(prefixElement)
+                    $inputGroup.find("input").before(prefixElement)
                 }
                 if (suffix) {
                     var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
-                    $inputGroup.find(".input-group-append").prepend(suffixElement)
+                    $inputGroup.find("input").after(suffixElement)
                 }
 
                 $original[0].setValue = function (newValue) {
