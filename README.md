@@ -8,7 +8,11 @@ A Bootstrap / jQuery plugin to create input spinner elements for number input.
 *Examples with floating-point and german localization*
 
 > This version is compatible with Bootstrap 5, but we remain a Bootstrap 4 compatible version with the branch
-<a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible,
+> <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. 
+> npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
+
+- **[Current npm package](https://www.npmjs.com/package/bootstrap-input-spinner?activeTab=readme)**
+- **[Boostrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.1)**
 
 ## Features
 
@@ -28,9 +32,15 @@ The Bootstrap InputSpinner
 
 ### Installation
 
+Current version, Bootstrap 5
 ```bash
 npm install bootstrap-input-spinner
 ```
+Bootstrap 4 version
+```bash
+nom install bootstrap-input-spinner@2.1.2
+```
+
 
 Or just download the GitHub repository and include `src/bootstrap-input-spinner.js`.
 
@@ -162,12 +172,12 @@ de_DE", "en_GB",….
 ##### editor (*new!*)
 
 An Editor defines, how the input is parsed and rendered. The default editor of the spinner is the `I18nEditor`, which
-renders and parses an internationalized number value. There are custom editors in `/src/custom-editors.js`. An
-Editor must implement the two functions `parse(customValue)`, to parse the input to a number and `render(number)` to
-render the number to the spinner input.
+renders and parses an internationalized number value. There are custom editors in `/src/custom-editors.js`. An Editor
+must implement the two functions `parse(customValue)`, to parse the input to a number and `render(number)` to render the
+number to the spinner input.
 
-The simplest custom Editor is the `RawEditor`, it renders just the value und parses just the value, without any
-changes, like a native number input. It looks like this:
+The simplest custom Editor is the `RawEditor`, it renders just the value und parses just the value, without any changes,
+like a native number input. It looks like this:
 
 ```javascript
 var RawEditor = function (props, element) {
@@ -192,7 +202,7 @@ The `TimeEditor` renders and parses the number to time in hours and minutes, sep
 
 ##### template (*new!*)
 
-To modify the look completely, you can use the template parameter. There is an example about this on the 
+To modify the look completely, you can use the template parameter. There is an example about this on the
 [Demo Page](http://shaack.com/projekte/bootstrap-input-spinner/).
 
 ### Programmatic change and read of value
