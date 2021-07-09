@@ -38,7 +38,7 @@ npm install bootstrap-input-spinner
 ```
 Bootstrap 4 compatible version
 ```bash
-nom install bootstrap-input-spinner@2.1.2
+npm install bootstrap-input-spinner@2.1.2
 ```
 
 
