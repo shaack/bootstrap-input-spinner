@@ -68,7 +68,7 @@
             buttonsWidth: "2.5rem",
             textAlign: "center", // alignment of the entered number
             autoDelay: 500, // ms threshold before auto value change
-            autoInterval: 50, // speed of auto value change
+            autoInterval: 50, // speed of auto value change, set to `undefined` to disable auto-change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
             keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
             locale: navigator.language, // the locale, per default detected automatically from the browser
@@ -251,11 +251,13 @@
             function stepHandling(step) {
                 calcStep(step)
                 resetTimer()
-                autoDelayHandler = setTimeout(function () {
-                    autoIntervalHandler = setInterval(function () {
-                        calcStep(step)
-                    }, props.autoInterval)
-                }, props.autoDelay)
+                if(props.autoInterval !== undefined) {
+                    autoDelayHandler = setTimeout(function () {
+                        autoIntervalHandler = setInterval(function () {
+                            calcStep(step)
+                        }, props.autoInterval)
+                    }, props.autoDelay)
+                }
             }
 
             function calcStep(step) {

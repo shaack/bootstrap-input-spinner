@@ -215,11 +215,12 @@ $inputGross.on("change", function (event) {
     <p>
         In <code>buttonsOnly</code> mode no direct text input is allowed, the text-input
         gets the attribute <code>readonly</code>. But the plus and minus buttons still allow to change the value.
+        <br/><code>autoInterval: undefined</code> additionally disables the auto increase/decrease, when you hold the button.
     </p>
     <p>
         <input class="buttons-only" value="5" min="1" max="10"/>
     </p>
-    <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true})</code></pre>
+    <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined})</code></pre>
 
     <h3>Dynamically handling of the <code>class</code> attribute</h3>
     <p>
@@ -485,7 +486,7 @@ $inputLoop.on("change", function (event) {
 <!-- bootstrap needs jQuery -->
 <script>
     $("input[type='number']").inputSpinner()
-    $(".buttons-only").inputSpinner({buttonsOnly: true})
+    $(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined })
 </script>
 </body>
 </html>
