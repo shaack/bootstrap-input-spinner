@@ -26,12 +26,12 @@
   },
   "homepage": "https://shaack.com/en/open-source-components",
   "dependencies": {
-    "bootstrap": "^5.0.1",
+    "bootstrap": "^5.1.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1"
   },
   "devDependencies": {
-    "prismjs": "^1.23.0",
+    "prismjs": "^1.25.0",
     "teevi": "^2.1.10"
   }
 }
