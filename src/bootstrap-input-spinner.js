@@ -211,10 +211,8 @@
                 } else {
                     newValue = parseFloat(newValue)
                     newValue = Math.min(Math.max(newValue, min), max)
-                    // newValue = Math.round(newValue * Math.pow(10, decimals)) / Math.pow(10, decimals)
                     $original[0].value = newValue
                     if (updateInput) {
-                        // $input[0].value = numberFormat.format(newValue)
                         $input[0].value = $original[0].inputSpinnerEditor.render(newValue)
                     }
                     value = newValue
@@ -267,7 +265,6 @@
                 }
                 setValue(Math.round(value / step) * step + step)
                 dispatchEvent($original, "input")
-                // dispatchEvent($original, "change")
             }
 
             function resetTimer() {
