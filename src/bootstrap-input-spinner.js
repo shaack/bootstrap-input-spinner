@@ -194,6 +194,7 @@
                 })
                 onPointerUp(document.body, function () {
                     resetTimer()
+                    dispatchEvent($original, "change")
                 })
             }
 
@@ -266,7 +267,7 @@
                 }
                 setValue(Math.round(value / step) * step + step)
                 dispatchEvent($original, "input")
-                dispatchEvent($original, "change")
+                // dispatchEvent($original, "change")
             }
 
             function resetTimer() {
