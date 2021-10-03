@@ -124,6 +124,7 @@
                 updateAttributes()
 
                 var value = parseFloat($original[0].value)
+                var pointerState = false
 
                 var prefix = $original.attr("data-prefix") || ""
                 var suffix = $original.attr("data-suffix") || ""
@@ -182,19 +183,26 @@
                     }
                 })
 
+                // decrement button
                 onPointerDown($buttonDecrement[0], function () {
                     if (!$buttonDecrement.prop("disabled")) {
+                        pointerState = true
                         stepHandling(-step)
                     }
                 })
+                // increment button
                 onPointerDown($buttonIncrement[0], function () {
                     if (!$buttonIncrement.prop("disabled")) {
+                        pointerState = true
                         stepHandling(step)
                     }
                 })
                 onPointerUp(document.body, function () {
-                    resetTimer()
-                    dispatchEvent($original, "change")
+                    if(pointerState === true) {
+                        resetTimer()
+                        dispatchEvent($original, "change")
+                        pointerState = false
+                    }
                 })
             }
 
