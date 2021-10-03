@@ -7,7 +7,7 @@ A Bootstrap / jQuery plugin to create input spinner elements for number input.
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
 *Examples with floating-point and german localization*
 
-> This version is compatible with Bootstrap 5, but we remain a Bootstrap 4 compatible version with the branch
+> This version is compatible with **Bootstrap 5**, but we remain a Bootstrap 4 compatible version with the branch
 > <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. 
 > npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
 
