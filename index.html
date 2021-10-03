@@ -110,8 +110,9 @@
         read the value from JavaScript
         with <code>val()</code></h3>
     <p>
-        Type in a number to see the difference between <code>change</code> and
-        <code>input</code> events.
+        Type in a number to see the difference between <code>change</code> and <code>input</code> events.
+    </p>
+    <p>
         <input type="number" id="changedInput" value="2500" min="0" max="5000000" data-decimals="2"/>
     </p>
     <p>
@@ -146,11 +147,11 @@ $changedInput.on("change", function (event) {
 })</code></pre>
     <h3>Programmatic changing the value with <code>val()</code></h3>
     <p>
-        Net
+        <label for="inputNet">Net</label>
         <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
     </p>
     <p>
-        Gross (+19%)
+        <label for="inputGross">Gross (+19%)</label>
         <input type="number" id="inputGross" value="100" min="0" max="11900" step="0.01" data-decimals="2"/>
     </p>
     <script>
@@ -257,13 +258,13 @@ $inputGross.on("input", function (event) {
         <code>form-control-lg</code>, and
         the resulting group gets the class <code>input-group-sm</code> or <code>input-group-lg</code>.</p>
     <p>
-        Small
-        <input class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
+        <label for="inputSmall">Small</label>
+        <input id="inputSmall" class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
     <pre><code class="language-html">&lt;input class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
     <p>
-        Large
-        <input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
+        <label for="inputLarge">Large</label>
+        <input id="inputLarge" class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre><code class="language-html">&lt;input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
 
@@ -344,13 +345,13 @@ $dataDecimalsInput.on("change", function (event) {
 
     <h3>Prefix and Suffix</h3>
     <p>
-        Prefix
-        <input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
+        <label for="inputPrefix">Prefix</label>
+        <input id="inputPrefix" data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
     </p>
     <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
     <p>
-        Suffix
-        <input data-suffix="°C" value="50" min="0" max="100" type="number"/>
+        <label for="inputSuffix">Suffix</label>
+        <input id="inputSuffix" data-suffix="°C" value="50" min="0" max="100" type="number"/>
     </p>
     <pre><code
             class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
