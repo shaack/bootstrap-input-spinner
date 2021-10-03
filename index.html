@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +14,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.5);
         }
 
-        h3 {
+        h3, h4 {
             margin-top: 2rem;
         }
 
@@ -122,11 +123,13 @@
         var $valueOnInput = $("#valueOnInput")
         var $valueOnChange = $("#valueOnChange")
         $changedInput.on("input", function (event) {
+            console.log("on input", event)
             $valueOnInput.html($(event.target).val())
             // or $valueOnInput.html(event.target.value) // in vanilla js
             // or $valueOnInput.html($changedInput.val())
         })
         $changedInput.on("change", function (event) {
+            console.log("on change", event)
             $valueOnChange.html($(event.target).val())
         })
     </script>
@@ -153,21 +156,21 @@ $changedInput.on("change", function (event) {
     <script>
         var $inputNet = $("#inputNet")
         var $inputGross = $("#inputGross")
-        $inputNet.on("change", function (event) {
+        $inputNet.on("input", function (event) {
             $inputGross.val($(event.target).val() * 1.19)
         })
-        $inputGross.on("change", function (event) {
+        $inputGross.on("input", function (event) {
             $inputNet.val($(event.target).val() / 1.19)
         })
         $inputGross.val($inputNet.val() * 1.19)
     </script>
-    <pre><code class="language-javascript">$inputNet.on("change", function (event) {
+    <pre><code class="language-javascript">$inputNet.on("input", function (event) {
     $inputGross.val($(event.target).val() * 1.19)
     // or $inputGross[0].setValue(event.target.value * 1.19) // in vanilla js
     // or $inputGross.val($inputNet.val() * 1.19)
     // do all the same
 })
-$inputGross.on("change", function (event) {
+$inputGross.on("input", function (event) {
     $inputNet.val($(event.target).val() / 1.19)
 })</code></pre>
     <h3>Attributes <code>placeholder</code> and <code>required</code></h3>
@@ -211,7 +214,7 @@ $inputGross.on("change", function (event) {
 &lt;/script></code></pre>
     </form>
 
-    <h3><code>buttonsOnly</code> mode (New!)</h3>
+    <h3><code>buttonsOnly</code> mode and disabled <code>autoInterval</code></h3>
     <p>
         In <code>buttonsOnly</code> mode no direct text input is allowed, the text-input
         gets the attribute <code>readonly</code>. But the plus and minus buttons still allow to change the value.
@@ -304,15 +307,19 @@ $inputGross.on("change", function (event) {
         var $dataDecimalsInput = $("#dataDecimalsInput")
         var $minMaxTester = $("#minMaxTester")
         $minInput.on("change", function (event) {
+            console.log("on change", event)
             $minMaxTester.attr("min", $minInput.val())
         })
         $maxInput.on("change", function (event) {
+            console.log("on change", event)
             $minMaxTester.attr("max", $maxInput.val())
         })
         $stepInput.on("change", function (event) {
+            console.log("on change", event)
             $minMaxTester.attr("step", $stepInput.val())
         })
         $dataDecimalsInput.on("change", function (event) {
+            console.log("on change", event)
             $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
         })
     </script>
@@ -356,7 +363,7 @@ $dataDecimalsInput.on("change", function (event) {
     </p>
     <script>
         var $inputLoop = $("#inputLoop")
-        $inputLoop.on("change", function (event) {
+        $inputLoop.on("input", function(ignored) {
             var value = $inputLoop.val()
             value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
             $inputLoop.val(value)
@@ -365,13 +372,13 @@ $dataDecimalsInput.on("change", function (event) {
     <pre><code class="language-html">&lt;input step="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
     <p>"Loop" the value between 0 and 360 with the <code>change</code> event in JavaScript.</p>
     <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
-$inputLoop.on("change", function (event) {
+$inputLoop.on("input", function(event) {
     var value = $inputLoop.val()
     value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
     $inputLoop.val(value)
 })</code></pre>
 
-    <h3>Custom Editors (<i>new!</i>)</h3>
+    <h3>Custom Editors</h3>
 
     <p>An Editor defines, how the input is parsed and rendered. The inputSpinner is shipped with some custom Editors in
         <code>/src/custom-editors.js</code>.</p>
@@ -393,15 +400,14 @@ $inputLoop.on("change", function (event) {
     <h4>TimeEditor</h4>
 
     <p>The <code>TimeEditor</code> renders the number as time in hours and minutes, separated by a colon.</p>
-    <p>
-        <input id="timeEditor" value="60" step="5"/>
-    <div>value: <span id="timeValue"></span></div>
-    </p>
+    <input id="timeEditor" value="60" step="5"/>
+    <div class="mt-1">value: <span id="timeValue"></span></div>
+
     <script>
         var $timeEditorInput = $("#timeEditor")
         $timeEditorInput.inputSpinner({editor: customEditors.TimeEditor})
         $("#timeValue").text($timeEditorInput.val())
-        $timeEditorInput.on("change", function (event) {
+        $timeEditorInput.on("input", function() {
             $("#timeValue").text($timeEditorInput.val())
         })
     </script>
@@ -472,7 +478,7 @@ $inputLoop.on("change", function (event) {
     <div class="card my-5 border-info">
         <a href="https://shaack.com/en/open-source-components">
             <div class="card-body">
-                <h4 class="mb-2">More Bootstrap components (from shaack.com)</h4>
+                <h4 class="mb-2 mt-0">More Bootstrap components (from shaack.com)</h4>
                 You may want to check out our further Bootstrap extensions,
                 <b>bootstrap-show-modal</b> and
                 <b>bootstrap-detect-breakpoint</b>.
