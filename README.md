@@ -288,3 +288,14 @@ For older browsers (IE 9 or so), that doesn't support `Intl`, when you get an er
 **"Intl is not defined"** (See [issue #34](https://github.com/shaack/bootstrap-input-spinner/issues/34)), just use a
 shim or polyfill like [Intl.js](https://github.com/andyearnshaw/Intl.js), and it works.
 
+# You may want to check out my further Bootstrap and HTML extensions
+
+- [bootstrap-input-spinner](https://shaack.com/projekte/bootstrap-input-spinner/) – Input numbers
+- [bootstrap-show-modal](https://shaack.com/projekte/bootstrap-show-modal/) – Show dialogs, dynamically
+- [bootstrap-show-notification](https://shaack.com/projekte/bootstrap-show-notification/) – Show notifications, dynamically
+- [bootstrap-detect-breakpoint](https://www.npmjs.com/package/bootstrap-detect-breakpoint) – Read the curr. BS BP from JS
+- [auto-resize-textarea](https://shaack.com/projekte/auto-resize-textarea/) – Auto resize textareas by its content
+- [external-links-blank](https://www.npmjs.com/package/external-links-blank) – Open all external links `_blank`
+
+
+
