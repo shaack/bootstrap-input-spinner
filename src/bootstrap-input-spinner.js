@@ -161,6 +161,9 @@
                     newValue = $original[0].inputSpinnerEditor.parse(newValue)
                     setValue(newValue, focusOut)
                     dispatchEvent($original, event.type)
+                    if (props.keyboardStepping && focusOut) { // stop stepping
+                        resetTimer()
+                    }
                 }).on("keydown", function (event) {
                     if (props.keyboardStepping) {
                         if (event.which === 38) { // up arrow pressed
