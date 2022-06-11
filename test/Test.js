@@ -1,7 +1,7 @@
 import {describe, it, assert} from "../node_modules/teevi/src/teevi.js"
 
 describe('bootstrap-input-spinner', function () {
-    it('Should display the spinner', function () {
+    it('Should display and destroy the spinner', function () {
         addInput()
         const $input = $("input[type='number']")
         $input.inputSpinner()
