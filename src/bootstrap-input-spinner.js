@@ -40,7 +40,10 @@
         if (arguments.length >= 1) {
             for (var i = 0; i < this.length; i++) {
                 if (this[i]["bootstrap-input-spinner"] && this[i].setValue) {
-                    this[i].setValue(value)
+                    var element = this[i];
+                    setTimeout(function () {
+                        element.setValue(value)
+                    })
                 }
             }
         }
