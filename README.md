@@ -12,7 +12,7 @@ A Bootstrap / jQuery plugin to create input spinner elements for number input.
 > npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
 
 - **[Current, Bootstrap 5 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner)**
-- **[Boostrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)**
+- **[Bootstrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)**
 
 ## Features
 
@@ -282,7 +282,7 @@ Violà! :)
 
 ## Browser support
 
-The spinner works in all modern browsers and in the Internet Explorer. Not tested with IE < 11.
+The spinner works in all modern browsers and Internet Explorer. Not tested with IE < 11.
 
 For older browsers (IE 9 or so), that doesn't support `Intl`, when you get an error message like
 **"Intl is not defined"** (See [issue #34](https://github.com/shaack/bootstrap-input-spinner/issues/34)), just use a
@@ -296,6 +296,3 @@ shim or polyfill like [Intl.js](https://github.com/andyearnshaw/Intl.js), and it
 - [bootstrap-detect-breakpoint](https://www.npmjs.com/package/bootstrap-detect-breakpoint) – Read the curr. BS BP from JS
 - [auto-resize-textarea](https://shaack.com/projekte/auto-resize-textarea/) – Auto resize textareas by its content
 - [external-links-blank](https://www.npmjs.com/package/external-links-blank) – Open all external links `_blank`
-
-
-
