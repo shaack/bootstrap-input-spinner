@@ -8,13 +8,13 @@
     "use strict"
 
     // the default editor for parsing and rendering
-    var I18nEditor = function (props, element) {
-        var locale = props.locale || "en-US"
+    const I18nEditor = function (props, element) {
+        const locale = props.locale || "en-US"
 
         this.parse = function (customFormat) {
-            var numberFormat = new Intl.NumberFormat(locale)
-            var thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
-            var decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
+            const numberFormat = new Intl.NumberFormat(locale)
+            const thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
+            const decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
             return parseFloat(customFormat
                 .replace(new RegExp(' ', 'g'), '')
                 .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
@@ -23,9 +23,9 @@
         }
 
         this.render = function (number) {
-            var decimals = parseInt(element.getAttribute("data-decimals")) || 0
-            var digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
-            var numberFormat = new Intl.NumberFormat(locale, {
+            const decimals = parseInt(element.getAttribute("data-decimals")) || 0
+            const digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
+            const numberFormat = new Intl.NumberFormat(locale, {
                 minimumFractionDigits: decimals,
                 maximumFractionDigits: decimals,
                 useGrouping: digitGrouping
@@ -34,13 +34,13 @@
         }
     }
 
-    var triggerKeyPressed = false
-    var originalVal = $.fn.val
+    let triggerKeyPressed = false
+    const originalVal = $.fn.val
     $.fn.val = function (value) {
         if (arguments.length >= 1) {
-            for (var i = 0; i < this.length; i++) {
+            for (let i = 0; i < this.length; i++) {
                 if (this[i]["bootstrap-input-spinner"] && this[i].setValue) {
-                    var element = this[i];
+                    const element = this[i]
                     setTimeout(function () {
                         element.setValue(value)
                     })
@@ -63,7 +63,7 @@
             return this
         }
 
-        var props = {
+        const props = {
             decrementButton: "<strong>&minus;</strong>", // button text
             incrementButton: "<strong>&plus;</strong>", // ..
             groupClass: "", // css class of the resulting input-group
@@ -84,12 +84,12 @@
                 '</div>'
         }
 
-        for (var option in methodOrProps) {
+        for (let option in methodOrProps) {
             // noinspection JSUnfilteredForInLoop
             props[option] = methodOrProps[option]
         }
 
-        var html = props.template
+        const html = props.template
             .replace(/\${groupClass}/g, props.groupClass)
             .replace(/\${buttonsWidth}/g, props.buttonsWidth)
             .replace(/\${buttonsClass}/g, props.buttonsClass)
@@ -127,17 +127,17 @@
                 updateAttributes()
 
                 var value = parseFloat($original[0].value)
-                var pointerState = false
+                let pointerState = false
 
-                var prefix = $original.attr("data-prefix") || ""
-                var suffix = $original.attr("data-suffix") || ""
+                const prefix = $original.attr("data-prefix") || ""
+                const suffix = $original.attr("data-suffix") || ""
 
                 if (prefix) {
-                    var prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
+                    const prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
                     $inputGroup.find("input").before(prefixElement)
                 }
                 if (suffix) {
-                    var suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
+                    const suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
                     $inputGroup.find("input").after(suffixElement)
                 }
 
@@ -159,8 +159,8 @@
                 setValue(value)
 
                 $input.on("paste input change focusout", function (event) {
-                    var newValue = $input[0].value
-                    var focusOut = event.type === "focusout"
+                    let newValue = $input[0].value
+                    const focusOut = event.type === "focusout"
                     newValue = $original[0].inputSpinnerEditor.parse(newValue)
                     setValue(newValue, focusOut)
                     dispatchEvent($original, event.type)
@@ -249,7 +249,7 @@
             function dispatchEvent($element, type) {
                 if (type) {
                     setTimeout(function () {
-                        var event
+                        let event
                         if (typeof (Event) === 'function') {
                             event = new Event(type, {bubbles: true})
                         } else { // IE
@@ -294,8 +294,8 @@
                 }
                 $input.prop("placeholder", $original.prop("placeholder"))
                 $input.attr("inputmode", $original.attr("inputmode") || "decimal")
-                var disabled = $original.prop("disabled")
-                var readonly = $original.prop("readonly")
+                const disabled = $original.prop("disabled")
+                const readonly = $original.prop("readonly")
                 $input.prop("disabled", disabled)
                 $input.prop("readonly", readonly || props.buttonsOnly)
                 $buttonIncrement.prop("disabled", disabled || readonly)
@@ -303,15 +303,15 @@
                 if (disabled || readonly) {
                     resetTimer()
                 }
-                var originalClass = $original.prop("class")
-                var groupClass = ""
+                const originalClass = $original.prop("class")
+                let groupClass = ""
                 // sizing
                 if (/form-control-sm/g.test(originalClass)) {
                     groupClass = "input-group-sm"
                 } else if (/form-control-lg/g.test(originalClass)) {
                     groupClass = "input-group-lg"
                 }
-                var inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
+                const inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
                 $inputGroup.prop("class", "input-group " + groupClass + " " + props.groupClass)
                 $input.prop("class", "form-control " + inputClass)
 
