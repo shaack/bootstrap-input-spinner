@@ -328,7 +328,7 @@
         })
         element.addEventListener("touchend", function (e) {
             callback(e)
-        })
+        }, {passive: true})
         element.addEventListener("keyup", function (e) {
             if ((e.keyCode === 32 || e.keyCode === 13)) {
                 triggerKeyPressed = false
@@ -349,7 +349,7 @@
                 e.preventDefault()
             }
             callback(e)
-        })
+        }, {passive: true})
         element.addEventListener("keydown", function (e) {
             if ((e.keyCode === 32 || e.keyCode === 13) && !triggerKeyPressed) {
                 triggerKeyPressed = true
