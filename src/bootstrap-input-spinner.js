@@ -349,7 +349,7 @@
                 e.preventDefault()
             }
             callback(e)
-        }, {passive: true})
+        }, {passive: false})
         element.addEventListener("keydown", function (e) {
             if ((e.keyCode === 32 || e.keyCode === 13) && !triggerKeyPressed) {
                 triggerKeyPressed = true
