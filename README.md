@@ -200,7 +200,7 @@ The `TimeEditor` renders and parses the number to time in hours and minutes, sep
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/time-editor.png)
 *Supports custom editors to parse and render everything*
 
-##### template (*new!*)
+##### template
 
 To modify the look completely, you can use the template parameter. There is an example about this on the
 [Demo Page](http://shaack.com/projekte/bootstrap-input-spinner/).
