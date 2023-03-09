@@ -325,9 +325,9 @@
                     $inputGroup.removeAttr("hidden")
                 }
                 if ($original.attr("id")) {
-                    $input.attr("id", $original.attr("id") + "_MP_cBdLN29i2")
+                    $input.attr("id", $original.attr("id") + ":input_spinner") // give the spinner a unique id...
                     if ($label[0]) {
-                        $label.attr("for", $input.attr("id"))
+                        $label.attr("for", $input.attr("id")) // ...to rewire the label
                     }
                 }
             }
