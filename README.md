@@ -2,6 +2,8 @@
 
 A Bootstrap / jQuery plugin to create input spinner elements for number input.
 
+> Note: With version 3.3 I added an ES6 module beta version under `src/es6-beta`. It is not yet documented, but there is a test page as `index-es6-beta.html`. With future versions I will move to ES6 modules and remove the jQuery dependency.
+
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)

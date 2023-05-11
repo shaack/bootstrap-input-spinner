@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstrap-input-spinner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism-tomorrow.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style type="text/css">
+        h2 {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        }
+
+        h3, h4 {
+            margin-top: 2rem;
+        }
+
+        .input-group, input.test-value-input {
+            max-width: 250px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+            crossorigin="anonymous"></script>
+    <script src="src/custom-editors.js"></script>
+    <script src="./node_modules/prismjs/prism.js"></script>
+</head>
+<body>
+<section class="container py-5">
+    <h1>bootstrap-input-spinner</h1>
+    <p>
+        A Bootstrap / jQuery plugin to create input spinner elements for number input, by
+        <a href="https://shaack.com/en">shaack.com</a> engineering. For now it needs jQuery, but I am working on it.
+    </p>
+    <p>This version is compatible with Bootstrap 5, but we remain a Bootstrap 4 compatible version with the branch
+        <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>.
+        npm versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.</p>
+    <p>
+        License: <a href="https://github.com/shaack/bootstrap-input-spinner/blob/master/LICENSE">MIT</a>
+    </p>
+    <h2>Features</h2>
+    <p>The Bootstrap InputSpinner</p>
+    <ul>
+        <li>
+            is <b>mobile friendly</b> and <b>responsive</b>,
+        </li>
+        <li>
+            has <b>internationalized</b> number formatting,
+        </li>
+        <li>
+            automatically changes the value when <b>holding a button</b>,
+        </li>
+        <li>
+            allows setting a <b>prefix</b> or <b>suffix</b> text in the input,
+        </li>
+        <li>
+            handles <code>val()</code> like the native element,
+        </li>
+        <li>
+            <b>dynamically handles</b> changing <b>attribute values</b> like <code>disabled</code> oder
+            <code>class</code>,
+        </li>
+        <li>
+            dispatches <code>change</code> and <code>input</code> <b>events on value
+            change</b> like the native element,
+        </li>
+        <li>
+            <b>needs no extra css</b>, just Bootstrap 5.
+        </li>
+    </ul>
+    <h2>Usage</h2>
+    <p>
+        This script enables the InputSpinner for all inputs with <code>type='number'</code>.
+        <b>No extra css needed</b>, just Bootstrap 5.
+    </p>
+    <pre><code class="language-html">&lt;script src="./src/InputSpinner.js">&lt;/script>
+&lt;script>
+    $("input[type='number']").inputSpinner()
+&lt;/script></code></pre>
+    <h2>Repository, documentation and npm package</h2>
+    <p>Find the source code, more documentation and the npm package at</p>
+    <ul>
+        <li><a href="https://github.com/shaack/bootstrap-input-spinner">GitHub repository and documentation</a></li>
+        <li><a href="https://www.npmjs.com/package/bootstrap-input-spinner">npm package</a></li>
+    </ul>
+    <h2>Examples</h2>
+    <p>The following contains examples of the InputSpinner's main features</p>
+
+    <h3>No attributes</h3>
+    <p>
+        <input type="number"/>
+    </p>
+    <pre><code class="language-html">&lt;input type="number"/></code></pre>
+    <h3>Simple Integer</h3>
+    <p>
+        <input type="number" value="500" min="0" max="1000" step="10"/>
+    </p>
+    <pre><code
+            class="language-html">&lt;input type="number" value="500" min="0" max="1000" step="10"/></code></pre>
+    <h3>Floating Point</h3>
+    <p>
+        <input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/>
+    </p>
+    <pre><code
+            class="language-html">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
+
+    <h3>Handle <code>change</code> and <code>input</code> events and
+        read the value from JavaScript
+        with <code>val()</code></h3>
+    <p>
+        Type in a number to see the difference between <code>change</code> and <code>input</code> events.
+    </p>
+    <p>
+        <input type="number" id="changedInput" value="2500" min="0" max="5000000" data-decimals="2"/>
+    </p>
+    <p>
+        Value on input: <span id="valueOnInput"></span><br/>
+        Value on change: <span id="valueOnChange"></span>
+    </p>
+    <script>
+        var $changedInput = $("#changedInput")
+        var $valueOnInput = $("#valueOnInput")
+        var $valueOnChange = $("#valueOnChange")
+        $changedInput.on("input", function (event) {
+            console.log("on input", event)
+            $valueOnInput.html($(event.target).val())
+            // or $valueOnInput.html(event.target.value) // in vanilla js
+            // or $valueOnInput.html($changedInput.val())
+        })
+        $changedInput.on("change", function (event) {
+            console.log("on change", event)
+            $valueOnChange.html($(event.target).val())
+        })
+    </script>
+    <pre><code class="language-javascript">var $changedInput = $("#changedInput")
+var $valueOnInput = $("#valueOnInput")
+var $valueOnChange = $("#valueOnChange")
+$changedInput.on("input", function (event) {
+    $valueOnInput.html($(event.target).val())
+    // or $valueOnInput.html(event.target.value) // in vanilla js
+    // or $valueOnInput.html($changedInput.val())
+})
+$changedInput.on("change", function (event) {
+    $valueOnChange.html($(event.target).val())
+})</code></pre>
+    <h3>Programmatic changing the value with <code>val()</code></h3>
+    <p>
+        <label for="inputNet">Net</label>
+        <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
+    </p>
+    <p>
+        <label for="inputGross">Gross (+19%)</label>
+        <input type="number" id="inputGross" value="100" min="0" max="11900" step="0.01" data-decimals="2"/>
+    </p>
+    <script>
+        var $inputNet = $("#inputNet")
+        var $inputGross = $("#inputGross")
+        $inputNet.on("input", function (event) {
+            $inputGross.val($(event.target).val() * 1.19)
+        })
+        $inputGross.on("input", function (event) {
+            $inputNet.val($(event.target).val() / 1.19)
+        })
+        $inputGross.val($inputNet.val() * 1.19)
+    </script>
+    <pre><code class="language-javascript">$inputNet.on("input", function (event) {
+    $inputGross.val($(event.target).val() * 1.19)
+    // or $inputGross[0].setValue(event.target.value * 1.19) // in vanilla js
+    // or $inputGross.val($inputNet.val() * 1.19)
+    // do all the same
+})
+$inputGross.on("input", function (event) {
+    $inputNet.val($(event.target).val() / 1.19)
+})</code></pre>
+    <h3>Attributes <code>placeholder</code> and <code>required</code></h3>
+    <form>
+        <p>
+            <input placeholder="Enter a number" required type="number" value="" min="-100" max="100"/>
+        </p>
+        <pre><code
+                class="language-html">&lt;input <strong>placeholder</strong>="Enter a number" <strong>required</strong> type="number" value="" min="-100" max="100"/></code></pre>
+        <input type="submit" id="submitButton" class="btn btn-primary mb-4" value="Submit to test empty input"/>
+    </form>
+
+    <h3>Attribute <code>disabled</code>, dynamically changing</h3>
+    <p>Attributes are handled dynamically.</p>
+    <form>
+        <p>
+            <input id="inputDisabled" disabled type="number" value="50"/>
+        </p>
+        <div class="form-check">
+            <input type="checkbox" checked class="form-check-input" id="disabledSwitch">
+            <label class="form-check-label" for="disabledSwitch">Disabled</label>
+        </div>
+        <script>
+            var $inputDisabled = $("#inputDisabled")
+            var $disabledSwitch = $("#disabledSwitch")
+            $disabledSwitch.on("change", function () {
+                $inputDisabled.prop("disabled", $(this).prop("checked"))
+            })
+        </script>
+        <pre><code class="language-html">&lt;input id="inputDisabled" disabled type="number" value="50"/>
+&lt;div class="form-check">
+    &lt;input type="checkbox" checked class="form-check-input" id="disabledSwitch"/>
+    &lt;label class="form-check-label" for="disabledSwitch">Disabled&lt;/label>
+&lt;/div>
+&lt;script>
+    var $inputDisabled = $("#inputDisabled")
+    var $disabledSwitch = $("#disabledSwitch")
+    $disabledSwitch.on("change", function () {
+        $inputDisabled.prop("disabled", $(this).prop("checked"))
+    })
+&lt;/script></code></pre>
+    </form>
+
+    <h3><code>buttonsOnly</code> mode and disabled <code>autoInterval</code></h3>
+    <p>
+        In <code>buttonsOnly</code> mode no direct text input is allowed, the text-input
+        gets the attribute <code>readonly</code>. But the plus and minus buttons still allow to change the value.
+        <br/><code>autoInterval: undefined</code> additionally disables the auto increase/decrease, when you hold the
+        button.
+    </p>
+    <p>
+        <input id="buttons-only" value="5" min="1" max="10"/>
+    </p>
+    <script type="module">
+        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+        const element = document.getElementById("buttons-only")
+        new InputSpinner(element,
+            {buttonsOnly: true, autoInterval: undefined})
+    </script>
+    <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined})</code></pre>
+
+    <h3>Dynamically handling of the <code>class</code> attribute</h3>
+    <p>
+        <input id="inputChangeClass" class="is-valid" type="number" value="50"/>
+    </p>
+    <p>
+        <label for="classInput">CSS Class</label>
+        <input id="classInput" type="text" class="form-control test-value-input" value="is-valid"/>
+        Try to change the class to "is-invalid" or "text-info".
+    </p>
+    <script>
+        var $inputChangeClass = $("#inputChangeClass")
+        var $classInput = $("#classInput")
+        $classInput.on("input", function () {
+            $inputChangeClass.prop("class", this.value)
+        })
+    </script>
+    <pre><code class="language-html">&lt;input id="inputChangeClass" class="is-valid" type="number" value="50"/>
+&lt;label for="classInput">CSS Class&lt;/label>
+&lt;input id="classInput" type="text" class="form-control" value="is-valid"/>
+&lt;script>
+    var $inputChangeClass = $("#inputChangeClass")
+    var $classInput = $("#classInput")
+    $classInput.on("input", function() {
+        $inputChangeClass.prop("class", this.value);
+    })
+&lt;/script></code></pre>
+
+    <h3>Sizing</h3>
+    <p>Sizing works out of the box. Just set the original inputs class to <code>form-control-sm</code> or
+        <code>form-control-lg</code>, and
+        the resulting group gets the class <code>input-group-sm</code> or <code>input-group-lg</code>.</p>
+    <p>
+        <label for="inputSmall">Small</label>
+        <input id="inputSmall" class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1"
+               step="0.0001"/>
+    </p>
+    <pre><code class="language-html">&lt;input class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
+    <p>
+        <label for="inputLarge">Large</label>
+        <input id="inputLarge" class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0"
+               max="2000000" step="1"/>
+    </p>
+    <pre><code class="language-html">&lt;input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
+
+
+    <h3>Dynamically handling of <code>min</code>, <code>max</code>,
+        <code>step</code> and <code>data-decimals</code></h3>
+    <div class="row">
+        <div class="col-lg-3">
+            <p>
+                <label for="minInput">min</label>
+                <input id="minInput" type="text" class="form-control test-value-input" value="0"/>
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p>
+                <label for="maxInput">max</label>
+                <input id="maxInput" type="text" class="form-control test-value-input" value="100"/>
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p>
+                <label for="stepInput">step</label>
+                <input id="stepInput" type="text" class="form-control test-value-input" value="0.05"/>
+            </p>
+        </div>
+        <div class="col-lg-3">
+            <p>
+                <label for="dataDecimalsInput">data-decimals</label>
+                <input id="dataDecimalsInput" type="text" class="form-control test-value-input" value="2"/>
+            </p>
+        </div>
+    </div>
+    <p>
+        <label for="minMaxTester">Try here</label>
+        <input id="minMaxTester" type="number" value="50" min="0" max="100" step="0.05" data-decimals="2"/>
+    </p>
+    <script>
+        var $minInput = $("#minInput")
+        var $maxInput = $("#maxInput")
+        var $stepInput = $("#stepInput")
+        var $dataDecimalsInput = $("#dataDecimalsInput")
+        var $minMaxTester = $("#minMaxTester")
+        $minInput.on("change", function (event) {
+            console.log("on change", event)
+            $minMaxTester.attr("min", $minInput.val())
+        })
+        $maxInput.on("change", function (event) {
+            console.log("on change", event)
+            $minMaxTester.attr("max", $maxInput.val())
+        })
+        $stepInput.on("change", function (event) {
+            console.log("on change", event)
+            $minMaxTester.attr("step", $stepInput.val())
+        })
+        $dataDecimalsInput.on("change", function (event) {
+            console.log("on change", event)
+            $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
+        })
+    </script>
+    <pre><code class="language-javascript">var $minInput = $("#minInput")
+var $maxInput = $("#maxInput")
+var $stepInput = $("#stepInput")
+var $dataDecimalsInput = $("#dataDecimalsInput")
+var $minMaxTester = $("#minMaxTester")
+$minInput.on("change", function (event) {
+    $minMaxTester.attr("min", $minInput.val())
+})
+$maxInput.on("change", function (event) {
+    $minMaxTester.attr("max", $maxInput.val())
+})
+$stepInput.on("change", function (event) {
+    $minMaxTester.attr("step", $stepInput.val())
+})
+$dataDecimalsInput.on("change", function (event) {
+    $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
+})
+</code></pre>
+
+    <h3>Prefix and Suffix</h3>
+    <p>
+        <label for="inputPrefix">Prefix</label>
+        <input id="inputPrefix" data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1"
+               type="number"/>
+    </p>
+    <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
+    <p>
+        <label for="inputSuffix">Suffix</label>
+        <input id="inputSuffix" data-suffix="°C" value="50" min="0" max="100" type="number"/>
+    </p>
+    <pre><code
+            class="language-html">&lt;input data-suffix="°C" value="50" min="0" max="100" type="number" /></code></pre>
+
+
+    <h3>Looping the value</h3>
+    <p>This input starts from 0 when reaching 360.</p>
+    <p>
+        <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="10"/>
+    </p>
+    <script>
+        var $inputLoop = $("#inputLoop")
+        $inputLoop.on("input", function (ignored) {
+            var value = $inputLoop.val()
+            value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
+            $inputLoop.val(value)
+        })
+    </script>
+    <pre><code class="language-html">&lt;input step="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
+    <p>"Loop" the value between 0 and 360 with the <code>change</code> event in JavaScript.</p>
+    <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
+$inputLoop.on("input", function(event) {
+    var value = $inputLoop.val()
+    value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
+    $inputLoop.val(value)
+})</code></pre>
+
+    <h3>Custom Editors</h3>
+
+    <p>An Editor defines, how the input is parsed and rendered. The inputSpinner is shipped with some custom Editors in
+        <code>/src/custom-editors.js</code>.</p>
+
+    <h4>RawEditor</h4>
+
+    <p>The simplest custom Editor is the <code>RawEditor</code>, it renders just the value und parses just the value,
+        without any
+        changes, like a native number input. No internationalization, no digit grouping.</p>
+    <p>
+        <input id="rawEditor" value="1000"/>
+    </p>
+    <script type="module">
+        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+
+        new InputSpinner(document.getElementById("rawEditor"),
+            {editor: customEditors.RawEditor})
+    </script>
+    <pre><code
+            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.RawEditor})</code></pre>
+
+    <h4>TimeEditor</h4>
+
+    <p>The <code>TimeEditor</code> renders the number as time in hours and minutes, separated by a colon.</p>
+    <input id="timeEditor" value="60" step="5"/>
+    <div class="mt-1">value: <span id="timeValue"></span></div>
+    <script type="module">
+        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+
+        const element = document.getElementById("timeEditor")
+        new InputSpinner(element, {editor: customEditors.TimeEditor})
+        element.addEventListener("input", () => {
+            document.getElementById("timeValue").textContent = element.value
+        })
+        document.getElementById("timeValue").textContent = element.value
+    </script>
+    <pre><code
+            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.TimeEditor})</code></pre>
+
+    <h3>Styling with templates (<i>new!</i>)</h3>
+    <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
+    <h5>How about... buttons right</h5>
+    <p>
+        <input data-prefix="¥" id="templateButtonsRight" value="1000"/>
+    </p>
+    <p>
+        This is the template for "buttons right":
+    </p>
+    <script type="module">
+        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+
+        const element = document.getElementById("templateButtonsRight")
+        new InputSpinner(element, {
+            template:
+                '<div class="input-group ${groupClass}">' +
+                '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}</button>' +
+                '<button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}</button>' +
+                '</div>'
+        })
+    </script>
+    <pre><code class="language-html">&lt;div class="input-group ${groupClass}">
+&lt;input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>
+&lt;button style="min-width: ${buttonsWidth}" class="btn btn-decrement ${buttonsClass}" type="button">${decrementButton}&lt;/button>
+&lt;button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass}" type="button">${incrementButton}&lt;/button>
+&lt;/div></code></pre>
+    <p>You can... or must use the following variables in your template:</p>
+    <ul>
+        <li>${groupClass}</li>
+        <li>${textAlign}</li>
+        <li>${buttonsWidth}</li>
+        <li>${buttonsClass}</li>
+        <li>${decrementButton}</li>
+        <li>${incrementButton}</li>
+    </ul>
+    <p>Provide the template as configuration parameter:</p>
+    <pre><code class="language-js">$(element).inputSpinner({template: '&lt;div class...'})</code></pre>
+
+    <h3>Destroying the spinner</h3>
+    <p>To Remove the InputSpinner and show the original input element, use</p>
+    <pre><code class="language-javascript">$(element).inputSpinner("destroy")</code></pre>
+    <div class="mb-3">
+        <label for="inputDestroyCreate">Label `for` switches dynamically:</label>
+        <input type="number" id="inputDestroyCreate" value="50"/>
+    </div>
+    <button id="buttonDestroy" class="btn btn-primary">destroy</button>
+    <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
+    <script type="module">
+        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+        var $buttonDestroy = $("#buttonDestroy")
+        var $buttonCreate = $("#buttonCreate")
+        var $inputDestroyCreate = $("#inputDestroyCreate")
+        $buttonDestroy.click(function () {
+            $inputDestroyCreate[0].destroyInputSpinner()
+            $buttonDestroy.attr("disabled", true)
+            $buttonCreate.attr("disabled", false)
+        })
+        $buttonCreate.click(function () {
+            new InputSpinner($inputDestroyCreate[0])
+            $buttonDestroy.attr("disabled", false)
+            $buttonCreate.attr("disabled", true)
+        })
+    </script>
+
+    <div class="card my-5 border-info">
+        <a href="https://shaack.com/works">
+            <div class="card-body">
+                <h4 class="mb-2 mt-0">More Bootstrap components (from shaack.com)</h4>
+                You may want to check out our further Bootstrap extensions,
+                <b>bootstrap-show-modal</b> and
+                <b>bootstrap-detect-breakpoint</b>.
+            </div>
+        </a>
+    </div>
+    <p>If you find bugs or have suggestions, you may write an
+        <a href="https://github.com/shaack/bootstrap-input-spinner/issues">issue</a>.</p>
+    <br/><br/>
+</section>
+<!-- bootstrap needs jQuery -->
+<script type="module">
+    import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+
+    const inputSpinnerElements = document.querySelectorAll("input[type='number']")
+    for (const inputSpinnerElement of inputSpinnerElements) {
+        new InputSpinner(inputSpinnerElement)
+    }
+</script>
+</body>
+</html>
