@@ -160,9 +160,11 @@ export class InputSpinner {
             this.$input.on("paste input change focusout", function (event) {
                 let newValue = self.$input[0].value
                 const focusOut = event.type === "focusout"
-                newValue = self.$original[0].inputSpinnerEditor.parse(newValue)
-                setValue(newValue, focusOut)
-                dispatchEvent(self.$original, event.type)
+                if(!self.props.buttonsOnly) {
+                    newValue = self.$original[0].inputSpinnerEditor.parse(newValue)
+                    setValue(newValue, focusOut)
+                    dispatchEvent(self.$original, event.type)
+                }
                 if (self.props.keyboardStepping && focusOut) { // stop stepping
                     resetTimer()
                 }
