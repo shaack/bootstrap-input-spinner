@@ -2,7 +2,7 @@
 
 A Bootstrap / jQuery plugin to create input spinner elements for number input.
 
-> Note: With version 3.3 I added an ES6 module beta version under `src/es6-beta`. It is not yet documented, but there is a test page as `index-es6-beta.html`. With future versions I will move to ES6 modules and remove the jQuery dependency.
+> Note: bootstrap-input-spinner is now a ES6 module. You find the old ES5 version under es5-deprecated. The ES5 version is not maintained anymore and will be removed in the future.
 
 **[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
 
@@ -56,17 +56,18 @@ Create the element in HTML. The attributes are compatible to the native `input[t
 
 ### Script
 
-It is a jQuery plugin. So, enable the InputSpinner for all inputs with `type='number'` with the following script.
-
 ```html
+<script type="module">
+    import {InputSpinner} from "./src/InputSpinner.js"
 
-<script src="src/bootstrap-input-spinner.js"></script>
-<script>
-    $("input[type='number']").inputSpinner();
+    const inputSpinnerElements = document.querySelectorAll("input[type='number']")
+    for (const inputSpinnerElement of inputSpinnerElements) {
+        new InputSpinner(inputSpinnerElement)
+    }
 </script>
 ```
 
-That's it. **No extra css needed**, just Bootstrap 5 and jQuery.
+That's it. **No extra css needed**, just Bootstrap 5 and jQuery. (Note: jQuery will be removed in the future)
 
 ## API Reference
 

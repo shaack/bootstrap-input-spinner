@@ -13,7 +13,6 @@
   "keywords": [
     "Bootstrap 5",
     "Bootstrap",
-    "jQuery",
     "Widget",
     "Html",
     "Input",
@@ -26,7 +25,7 @@
   },
   "homepage": "https://shaack.com/en/open-source-components",
   "devDependencies": {
-    "prismjs": "^1.27.0",
-    "teevi": "^2.1.10"
+    "prismjs": "^1.29.0",
+    "teevi": "^2.2.4"
   }
 }

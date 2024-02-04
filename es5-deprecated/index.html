@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>bootstrap-input-spinner</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism-tomorrow.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../node_modules/prismjs/themes/prism-tomorrow.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <style type="text/css">
         h2 {
@@ -23,13 +22,11 @@
             max-width: 250px;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-            crossorigin="anonymous"></script>
-    <script src="src/custom-editors.js"></script>
-    <script src="./node_modules/prismjs/prism.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="src/bootstrap-input-spinner.js"></script>
+    <script src="./src/custom-editors.js"></script>
+    <script src="../node_modules/prismjs/prism.js"></script>
 </head>
 <body>
 <section class="container py-5">
@@ -39,8 +36,7 @@
         <a href="https://shaack.com/en">shaack.com</a> engineering. For now it needs jQuery, but I am working on it.
     </p>
     <p>This version is compatible with Bootstrap 5, but we remain a Bootstrap 4 compatible version with the branch
-        <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>.
-        npm versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.</p>
+        <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. npm versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.</p>
     <p>
         License: <a href="https://github.com/shaack/bootstrap-input-spinner/blob/master/LICENSE">MIT</a>
     </p>
@@ -79,7 +75,7 @@
         This script enables the InputSpinner for all inputs with <code>type='number'</code>.
         <b>No extra css needed</b>, just Bootstrap 5.
     </p>
-    <pre><code class="language-html">&lt;script src="./src/InputSpinner.js">&lt;/script>
+    <pre><code class="language-html">&lt;script src="./src/bootstrap-input-spinner.js">&lt;/script>
 &lt;script>
     $("input[type='number']").inputSpinner()
 &lt;/script></code></pre>
@@ -223,18 +219,11 @@ $inputGross.on("input", function (event) {
     <p>
         In <code>buttonsOnly</code> mode no direct text input is allowed, the text-input
         gets the attribute <code>readonly</code>. But the plus and minus buttons still allow to change the value.
-        <br/><code>autoInterval: undefined</code> additionally disables the auto increase/decrease, when you hold the
-        button.
+        <br/><code>autoInterval: undefined</code> additionally disables the auto increase/decrease, when you hold the button.
     </p>
     <p>
-        <input id="buttons-only" value="5" min="1" max="10"/>
+        <input class="buttons-only" value="5" min="1" max="10"/>
     </p>
-    <script type="module">
-        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
-        const element = document.getElementById("buttons-only")
-        new InputSpinner(element,
-            {buttonsOnly: true, autoInterval: undefined})
-    </script>
     <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined})</code></pre>
 
     <h3>Dynamically handling of the <code>class</code> attribute</h3>
@@ -270,14 +259,12 @@ $inputGross.on("input", function (event) {
         the resulting group gets the class <code>input-group-sm</code> or <code>input-group-lg</code>.</p>
     <p>
         <label for="inputSmall">Small</label>
-        <input id="inputSmall" class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1"
-               step="0.0001"/>
+        <input id="inputSmall" class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/>
     </p>
     <pre><code class="language-html">&lt;input class="form-control-sm" type="number" value="0.0" data-decimals="4" min="-1" max="1" step="0.0001"/></code></pre>
     <p>
         <label for="inputLarge">Large</label>
-        <input id="inputLarge" class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0"
-               max="2000000" step="1"/>
+        <input id="inputLarge" class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/>
     </p>
     <pre><code class="language-html">&lt;input class="form-control-lg" type="number" value="1000000" data-decimals="0" min="0" max="2000000" step="1"/></code></pre>
 
@@ -359,8 +346,7 @@ $dataDecimalsInput.on("change", function (event) {
     <h3>Prefix and Suffix</h3>
     <p>
         <label for="inputPrefix">Prefix</label>
-        <input id="inputPrefix" data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1"
-               type="number"/>
+        <input id="inputPrefix" data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number"/>
     </p>
     <pre><code class="language-html">&lt;input data-prefix="$" value="100.0" data-decimals="2" min="0" max="1000" step="0.1" type="number" /></code></pre>
     <p>
@@ -378,7 +364,7 @@ $dataDecimalsInput.on("change", function (event) {
     </p>
     <script>
         var $inputLoop = $("#inputLoop")
-        $inputLoop.on("input", function (ignored) {
+        $inputLoop.on("input", function(ignored) {
             var value = $inputLoop.val()
             value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
             $inputLoop.val(value)
@@ -406,11 +392,8 @@ $inputLoop.on("input", function(event) {
     <p>
         <input id="rawEditor" value="1000"/>
     </p>
-    <script type="module">
-        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
-
-        new InputSpinner(document.getElementById("rawEditor"),
-            {editor: customEditors.RawEditor})
+    <script>
+        $("#rawEditor").inputSpinner({editor: customEditors.RawEditor})
     </script>
     <pre><code
             class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.RawEditor})</code></pre>
@@ -420,15 +403,14 @@ $inputLoop.on("input", function(event) {
     <p>The <code>TimeEditor</code> renders the number as time in hours and minutes, separated by a colon.</p>
     <input id="timeEditor" value="60" step="5"/>
     <div class="mt-1">value: <span id="timeValue"></span></div>
-    <script type="module">
-        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
 
-        const element = document.getElementById("timeEditor")
-        new InputSpinner(element, {editor: customEditors.TimeEditor})
-        element.addEventListener("input", () => {
-            document.getElementById("timeValue").textContent = element.value
+    <script>
+        var $timeEditorInput = $("#timeEditor")
+        $timeEditorInput.inputSpinner({editor: customEditors.TimeEditor})
+        $("#timeValue").text($timeEditorInput.val())
+        $timeEditorInput.on("input", function() {
+            $("#timeValue").text($timeEditorInput.val())
         })
-        document.getElementById("timeValue").textContent = element.value
     </script>
     <pre><code
             class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.TimeEditor})</code></pre>
@@ -442,11 +424,8 @@ $inputLoop.on("input", function(event) {
     <p>
         This is the template for "buttons right":
     </p>
-    <script type="module">
-        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
-
-        const element = document.getElementById("templateButtonsRight")
-        new InputSpinner(element, {
+    <script>
+        $("#templateButtonsRight").inputSpinner({
             template:
                 '<div class="input-group ${groupClass}">' +
                 '<input type="text" inputmode="decimal" style="text-align: ${textAlign}" class="form-control"/>' +
@@ -481,18 +460,17 @@ $inputLoop.on("input", function(event) {
     </div>
     <button id="buttonDestroy" class="btn btn-primary">destroy</button>
     <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
-    <script type="module">
-        import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
+    <script>
         var $buttonDestroy = $("#buttonDestroy")
         var $buttonCreate = $("#buttonCreate")
         var $inputDestroyCreate = $("#inputDestroyCreate")
         $buttonDestroy.click(function () {
-            $inputDestroyCreate[0].destroyInputSpinner()
+            $inputDestroyCreate.inputSpinner("destroy")
             $buttonDestroy.attr("disabled", true)
             $buttonCreate.attr("disabled", false)
         })
         $buttonCreate.click(function () {
-            new InputSpinner($inputDestroyCreate[0])
+            $inputDestroyCreate.inputSpinner()
             $buttonDestroy.attr("disabled", false)
             $buttonCreate.attr("disabled", true)
         })
@@ -513,13 +491,9 @@ $inputLoop.on("input", function(event) {
     <br/><br/>
 </section>
 <!-- bootstrap needs jQuery -->
-<script type="module">
-    import {InputSpinner} from "./src/es6-beta/InputSpinner.js"
-
-    const inputSpinnerElements = document.querySelectorAll("input[type='number']")
-    for (const inputSpinnerElement of inputSpinnerElements) {
-        new InputSpinner(inputSpinnerElement)
-    }
+<script>
+    $("input[type='number']").inputSpinner()
+    $(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined })
 </script>
 </body>
 </html>
