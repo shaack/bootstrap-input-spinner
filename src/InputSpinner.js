@@ -4,8 +4,7 @@
  * License: MIT, see file 'LICENSE'
  */
 
-
-    // the default editor for parsing and rendering
+// the default editor for parsing and rendering
 const I18nEditor = function (props, element) {
         const locale = props.locale || "en-US"
 
