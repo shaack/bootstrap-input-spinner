@@ -192,7 +192,11 @@
                         stepHandling(step)
                     }
                 })
-                onPointerUp(document.body, function () {
+                onPointerUp($buttonDecrement[0], function () {
+                    resetTimer()
+                    dispatchEvent($original, "change")
+                })
+                onPointerUp($buttonIncrement[0], function () {
                     resetTimer()
                     dispatchEvent($original, "change")
                 })
