@@ -192,7 +192,11 @@
                         stepHandling(step)
                     }
                 })
-                onPointerUp(document.body, function () {
+                onPointerUp($buttonDecrement[0], function () {
+                    resetTimer()
+                    dispatchEvent($original, "change")
+                })
+                onPointerUp($buttonIncrement[0], function () {
                     resetTimer()
                     dispatchEvent($original, "change")
                 })
@@ -328,7 +332,7 @@
         })
         element.addEventListener("touchend", function (e) {
             callback(e)
-        })
+        }, {passive: true})
         element.addEventListener("keyup", function (e) {
             if ((e.keyCode === 32 || e.keyCode === 13)) {
                 triggerKeyPressed = false
@@ -349,7 +353,7 @@
                 e.preventDefault()
             }
             callback(e)
-        })
+        }, {passive: false})
         element.addEventListener("keydown", function (e) {
             if ((e.keyCode === 32 || e.keyCode === 13) && !triggerKeyPressed) {
                 triggerKeyPressed = true
