@@ -9,7 +9,7 @@ A Bootstrap extension to create input spinner elements for number input.
 
 ## References
 
-- [Demo pages with usage examples](http://shaack.com/projekte/bootstrap-input-spinner/)
+- [Demo page with usage examples](http://shaack.com/projekte/bootstrap-input-spinner/)
 - [GitHub repository](https://github.com/shaack/bootstrap-input-spinner/)
 - [npm package](https://www.npmjs.com/package/bootstrap-input-spinner)
 
