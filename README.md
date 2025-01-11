@@ -1,20 +1,25 @@
 # bootstrap-input-spinner
 
-A Bootstrap / jQuery plugin to create input spinner elements for number input.
+A Bootstrap extension to create input spinner elements for number input.
 
-> Note: bootstrap-input-spinner is now a ES6 module. You find the old ES5 version under es5-deprecated. The ES5 version is not maintained anymore and will be removed in the future.
-
-**[Demo page with examples](http://shaack.com/projekte/bootstrap-input-spinner/)**
+> Note: bootstrap-input-spinner is now a ES6 module. You find the old ES5 version in the folder `es5-deprecated`. The ES5 version is not maintained anymore and will be removed in the future.
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
 *Examples with floating-point and german localization*
 
-> This version is compatible with **Bootstrap 5**, but we remain a Bootstrap 4 compatible version with the branch
+## References
+
+- [Demo pages with usage examples](http://shaack.com/projekte/bootstrap-input-spinner/)
+- [GitHub repository](https://github.com/shaack/bootstrap-input-spinner/)
+- [npm package](https://www.npmjs.com/package/bootstrap-input-spinner)
+
+### Older version, Bootstrap 4 compatible
+
+> The current is compatible with **Bootstrap 5**, but we remain a Bootstrap 4 compatible version with the branch
 > <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. 
 > npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
 
-- **[Current, Bootstrap 5 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner)**
-- **[Bootstrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)**
+- [Bootstrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)
 
 ## Features
 
