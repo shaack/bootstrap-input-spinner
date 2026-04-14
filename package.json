@@ -31,6 +31,6 @@
   "homepage": "https://shaack.com/en/open-source-components",
   "devDependencies": {
     "prismjs": "^1.30.0",
-    "teevi": "^2.3.0"
+    "teevi": "^2.4.1"
   }
 }

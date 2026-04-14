@@ -17,9 +17,9 @@ A Bootstrap 5 extension to create input spinner elements for number input. Zero 
 
 ### Older version, Bootstrap 4 compatible
 
-> The current is compatible with **Bootstrap 5**, but we remain a Bootstrap 4 compatible version with the branch
-> <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>. 
-> npm package versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.
+> The current version is compatible with **Bootstrap 5**. A Bootstrap 4 compatible version lives on the
+> <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a> branch.
+> npm package versions 3.x, 4.x and 5.x are Bootstrap 5 compatible; 2.x is Bootstrap 4 compatible.
 
 - [Bootstrap 4 compatible npm package](https://www.npmjs.com/package/bootstrap-input-spinner/v/2.1.2)
 
@@ -31,10 +31,9 @@ The Bootstrap InputSpinner
 - automatically changes the value when **holding a button**,
 - has **internationalized** number formatting,
 - allows setting a **prefix** or a **suffix** text in the input,
-- handles **`val()`** like the native element,
 - **dynamically handles** changing **attribute values** like `disabled` or `class`,
-- supports **templates** and **custom editors**, (*new!*)
-- dispatches **`change`** and **`input`** **events on value change** like the native element and
+- supports **templates** and **custom editors**,
+- dispatches **`change`** and **`input`** **events on value change** like the native element, and
 - works **without extra css**, only Bootstrap 5 is needed.
 
 ## Quickstart
@@ -51,7 +50,7 @@ npm install bootstrap-input-spinner@2.2.0
 ```
 
 
-Or just download the GitHub repository and include `src/bootstrap-input-spinner.js`.
+Or just download the GitHub repository and import `src/InputSpinner.js` as an ES module.
 
 ### HTML
 
@@ -114,7 +113,7 @@ new InputSpinner(element, config)
 The default configuration is
 
 ```javascript
-var props = {
+const props = {
     decrementButton: "<strong>&minus;</strong>", // button text
     incrementButton: "<strong>&plus;</strong>", // ..
     groupClass: "", // css class of the resulting input-group
@@ -147,8 +146,8 @@ Additional css class for the `input-group` of the rendered Bootstrap input.
 ##### buttonsClass
 
 The css class of the buttons. Use it to style the increment and decrement buttons as
-described [here](https://getbootstrap.com/docs/4.0/components/buttons/). Maybe `buttonsClass: btn-primary`
-or `btn-success` or whatever type of buttons you want.
+described [in the Bootstrap 5 button docs](https://getbootstrap.com/docs/5.3/components/buttons/). For example
+`buttonsClass: "btn-primary"` or `"btn-success"`.
 
 ##### buttonsWidth
 
@@ -196,11 +195,11 @@ new InputSpinner(element, {editor: TimeEditor})
 An Editor must implement two functions: `parse(customFormat)` to turn the input string into a number, and
 `render(number)` to format the number back for display.
 
-The simplest custom Editor is the `RawEditor`, it renders just the value und parses just the value, without any changes,
-like a native number input. It looks like this:
+The simplest custom Editor is the `RawEditor`, which renders and parses the value without any changes, like a native
+number input. It looks like this:
 
 ```javascript
-var RawEditor = function (props, element) {
+export const RawEditor = function (props, element) {
     this.parse = function (customFormat) {
         // parse nothing
         return customFormat
