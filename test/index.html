@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>bootstrap-input-spinner tests</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <style>
+        body { font-family: sans-serif; padding: 1rem; }
+        #fixture { position: absolute; left: -10000px; top: -10000px; }
+    </style>
+</head>
+<body>
+<h1>bootstrap-input-spinner tests</h1>
+<div id="fixture"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/es-module-shims@1.7.2/dist/es-module-shims.min.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "teevi/": "../node_modules/teevi/"
+        }
+    }
+</script>
+<script type="module">
+    import {teevi} from "teevi/src/teevi.js"
+    import "./TestInputSpinner.js"
+    import "./TestCustomEditors.js"
+    teevi.run()
+</script>
+</body>
+</html>
