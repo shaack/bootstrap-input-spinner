@@ -187,6 +187,33 @@ describe("InputSpinner stepping", () => {
     })
 })
 
+describe("InputSpinner dynamic step while holding", () => {
+    it("picks up a step attribute change on the next auto-repeat tick (regression for #110)", async () => {
+        const el = createInput({value: "0", min: "0", max: "1000", step: "1"})
+        new InputSpinner(el, {autoDelay: 10, autoInterval: 10})
+        const group = el.nextElementSibling
+        const btn = group.querySelector(".btn-increment")
+
+        // Start holding the button: initial step=1 → value becomes 1 synchronously.
+        btn.dispatchEvent(new MouseEvent("mousedown", {button: 0, cancelable: true, bubbles: true}))
+        assert.equal(el.value, "1")
+
+        // Swap the step attribute mid-hold. MutationObserver fires the
+        // updateAttributes callback, which sets self.step = 10.
+        el.setAttribute("step", "10")
+        await wait(5)
+
+        // Wait for a few auto-repeat ticks with the new step.
+        await wait(50)
+        const mid = parseFloat(el.value)
+        assert.true(mid >= 10, "expected value to have advanced by step=10, got " + mid)
+
+        // Release.
+        document.body.dispatchEvent(new MouseEvent("mouseup", {button: 0, bubbles: true}))
+        clear()
+    })
+})
+
 describe("InputSpinner events", () => {
     it("dispatches 'input' when stepping", async () => {
         const {el, group} = spin({value: "5", min: "0", max: "10"})

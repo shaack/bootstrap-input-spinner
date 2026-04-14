@@ -272,12 +272,16 @@ export class InputSpinner {
         }
 
         function stepHandling(step) {
-            calcStep(step)
+            // Capture only the direction; re-read self.step on every tick so
+            // consumers can change the step attribute mid-hold and have the
+            // new value take effect on the next auto-repeat tick.
+            const direction = step < 0 ? -1 : 1
+            calcStep(direction * self.step)
             resetTimer()
             if (self.props.autoInterval !== undefined) {
                 self.autoDelayHandler = setTimeout(function () {
                     self.autoIntervalHandler = setInterval(function () {
-                        calcStep(step)
+                        calcStep(direction * self.step)
                     }, self.props.autoInterval)
                 }, self.props.autoDelay)
             }
