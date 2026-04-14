@@ -1,8 +1,8 @@
 # bootstrap-input-spinner
 
-A Bootstrap extension to create input spinner elements for number input.
+A Bootstrap 5 extension to create input spinner elements for number input.
 
-> Note: bootstrap-input-spinner is now a ES6 module. You find the old ES5 version in the folder `es5-deprecated`. The ES5 version is not maintained anymore and will be removed in the future.
+> Note: bootstrap-input-spinner is now an ES6 module. The legacy ES5 version has been removed; if you still need it, pin to npm `3.x`.
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
 *Examples with floating-point and german localization*
@@ -72,7 +72,7 @@ Create the element in HTML. The attributes are compatible to the native `input[t
 </script>
 ```
 
-That's it. **No extra css needed**, just Bootstrap 5 and jQuery. (Note: jQuery will be removed in the future)
+That's it. **No extra css needed**, just Bootstrap 5 and jQuery. jQuery is still a runtime dependency and is planned to be removed in a future release.
 
 ## API Reference
 
@@ -98,11 +98,13 @@ The InputSpinner also handles the standard input attributes `required`, `disable
 
 ### Create an instance in JavaScript
 
-Use JavaScript to create the instance as a jQuery plugin. You may provide additional configuration in an object as a
-config parameter.
+Instantiate the `InputSpinner` class on any `<input type="number">` element. You may provide additional configuration
+in an object as a second parameter.
 
 ```js
-$(element).inputSpinner(config);
+import {InputSpinner} from "bootstrap-input-spinner/src/InputSpinner.js"
+
+new InputSpinner(element, config)
 ```
 
 #### Configuration (props)
@@ -177,12 +179,20 @@ step.
 Used to format the number in the UI. Detected automatically from the user's browser, can be set to "de", "en",… or "
 de_DE", "en_GB",….
 
-##### editor (*new!*)
+##### editor
 
-An Editor defines, how the input is parsed and rendered. The default editor of the spinner is the `I18nEditor`, which
-renders and parses an internationalized number value. There are custom editors in `/src/custom-editors.js`. An Editor
-must implement the two functions `parse(customValue)`, to parse the input to a number and `render(number)` to render the
-number to the spinner input.
+An Editor defines how the input is parsed and rendered. The default editor is the internal `I18nEditor`, which
+parses and renders an internationalized number. Additional editors live in `src/custom-editors.js` and are available
+as named ES exports:
+
+```js
+import {RawEditor, TimeEditor} from "bootstrap-input-spinner/src/custom-editors.js"
+
+new InputSpinner(element, {editor: TimeEditor})
+```
+
+An Editor must implement two functions: `parse(customFormat)` to turn the input string into a number, and
+`render(number)` to format the number back for display.
 
 The simplest custom Editor is the `RawEditor`, it renders just the value und parses just the value, without any changes,
 like a native number input. It looks like this:
@@ -215,14 +225,19 @@ To modify the look completely, you can use the template parameter. There is an e
 
 ### Programmatic change and read of value
 
-To change or read the value just use the jQuery `val()` function on the input, like this
+In vanilla JavaScript, read via `element.value` and write via `element.setValue(newValue)`:
 
 ```javascript
-var currentValue = $(element).val() // read
-$(element).val(newValue) // write
+const currentValue = element.value       // read
+element.setValue(newValue)                // write
 ```
 
-> **Hint:** Reading the value in vanilla JS with `element.value` will also work, but to set the value you have to use `element.setValue(newValue)` or `$(element).val(newValue)`
+The jQuery `val()` function also works in both directions:
+
+```javascript
+const currentValue = $(element).val()     // read
+$(element).val(newValue)                  // write
+```
 
 ### Handling attributes
 
@@ -257,14 +272,12 @@ $(element).on("change", function (event) {
 
 ### Methods
 
-Methods are passed as string values instead of the options object.
-
 #### destroy
 
 Removes the InputSpinner and shows the original input element.
 
 ```javascript
-$(element).inputSpinner("destroy")
+element.destroyInputSpinner()
 ```
 
 ## Minified version
@@ -280,21 +293,27 @@ Just install uglify
 npm install uglify-js -g
 ```
 
-and then in the src-folder
+and then in the `src` folder
 
 ```bash
-uglifyjs bootstrap-input-spinner.js --compress --mangle > bootstrap-input-spinner.min.js
+uglifyjs InputSpinner.js --compress --mangle > InputSpinner.min.js
 ```
 
 Violà! :)
 
+## Testing
+
+There is a [Teevi](https://github.com/shaack/teevi) based browser test suite under `test/`. Serve the repo with any
+static server and open `test/index.html` in a browser to run it:
+
+```bash
+npx http-server -p 8080
+# then open http://localhost:8080/test/
+```
+
 ## Browser support
 
-The spinner works in all modern browsers and Internet Explorer. Not tested with IE < 11.
-
-For older browsers (IE 9 or so), that doesn't support `Intl`, when you get an error message like
-**"Intl is not defined"** (See [issue #34](https://github.com/shaack/bootstrap-input-spinner/issues/34)), just use a
-shim or polyfill like [Intl.js](https://github.com/andyearnshaw/Intl.js), and it works.
+The spinner works in all modern browsers that support ES modules.
 
 ---
 
