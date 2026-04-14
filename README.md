@@ -2,6 +2,8 @@
 
 A Bootstrap 5 extension to create input spinner elements for number input. Zero dependencies other than Bootstrap 5 — **no jQuery required** since v5.0.0.
 
+> **Unofficial third-party component** — `bootstrap-input-spinner` is maintained by [shaack.com](https://shaack.com) and is not affiliated with or endorsed by the Bootstrap team.
+
 > Note: bootstrap-input-spinner is now an ES6 module. The legacy ES5 version has been removed; if you still need it, pin to npm `3.x`. If you still need jQuery integration, pin to `4.x`.
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
