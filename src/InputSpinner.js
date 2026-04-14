@@ -65,6 +65,7 @@ export class InputSpinner {
             autoInterval: 50, // speed of auto value change, set to `undefined` to disable auto-change
             buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
             keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
+            mouseWheel: false, // set `true` to step the value on wheel when the input is focused. Off by default — modern browsers no longer wheel-step native <input type="number">.
             locale: navigator.language, // the locale, per default detected automatically from the browser
             editor: I18nEditor, // the editor (parsing and rendering of the input)
             template: // the template of the input
@@ -201,6 +202,35 @@ export class InputSpinner {
                 resetTimer()
             }
         })
+
+        // Focus-gated mouse-wheel stepping: matches native <input type="number">.
+        // The listener is attached on focus and detached on blur, so an
+        // unfocused spinner never hijacks page scroll and no passive-listener
+        // warnings are produced while the input is idle.
+        const onWheel = function (event) {
+            if (self.input.disabled || self.input.readOnly) return
+            if (event.deltaY === 0) return
+            event.preventDefault()
+            // Scroll up → increment (macOS natural-scroll convention:
+            // pushing the wheel/trackpad up yields deltaY > 0).
+            const direction = event.deltaY > 0 ? 1 : -1
+            calcStep(direction * self.step)
+            dispatchEvent(self.original, "change")
+        }
+        let wheelBound = false
+        const attachWheel = function () {
+            if (wheelBound || !self.props.mouseWheel) return
+            self.input.addEventListener("wheel", onWheel, {passive: false})
+            wheelBound = true
+        }
+        const detachWheel = function () {
+            if (!wheelBound) return
+            self.input.removeEventListener("wheel", onWheel, {passive: false})
+            wheelBound = false
+        }
+        bind(this.input, "focus", attachWheel)
+        bind(this.input, "blur", detachWheel)
+        self._teardown.push(detachWheel)
 
         // decrement button
         onPointerDown(self.buttonDecrement, function () {

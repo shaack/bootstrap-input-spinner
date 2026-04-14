@@ -212,6 +212,22 @@ inputGross.addEventListener("input", function (event) {
     </script>
     <pre><code class="language-js">new InputSpinner(element, {buttonsOnly: true, autoInterval: undefined})</code></pre>
 
+    <h3>Mouse wheel stepping</h3>
+    <p>
+        Off by default, matching what modern browsers do with the native <code>&lt;input type="number"&gt;</code>.
+        Pass <code>mouseWheel: true</code> to enable it. The listener is attached only while the input has focus,
+        so an unfocused spinner never hijacks page scroll.
+    </p>
+    <p>
+        <label for="inputMouseWheel">Focus and scroll to step</label>
+        <input id="inputMouseWheel" type="number" value="50" min="0" max="100" step="1"/>
+    </p>
+    <script type="module">
+        import {InputSpinner} from "./src/InputSpinner.js"
+        new InputSpinner(document.getElementById("inputMouseWheel"), {mouseWheel: true})
+    </script>
+    <pre><code class="language-js">new InputSpinner(element, {mouseWheel: true})</code></pre>
+
     <h3>Dynamically handling of the <code>class</code> attribute</h3>
     <p>
         <input id="inputChangeClass" class="is-valid" type="number" value="50"/>
@@ -471,6 +487,7 @@ new InputSpinner(document.getElementById("timeEditor"), {editor: TimeEditor})</c
     import {InputSpinner} from "./src/InputSpinner.js"
 
     for (const el of document.querySelectorAll("input[type='number']")) {
+        if (el["bootstrap-input-spinner"]) continue
         new InputSpinner(el)
     }
 </script>

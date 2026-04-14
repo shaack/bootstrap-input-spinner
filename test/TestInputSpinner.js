@@ -214,6 +214,56 @@ describe("InputSpinner dynamic step while holding", () => {
     })
 })
 
+describe("InputSpinner mouse wheel", () => {
+    function wheel(input, deltaY) {
+        input.dispatchEvent(new WheelEvent("wheel", {deltaY, cancelable: true, bubbles: true}))
+    }
+    it("is disabled by default (matches modern native behavior)", () => {
+        const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"})
+        const visible = group.querySelector("input")
+        visible.focus()
+        wheel(visible, 100)
+        wheel(visible, -100)
+        assert.equal(el.value, "5")
+        clear()
+    })
+    it("scroll up (positive deltaY) increments when enabled and focused (#132)", () => {
+        const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"}, {mouseWheel: true})
+        const visible = group.querySelector("input")
+        visible.focus()
+        wheel(visible, 100)
+        assert.equal(el.value, "6")
+        clear()
+    })
+    it("scroll down (negative deltaY) decrements when enabled and focused", () => {
+        const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"}, {mouseWheel: true})
+        const visible = group.querySelector("input")
+        visible.focus()
+        wheel(visible, -100)
+        assert.equal(el.value, "4")
+        clear()
+    })
+    it("does not step when the input is not focused (#115)", () => {
+        const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"}, {mouseWheel: true})
+        const visible = group.querySelector("input")
+        // never focus
+        wheel(visible, 100)
+        assert.equal(el.value, "5")
+        clear()
+    })
+    it("stops stepping after the input blurs", () => {
+        const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"}, {mouseWheel: true})
+        const visible = group.querySelector("input")
+        visible.focus()
+        wheel(visible, 100)
+        assert.equal(el.value, "6")
+        visible.blur()
+        wheel(visible, 100)
+        assert.equal(el.value, "6")
+        clear()
+    })
+})
+
 describe("InputSpinner events", () => {
     it("dispatches 'input' when stepping", async () => {
         const {el, group} = spin({value: "5", min: "0", max: "10"})

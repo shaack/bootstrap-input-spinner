@@ -124,6 +124,7 @@ const props = {
     autoInterval: 50, // speed of auto value change, set to `undefined` to disable auto-change
     buttonsOnly: false, // set this `true` to disable the possibility to enter or paste the number via keyboard
     keyboardStepping: true, // set this to `false` to disallow the use of the up and down arrow keys to step
+    mouseWheel: false, // set to `true` to step the value on mouse wheel when the input is focused
     locale: navigator.language, // the locale, per default detected automatically from the browser
     editor: I18nEditor, // the editor (parsing and rendering of the input)
     template: // the template of the input
@@ -174,6 +175,12 @@ the plus and minus buttons still allow to change the value.
 
 In `keyboardStepping` mode (set `true`) allows the use of the up/down arrow keys to increase/decrease the number by the
 step.
+
+##### mouseWheel
+
+Off by default, matching modern browsers which no longer wheel-step native `<input type="number">` elements. Set to
+`true` to enable mouse-wheel stepping. The wheel listener is only attached while the input has focus, so an unfocused
+spinner never hijacks page scroll. Scroll up increases the value, scroll down decreases it.
 
 ##### locale
 
