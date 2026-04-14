@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-input-spinner",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A Bootstrap 5 plugin to create input spinner elements for number input.",
   "browser": "./src/InputSpinner.js",
   "type": "module",
