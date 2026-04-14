@@ -208,6 +208,37 @@ describe("InputSpinner events", () => {
     })
 })
 
+describe("InputSpinner instance isolation", () => {
+    it("stepping one spinner does not fire change on another (regression for #121)", async () => {
+        const elA = createInput({value: "5", min: "0", max: "10", step: "1"})
+        const elB = createInput({value: "5", min: "0", max: "10", step: "1"})
+        new InputSpinner(elA)
+        new InputSpinner(elB)
+        let a = 0, b = 0
+        elA.addEventListener("change", () => a++)
+        elB.addEventListener("change", () => b++)
+        pressButton(elA.nextElementSibling.querySelector(".btn-increment"))
+        await wait()
+        assert.equal(a, 1)
+        assert.equal(b, 0)
+        clear()
+    })
+    it("stepping one spinner does not fire input on another", async () => {
+        const elA = createInput({value: "5", min: "0", max: "10", step: "1"})
+        const elB = createInput({value: "5", min: "0", max: "10", step: "1"})
+        new InputSpinner(elA)
+        new InputSpinner(elB)
+        let a = 0, b = 0
+        elA.addEventListener("input", () => a++)
+        elB.addEventListener("input", () => b++)
+        pressButton(elA.nextElementSibling.querySelector(".btn-increment"))
+        await wait()
+        assert.true(a >= 1)
+        assert.equal(b, 0)
+        clear()
+    })
+})
+
 describe("InputSpinner attribute observation", () => {
     it("reflects min/max changes", async () => {
         const {el} = spin({value: "5", min: "0", max: "10"})
