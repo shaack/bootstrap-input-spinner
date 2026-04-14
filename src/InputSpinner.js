@@ -6,45 +6,45 @@
 
 // the default editor for parsing and rendering
 const I18nEditor = function (props, element) {
-        const locale = props.locale || "en-US"
+    const locale = props.locale || "en-US"
 
-        this.parse = function (customFormat) {
-            const numberFormat = new Intl.NumberFormat(locale)
-            const thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
-            const decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
-            return parseFloat(customFormat
-                .replace(new RegExp(' ', 'g'), '')
-                .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
-                .replace(new RegExp('\\' + decimalSeparator), '.')
-            )
-        }
-
-        this.render = function (number) {
-            const decimals = parseInt(element.getAttribute("data-decimals")) || 0
-            const digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
-            const numberFormat = new Intl.NumberFormat(locale, {
-                minimumFractionDigits: decimals,
-                maximumFractionDigits: decimals,
-                useGrouping: digitGrouping
-            })
-            return numberFormat.format(number)
-        }
+    this.parse = function (customFormat) {
+        const numberFormat = new Intl.NumberFormat(locale)
+        const thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
+        const decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
+        return parseFloat(customFormat
+            .replace(new RegExp(' ', 'g'), '')
+            .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
+            .replace(new RegExp('\\' + decimalSeparator), '.')
+        )
     }
+
+    this.render = function (number) {
+        const decimals = parseInt(element.getAttribute("data-decimals")) || 0
+        const digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
+        const numberFormat = new Intl.NumberFormat(locale, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+            useGrouping: digitGrouping
+        })
+        return numberFormat.format(number)
+    }
+}
 
 let triggerKeyPressed = false
-const originalVal = $.fn.val
-$.fn.val = function (value) {
-    if (arguments.length >= 1) {
-        for (let i = 0; i < this.length; i++) {
-            if (this[i]["bootstrap-input-spinner"] && this[i].setValue) {
-                const element = this[i]
-                setTimeout(function () {
-                    element.setValue(value)
-                })
-            }
-        }
+
+function parseTemplate(html) {
+    const tpl = document.createElement("template")
+    tpl.innerHTML = html.trim()
+    return tpl.content.firstElementChild
+}
+
+function parseNumberAttr(el, name, fallback) {
+    const raw = el.getAttribute(name)
+    if (raw === null || raw === "" || isNaN(parseFloat(raw))) {
+        return fallback
     }
-    return originalVal.apply(this, arguments)
+    return parseFloat(raw)
 }
 
 export class InputSpinner {
@@ -53,18 +53,6 @@ export class InputSpinner {
 
         const self = this
         this.element = element
-        /*
-        if (props === "destroy") { // todo replace with method
-            this.each(function () {
-                if (this["bootstrap-input-spinner"]) {
-                    this.destroyInputSpinner()
-                } else {
-                    console.warn("element", this, "is no bootstrap-input-spinner")
-                }
-            })
-            return this
-        }
-         */
 
         this.props = {
             decrementButton: "<strong>&minus;</strong>", // button text
@@ -97,168 +85,190 @@ export class InputSpinner {
             .replace(/\${incrementButton}/g, this.props.incrementButton)
             .replace(/\${textAlign}/g, this.props.textAlign)
 
-        if (this.element["bootstrap-input-spinner"]) {
-            console.warn("element", this.element, "is already a bootstrap-input-spinner")
-        } else {
+        if (element["bootstrap-input-spinner"]) {
+            console.warn("element", element, "is already a bootstrap-input-spinner")
+            return
+        }
 
-            this.$original = $(this.element)
-            this.$original[0]["bootstrap-input-spinner"] = true
-            this.$original.hide()
-            this.$original[0].inputSpinnerEditor = new this.props.editor(this.props, this.element)
+        this.original = element
+        this.original["bootstrap-input-spinner"] = true
+        this.original.style.display = "none"
+        this.original.inputSpinnerEditor = new this.props.editor(this.props, element)
 
-            this.autoDelayHandler = null
-            this.autoIntervalHandler = null
+        this.autoDelayHandler = null
+        this.autoIntervalHandler = null
 
-            this.$inputGroup = $(html)
-            this.$buttonDecrement = this.$inputGroup.find(".btn-decrement")
-            this.$buttonIncrement = this.$inputGroup.find(".btn-increment")
-            this.$input = this.$inputGroup.find("input")
-            this.$label = $("label[for='" + this.$original.attr("id") + "']")
-            if (!this.$label[0]) {
-                this.$label = this.$original.closest("label")
-            }
+        this.inputGroup = parseTemplate(html)
+        this.buttonDecrement = this.inputGroup.querySelector(".btn-decrement")
+        this.buttonIncrement = this.inputGroup.querySelector(".btn-increment")
+        this.input = this.inputGroup.querySelector("input")
 
-            this.min = null
-            this.max = null
-            this.step = null
+        this.label = null
+        if (this.original.id) {
+            this.label = document.querySelector("label[for='" + this.original.id + "']")
+        }
+        if (!this.label) {
+            this.label = this.original.closest("label")
+        }
 
+        this.min = null
+        this.max = null
+        this.step = null
+
+        updateAttributes()
+
+        this.value = parseFloat(this.original.value)
+        let pointerState = false
+
+        const prefix = this.original.getAttribute("data-prefix") || ""
+        const suffix = this.original.getAttribute("data-suffix") || ""
+
+        if (prefix) {
+            const prefixElement = document.createElement("span")
+            prefixElement.className = "input-group-text"
+            prefixElement.textContent = prefix
+            this.input.parentNode.insertBefore(prefixElement, this.input)
+        }
+        if (suffix) {
+            const suffixElement = document.createElement("span")
+            suffixElement.className = "input-group-text"
+            suffixElement.textContent = suffix
+            this.input.parentNode.insertBefore(suffixElement, this.input.nextSibling)
+        }
+
+        this.original.setValue = function (newValue) {
+            setValue(newValue)
+        }
+        this.original.destroyInputSpinner = function () {
+            destroy()
+        }
+
+        this.observer = new MutationObserver(function () {
             updateAttributes()
+            setValue(self.value, true)
+        })
+        this.observer.observe(this.original, {attributes: true})
 
-            this.value = parseFloat(this.$original[0].value)
-            let pointerState = false
+        this.original.parentNode.insertBefore(this.inputGroup, this.original.nextSibling)
 
-            const prefix = this.$original.attr("data-prefix") || ""
-            const suffix = this.$original.attr("data-suffix") || ""
+        setValue(this.value)
 
-            if (prefix) {
-                const prefixElement = $('<span class="input-group-text">' + prefix + '</span>')
-                this.$inputGroup.find("input").before(prefixElement)
-            }
-            if (suffix) {
-                const suffixElement = $('<span class="input-group-text">' + suffix + '</span>')
-                this.$inputGroup.find("input").after(suffixElement)
-            }
-
-            this.$original[0].setValue = function (newValue) {
-                setValue(newValue)
-            }
-            this.$original[0].destroyInputSpinner = function () {
-                destroy()
-            }
-
-            this.observer = new MutationObserver(function () {
-                updateAttributes()
-                setValue(self.value, true)
-            })
-            this.observer.observe(this.$original[0], {attributes: true})
-
-            this.$original.after(this.$inputGroup)
-
-            setValue(this.value)
-
-            this.$input.on("paste input change focusout", function (event) {
-                let newValue = self.$input[0].value
-                const focusOut = event.type === "focusout"
-                if(!self.props.buttonsOnly) {
-                    newValue = self.$original[0].inputSpinnerEditor.parse(newValue)
-                    setValue(newValue, focusOut)
-                    dispatchEvent(self.$original, event.type)
-                }
-                if (self.props.keyboardStepping && focusOut) { // stop stepping
-                    resetTimer()
-                }
-            }).on("keydown", function (event) {
-                if (self.props.keyboardStepping) {
-                    if (event.which === 38) { // up arrow pressed
-                        event.preventDefault()
-                        if (!self.$buttonDecrement.prop("disabled")) {
-                            stepHandling(self.step)
-                        }
-                    } else if (event.which === 40) { // down arrow pressed
-                        event.preventDefault()
-                        if (!self.$buttonIncrement.prop("disabled")) {
-                            stepHandling(-self.step)
-                        }
-                    }
-                }
-            }).on("keyup", function (event) {
-                // up/down arrow released
-                if (self.props.keyboardStepping && (event.which === 38 || event.which === 40)) {
-                    event.preventDefault()
-                    resetTimer()
-                }
-            })
-
-            // decrement button
-            onPointerDown(self.$buttonDecrement[0], function () {
-                if (!self.$buttonDecrement.prop("disabled")) {
-                    pointerState = true
-                    stepHandling(-self.step)
-                }
-            })
-            // increment button
-            onPointerDown(self.$buttonIncrement[0], function () {
-                if (!self.$buttonIncrement.prop("disabled")) {
-                    pointerState = true
-                    stepHandling(self.step)
-                }
-            })
-            onPointerUp(document.body, function () {
-                if (pointerState === true) {
-                    resetTimer()
-                    dispatchEvent(self.$original, "change")
-                    pointerState = false
-                }
+        // Track listeners so destroy() can detach them cleanly.
+        this._teardown = []
+        const bind = function (target, type, handler, options) {
+            target.addEventListener(type, handler, options)
+            self._teardown.push(function () {
+                target.removeEventListener(type, handler, options)
             })
         }
+
+        const onInputEvent = function (event) {
+            let newValue = self.input.value
+            const focusOut = event.type === "focusout"
+            if (!self.props.buttonsOnly) {
+                newValue = self.original.inputSpinnerEditor.parse(newValue)
+                setValue(newValue, focusOut)
+                dispatchEvent(self.original, event.type)
+            }
+            if (self.props.keyboardStepping && focusOut) { // stop stepping
+                resetTimer()
+            }
+        }
+        bind(this.input, "paste", onInputEvent)
+        bind(this.input, "input", onInputEvent)
+        bind(this.input, "change", onInputEvent)
+        bind(this.input, "focusout", onInputEvent)
+
+        bind(this.input, "keydown", function (event) {
+            if (!self.props.keyboardStepping) return
+            if (event.key === "ArrowUp" || event.keyCode === 38) {
+                event.preventDefault()
+                if (!self.buttonIncrement.disabled) {
+                    stepHandling(self.step)
+                }
+            } else if (event.key === "ArrowDown" || event.keyCode === 40) {
+                event.preventDefault()
+                if (!self.buttonDecrement.disabled) {
+                    stepHandling(-self.step)
+                }
+            }
+        })
+        bind(this.input, "keyup", function (event) {
+            if (self.props.keyboardStepping &&
+                (event.key === "ArrowUp" || event.key === "ArrowDown" ||
+                    event.keyCode === 38 || event.keyCode === 40)) {
+                event.preventDefault()
+                resetTimer()
+            }
+        })
+
+        // decrement button
+        onPointerDown(self.buttonDecrement, function () {
+            if (!self.buttonDecrement.disabled) {
+                pointerState = true
+                stepHandling(-self.step)
+            }
+        })
+        // increment button
+        onPointerDown(self.buttonIncrement, function () {
+            if (!self.buttonIncrement.disabled) {
+                pointerState = true
+                stepHandling(self.step)
+            }
+        })
+        onPointerUp(document.body, function () {
+            if (pointerState === true) {
+                resetTimer()
+                dispatchEvent(self.original, "change")
+                pointerState = false
+            }
+        })
 
         function setValue(newValue, updateInput) {
             if (updateInput === undefined) {
                 updateInput = true
             }
             if (isNaN(newValue) || newValue === "") {
-                self.$original[0].value = ""
+                self.original.value = ""
                 if (updateInput) {
-                    self.$input[0].value = ""
+                    self.input.value = ""
                 }
                 self.value = NaN
             } else {
                 newValue = parseFloat(newValue)
                 newValue = Math.min(Math.max(newValue, self.min), self.max)
-                self.$original[0].value = newValue
+                self.original.value = newValue
                 if (updateInput) {
-                    self.$input[0].value = self.$original[0].inputSpinnerEditor.render(newValue)
+                    self.input.value = self.original.inputSpinnerEditor.render(newValue)
                 }
                 self.value = newValue
             }
         }
 
         function destroy() {
-            self.$original.prop("required", self.$input.prop("required"))
+            if (self.input.required) {
+                self.original.required = true
+            }
             self.observer.disconnect()
             resetTimer()
-            self.$input.off("paste input change focusout")
-            self.$inputGroup.remove()
-            self.$original.show()
-            self.$original[0]["bootstrap-input-spinner"] = undefined
-            if (self.$label[0]) {
-                self.$label.attr("for", self.$original.attr("id"))
+            for (const off of self._teardown) off()
+            self._teardown = []
+            self.inputGroup.remove()
+            self.original.style.display = ""
+            self.original["bootstrap-input-spinner"] = undefined
+            delete self.original.setValue
+            delete self.original.destroyInputSpinner
+            delete self.original.inputSpinnerEditor
+            if (self.label) {
+                self.label.setAttribute("for", self.original.id || "")
             }
         }
 
-        function dispatchEvent($element, type) {
-            if (type) {
-                setTimeout(function () {
-                    let event
-                    if (typeof (Event) === 'function') {
-                        event = new Event(type, {bubbles: true})
-                    } else { // IE todo remove
-                        event = document.createEvent('Event')
-                        event.initEvent(type, true, true)
-                    }
-                    $element[0].dispatchEvent(event)
-                })
-            }
+        function dispatchEvent(target, type) {
+            if (!type) return
+            setTimeout(function () {
+                target.dispatchEvent(new Event(type, {bubbles: true}))
+            })
         }
 
         function stepHandling(step) {
@@ -278,68 +288,67 @@ export class InputSpinner {
                 self.value = 0
             }
             setValue(Math.round(self.value / step) * step + step)
-            dispatchEvent(self.$original, "input")
+            dispatchEvent(self.original, "input")
         }
 
         function resetTimer() {
             clearTimeout(self.autoDelayHandler)
-            clearTimeout(self.autoIntervalHandler)
+            clearInterval(self.autoIntervalHandler)
         }
 
         function updateAttributes() {
             // copy properties from original to the new input
-            if (self.$original.prop("required")) {
-                self.$input.prop("required", self.$original.prop("required"))
-                self.$original.removeAttr('required')
+            if (self.original.required) {
+                self.input.required = true
+                self.original.removeAttribute("required")
             }
-            self.$input.prop("placeholder", self.$original.prop("placeholder"))
-            self.$input.attr("inputmode", self.$original.attr("inputmode") || "decimal")
-            const disabled = self.$original.prop("disabled")
-            const readonly = self.$original.prop("readonly")
-            self.$input.prop("disabled", disabled)
-            self.$input.prop("readonly", readonly || self.props.buttonsOnly)
-            self.$buttonIncrement.prop("disabled", disabled || readonly)
-            self.$buttonDecrement.prop("disabled", disabled || readonly)
+            self.input.placeholder = self.original.placeholder
+            self.input.setAttribute("inputmode", self.original.getAttribute("inputmode") || "decimal")
+            const disabled = self.original.disabled
+            const readonly = self.original.readOnly
+            self.input.disabled = disabled
+            self.input.readOnly = readonly || self.props.buttonsOnly
+            self.buttonIncrement.disabled = disabled || readonly
+            self.buttonDecrement.disabled = disabled || readonly
             if (disabled || readonly) {
                 resetTimer()
             }
-            const originalClass = self.$original.prop("class")
+            const originalClass = self.original.className || ""
             let groupClass = ""
-            // sizing
             if (/form-control-sm/g.test(originalClass)) {
                 groupClass = "input-group-sm"
             } else if (/form-control-lg/g.test(originalClass)) {
                 groupClass = "input-group-lg"
             }
             const inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
-            self.$inputGroup.prop("class", "input-group " + groupClass + " " + self.props.groupClass)
-            self.$input.prop("class", "form-control " + inputClass)
+            self.inputGroup.className = "input-group " + groupClass + " " + self.props.groupClass
+            self.input.className = "form-control " + inputClass
 
-            // update the main attributes
-            self.min = isNaN(self.$original.prop("min")) || self.$original.prop("min") === "" ? -Infinity : parseFloat(self.$original.prop("min"))
-            self.max = isNaN(self.$original.prop("max")) || self.$original.prop("max") === "" ? Infinity : parseFloat(self.$original.prop("max"))
-            self.step = parseFloat(self.$original.prop("step")) || 1
-            if (self.$original.attr("hidden")) {
-                self.$inputGroup.attr("hidden", self.$original.attr("hidden"))
+            self.min = parseNumberAttr(self.original, "min", -Infinity)
+            self.max = parseNumberAttr(self.original, "max", Infinity)
+            self.step = parseNumberAttr(self.original, "step", 1) || 1
+
+            if (self.original.hasAttribute("hidden")) {
+                self.inputGroup.setAttribute("hidden", self.original.getAttribute("hidden") || "")
             } else {
-                self.$inputGroup.removeAttr("hidden")
+                self.inputGroup.removeAttribute("hidden")
             }
-            if (self.$original.attr("id")) {
-                self.$input.attr("id", self.$original.attr("id") + ":input_spinner") // give the spinner a unique id...
-                if (self.$label[0]) {
-                    self.$label.attr("for", self.$input.attr("id")) // ...to rewire the label
+            if (self.original.id) {
+                self.input.id = self.original.id + ":input_spinner" // give the spinner a unique id...
+                if (self.label) {
+                    self.label.setAttribute("for", self.input.id) // ...to rewire the label
                 }
             }
         }
 
-        function onPointerUp(element, callback) {
-            element.addEventListener("mouseup", function (e) {
+        function onPointerUp(el, callback) {
+            bind(el, "mouseup", function (e) {
                 callback(e)
             })
-            element.addEventListener("touchend", function (e) {
+            bind(el, "touchend", function (e) {
                 callback(e)
             })
-            element.addEventListener("keyup", function (e) {
+            bind(el, "keyup", function (e) {
                 if ((e.keyCode === 32 || e.keyCode === 13)) {
                     triggerKeyPressed = false
                     callback(e)
@@ -347,20 +356,20 @@ export class InputSpinner {
             })
         }
 
-        function onPointerDown(element, callback) {
-            element.addEventListener("mousedown", function (e) {
+        function onPointerDown(el, callback) {
+            bind(el, "mousedown", function (e) {
                 if (e.button === 0) {
                     e.preventDefault()
                     callback(e)
                 }
             })
-            element.addEventListener("touchstart", function (e) {
+            bind(el, "touchstart", function (e) {
                 if (e.cancelable) {
                     e.preventDefault()
                 }
                 callback(e)
             }, {passive: false})
-            element.addEventListener("keydown", function (e) {
+            bind(el, "keydown", function (e) {
                 if ((e.keyCode === 32 || e.keyCode === 13) && !triggerKeyPressed) {
                     triggerKeyPressed = true
                     callback(e)
@@ -368,6 +377,4 @@ export class InputSpinner {
             })
         }
     }
-
 }
-

@@ -125,10 +125,9 @@ describe("InputSpinner setValue", () => {
         assert.equal(group.querySelector("input").value, "")
         clear()
     })
-    it("is reachable via jQuery val() monkey patch", async () => {
+    it("element.setValue updates both the original and the visible input", () => {
         const {el, group} = spin({value: "1", min: "0", max: "100"})
-        window.$(el).val(42)
-        await wait()
+        el.setValue(42)
         assert.equal(el.value, "42")
         assert.equal(group.querySelector("input").value, "42")
         clear()
@@ -170,15 +169,19 @@ describe("InputSpinner stepping", () => {
         assert.equal(el.value, "0")
         clear()
     })
-    it("arrow-up key steps the value", async () => {
+    it("arrow-up key steps the value", () => {
         const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"})
-        window.$(group.querySelector("input")).trigger(window.$.Event("keydown", {which: 38}))
+        group.querySelector("input").dispatchEvent(
+            new KeyboardEvent("keydown", {key: "ArrowUp", bubbles: true, cancelable: true})
+        )
         assert.equal(el.value, "6")
         clear()
     })
-    it("arrow-down key steps the value", async () => {
+    it("arrow-down key steps the value", () => {
         const {el, group} = spin({value: "5", min: "0", max: "10", step: "1"})
-        window.$(group.querySelector("input")).trigger(window.$.Event("keydown", {which: 40}))
+        group.querySelector("input").dispatchEvent(
+            new KeyboardEvent("keydown", {key: "ArrowDown", bubbles: true, cancelable: true})
+        )
         assert.equal(el.value, "4")
         clear()
     })

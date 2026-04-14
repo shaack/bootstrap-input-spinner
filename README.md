@@ -1,8 +1,8 @@
 # bootstrap-input-spinner
 
-A Bootstrap 5 extension to create input spinner elements for number input.
+A Bootstrap 5 extension to create input spinner elements for number input. Zero dependencies other than Bootstrap 5 — **no jQuery required** since v5.0.0.
 
-> Note: bootstrap-input-spinner is now an ES6 module. The legacy ES5 version has been removed; if you still need it, pin to npm `3.x`.
+> Note: bootstrap-input-spinner is now an ES6 module. The legacy ES5 version has been removed; if you still need it, pin to npm `3.x`. If you still need jQuery integration, pin to `4.x`.
 
 ![bootstrap-input-spinner](https://shaack.com/projekte/assets/img/bootstrap-input-spinner-floatingpoint-and-i18n.png)
 *Examples with floating-point and german localization*
@@ -72,7 +72,7 @@ Create the element in HTML. The attributes are compatible to the native `input[t
 </script>
 ```
 
-That's it. **No extra css needed**, just Bootstrap 5 and jQuery. jQuery is still a runtime dependency and is planned to be removed in a future release.
+That's it. **No extra css needed**, just Bootstrap 5.
 
 ## API Reference
 
@@ -225,19 +225,14 @@ To modify the look completely, you can use the template parameter. There is an e
 
 ### Programmatic change and read of value
 
-In vanilla JavaScript, read via `element.value` and write via `element.setValue(newValue)`:
+Read via `element.value`, write via `element.setValue(newValue)`:
 
 ```javascript
 const currentValue = element.value       // read
 element.setValue(newValue)                // write
 ```
 
-The jQuery `val()` function also works in both directions:
-
-```javascript
-const currentValue = $(element).val()     // read
-$(element).val(newValue)                  // write
-```
+> Writing directly with `element.value = 5` bypasses the editor rendering, so always use `setValue` to update the spinner value programmatically.
 
 ### Handling attributes
 
@@ -252,21 +247,11 @@ is dynamically set to `input-group-sm` or `input-group-lg`.
 
 ### Events
 
-The InputSpinner handles `input` and `change` events like the native element.
-
-#### Event handling with vanilla JavaScript
+The InputSpinner dispatches native `input` and `change` events on the original element, just like a native number input.
 
 ```javascript
 element.addEventListener("change", function (event) {
-    newValue = this.value
-})
-```
-
-#### Event handling with jQuery syntax
-
-```javascript
-$(element).on("change", function (event) {
-    newValue = $(this).val()
+    const newValue = event.target.value
 })
 ```
 

@@ -22,23 +22,19 @@
             max-width: 250px;
         }
     </style>
-    <!-- TODO remove jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="src/custom-editors.js"></script>
     <script src="./node_modules/prismjs/prism.js"></script>
 </head>
 <body>
 <section class="container py-5">
     <h1>bootstrap-input-spinner</h1>
     <p>
-        A Bootstrap / jQuery plugin to create input spinner elements for number input, by
-        <a href="https://shaack.com/en">shaack.com</a> engineering. For now it needs jQuery, but I am working on it.
+        A Bootstrap 5 plugin to create input spinner elements for number input, by
+        <a href="https://shaack.com/en">shaack.com</a> engineering. Zero dependencies other than Bootstrap 5.
     </p>
-    <p>This version is compatible with Bootstrap 5, but we remain a Bootstrap 4 compatible version with the branch
-        <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>.
-        npm versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.</p>
+    <p>This version is compatible with Bootstrap 5. For Bootstrap 4 use the
+        <a href="https://github.com/shaack/bootstrap-input-spinner/tree/bootstrap4-compatible">bootstrap4-compatible</a>
+        branch. npm versions 3.x are Bootstrap 5 compatible, versions 2.x Bootstrap 4 compatible.</p>
     <p>
         License: <a href="https://github.com/shaack/bootstrap-input-spinner/blob/master/LICENSE">MIT</a>
     </p>
@@ -58,10 +54,7 @@
             allows setting a <b>prefix</b> or <b>suffix</b> text in the input,
         </li>
         <li>
-            handles <code>val()</code> like the native element,
-        </li>
-        <li>
-            <b>dynamically handles</b> changing <b>attribute values</b> like <code>disabled</code> oder
+            <b>dynamically handles</b> changing <b>attribute values</b> like <code>disabled</code> or
             <code>class</code>,
         </li>
         <li>
@@ -77,9 +70,11 @@
         This script enables the InputSpinner for all inputs with <code>type='number'</code>.
         <b>No extra css needed</b>, just Bootstrap 5.
     </p>
-    <pre><code class="language-html">&lt;script src="./src/InputSpinner.js">&lt;/script>
-&lt;script>
-    $("input[type='number']").inputSpinner()
+    <pre><code class="language-html">&lt;script type="module">
+    import {InputSpinner} from "./src/InputSpinner.js"
+    for (const el of document.querySelectorAll("input[type='number']")) {
+        new InputSpinner(el)
+    }
 &lt;/script></code></pre>
     <h2>Repository, documentation and npm package</h2>
     <p>Find the source code, more documentation and the npm package at</p>
@@ -109,8 +104,7 @@
             class="language-html">&lt;input type="number" value="4.5" data-decimals="2" min="0" max="9" step="0.1"/></code></pre>
 
     <h3>Handle <code>change</code> and <code>input</code> events and
-        read the value from JavaScript
-        with <code>val()</code></h3>
+        read the value from JavaScript</h3>
     <p>
         Type in a number to see the difference between <code>change</code> and <code>input</code> events.
     </p>
@@ -122,32 +116,21 @@
         Value on change: <span id="valueOnChange"></span>
     </p>
     <script>
-        var $changedInput = $("#changedInput")
-        var $valueOnInput = $("#valueOnInput")
-        var $valueOnChange = $("#valueOnChange")
-        $changedInput.on("input", function (event) {
-            console.log("on input", event)
-            $valueOnInput.html($(event.target).val())
-            // or $valueOnInput.html(event.target.value) // in vanilla js
-            // or $valueOnInput.html($changedInput.val())
+        document.getElementById("changedInput").addEventListener("input", function (event) {
+            document.getElementById("valueOnInput").textContent = event.target.value
         })
-        $changedInput.on("change", function (event) {
-            console.log("on change", event)
-            $valueOnChange.html($(event.target).val())
+        document.getElementById("changedInput").addEventListener("change", function (event) {
+            document.getElementById("valueOnChange").textContent = event.target.value
         })
     </script>
-    <pre><code class="language-javascript">var $changedInput = $("#changedInput")
-var $valueOnInput = $("#valueOnInput")
-var $valueOnChange = $("#valueOnChange")
-$changedInput.on("input", function (event) {
-    $valueOnInput.html($(event.target).val())
-    // or $valueOnInput.html(event.target.value) // in vanilla js
-    // or $valueOnInput.html($changedInput.val())
+    <pre><code class="language-javascript">const changedInput = document.getElementById("changedInput")
+changedInput.addEventListener("input", function (event) {
+    document.getElementById("valueOnInput").textContent = event.target.value
 })
-$changedInput.on("change", function (event) {
-    $valueOnChange.html($(event.target).val())
+changedInput.addEventListener("change", function (event) {
+    document.getElementById("valueOnChange").textContent = event.target.value
 })</code></pre>
-    <h3>Programmatic changing the value with <code>val()</code></h3>
+    <h3>Programmatic changing the value</h3>
     <p>
         <label for="inputNet">Net</label>
         <input type="number" id="inputNet" value="100" min="0" max="10000" step="0.01" data-decimals="2"/>
@@ -157,24 +140,23 @@ $changedInput.on("change", function (event) {
         <input type="number" id="inputGross" value="100" min="0" max="11900" step="0.01" data-decimals="2"/>
     </p>
     <script>
-        var $inputNet = $("#inputNet")
-        var $inputGross = $("#inputGross")
-        $inputNet.on("input", function (event) {
-            $inputGross.val($(event.target).val() * 1.19)
+        window.addEventListener("load", function () {
+            const inputNet = document.getElementById("inputNet")
+            const inputGross = document.getElementById("inputGross")
+            inputNet.addEventListener("input", function (event) {
+                inputGross.setValue(event.target.value * 1.19)
+            })
+            inputGross.addEventListener("input", function (event) {
+                inputNet.setValue(event.target.value / 1.19)
+            })
+            inputGross.setValue(inputNet.value * 1.19)
         })
-        $inputGross.on("input", function (event) {
-            $inputNet.val($(event.target).val() / 1.19)
-        })
-        $inputGross.val($inputNet.val() * 1.19)
     </script>
-    <pre><code class="language-javascript">$inputNet.on("input", function (event) {
-    $inputGross.val($(event.target).val() * 1.19)
-    // or $inputGross[0].setValue(event.target.value * 1.19) // in vanilla js
-    // or $inputGross.val($inputNet.val() * 1.19)
-    // do all the same
+    <pre><code class="language-javascript">inputNet.addEventListener("input", function (event) {
+    inputGross.setValue(event.target.value * 1.19)
 })
-$inputGross.on("input", function (event) {
-    $inputNet.val($(event.target).val() / 1.19)
+inputGross.addEventListener("input", function (event) {
+    inputNet.setValue(event.target.value / 1.19)
 })</code></pre>
     <h3>Attributes <code>placeholder</code> and <code>required</code></h3>
     <form>
@@ -197,10 +179,8 @@ $inputGross.on("input", function (event) {
             <label class="form-check-label" for="disabledSwitch">Disabled</label>
         </div>
         <script>
-            var $inputDisabled = $("#inputDisabled")
-            var $disabledSwitch = $("#disabledSwitch")
-            $disabledSwitch.on("change", function () {
-                $inputDisabled.prop("disabled", $(this).prop("checked"))
+            document.getElementById("disabledSwitch").addEventListener("change", function (event) {
+                document.getElementById("inputDisabled").disabled = event.target.checked
             })
         </script>
         <pre><code class="language-html">&lt;input id="inputDisabled" disabled type="number" value="50"/>
@@ -209,10 +189,8 @@ $inputGross.on("input", function (event) {
     &lt;label class="form-check-label" for="disabledSwitch">Disabled&lt;/label>
 &lt;/div>
 &lt;script>
-    var $inputDisabled = $("#inputDisabled")
-    var $disabledSwitch = $("#disabledSwitch")
-    $disabledSwitch.on("change", function () {
-        $inputDisabled.prop("disabled", $(this).prop("checked"))
+    document.getElementById("disabledSwitch").addEventListener("change", function (event) {
+        document.getElementById("inputDisabled").disabled = event.target.checked
     })
 &lt;/script></code></pre>
     </form>
@@ -229,11 +207,10 @@ $inputGross.on("input", function (event) {
     </p>
     <script type="module">
         import {InputSpinner} from "./src/InputSpinner.js"
-        const element = document.getElementById("buttons-only")
-        new InputSpinner(element,
+        new InputSpinner(document.getElementById("buttons-only"),
             {buttonsOnly: true, autoInterval: undefined})
     </script>
-    <pre><code class="language-js">$(".buttons-only").inputSpinner({buttonsOnly: true, autoInterval: undefined})</code></pre>
+    <pre><code class="language-js">new InputSpinner(element, {buttonsOnly: true, autoInterval: undefined})</code></pre>
 
     <h3>Dynamically handling of the <code>class</code> attribute</h3>
     <p>
@@ -245,20 +222,16 @@ $inputGross.on("input", function (event) {
         Try to change the class to "is-invalid" or "text-info".
     </p>
     <script>
-        var $inputChangeClass = $("#inputChangeClass")
-        var $classInput = $("#classInput")
-        $classInput.on("input", function () {
-            $inputChangeClass.prop("class", this.value)
+        document.getElementById("classInput").addEventListener("input", function (event) {
+            document.getElementById("inputChangeClass").className = event.target.value
         })
     </script>
     <pre><code class="language-html">&lt;input id="inputChangeClass" class="is-valid" type="number" value="50"/>
 &lt;label for="classInput">CSS Class&lt;/label>
 &lt;input id="classInput" type="text" class="form-control" value="is-valid"/>
 &lt;script>
-    var $inputChangeClass = $("#inputChangeClass")
-    var $classInput = $("#classInput")
-    $classInput.on("input", function() {
-        $inputChangeClass.prop("class", this.value);
+    document.getElementById("classInput").addEventListener("input", function (event) {
+        document.getElementById("inputChangeClass").className = event.target.value
     })
 &lt;/script></code></pre>
 
@@ -313,45 +286,24 @@ $inputGross.on("input", function (event) {
         <input id="minMaxTester" type="number" value="50" min="0" max="100" step="0.05" data-decimals="2"/>
     </p>
     <script>
-        var $minInput = $("#minInput")
-        var $maxInput = $("#maxInput")
-        var $stepInput = $("#stepInput")
-        var $dataDecimalsInput = $("#dataDecimalsInput")
-        var $minMaxTester = $("#minMaxTester")
-        $minInput.on("change", function (event) {
-            console.log("on change", event)
-            $minMaxTester.attr("min", $minInput.val())
-        })
-        $maxInput.on("change", function (event) {
-            console.log("on change", event)
-            $minMaxTester.attr("max", $maxInput.val())
-        })
-        $stepInput.on("change", function (event) {
-            console.log("on change", event)
-            $minMaxTester.attr("step", $stepInput.val())
-        })
-        $dataDecimalsInput.on("change", function (event) {
-            console.log("on change", event)
-            $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
-        })
+        (function () {
+            const tester = document.getElementById("minMaxTester")
+            const bindAttr = function (inputId, attrName) {
+                document.getElementById(inputId).addEventListener("change", function (event) {
+                    tester.setAttribute(attrName, event.target.value)
+                })
+            }
+            bindAttr("minInput", "min")
+            bindAttr("maxInput", "max")
+            bindAttr("stepInput", "step")
+            bindAttr("dataDecimalsInput", "data-decimals")
+        })()
     </script>
-    <pre><code class="language-javascript">var $minInput = $("#minInput")
-var $maxInput = $("#maxInput")
-var $stepInput = $("#stepInput")
-var $dataDecimalsInput = $("#dataDecimalsInput")
-var $minMaxTester = $("#minMaxTester")
-$minInput.on("change", function (event) {
-    $minMaxTester.attr("min", $minInput.val())
+    <pre><code class="language-javascript">const tester = document.getElementById("minMaxTester")
+document.getElementById("minInput").addEventListener("change", function (event) {
+    tester.setAttribute("min", event.target.value)
 })
-$maxInput.on("change", function (event) {
-    $minMaxTester.attr("max", $maxInput.val())
-})
-$stepInput.on("change", function (event) {
-    $minMaxTester.attr("step", $stepInput.val())
-})
-$dataDecimalsInput.on("change", function (event) {
-    $minMaxTester.attr("data-decimals", $dataDecimalsInput.val())
-})
+// ...same for max, step, data-decimals
 </code></pre>
 
     <h3>Prefix and Suffix</h3>
@@ -375,30 +327,32 @@ $dataDecimalsInput.on("change", function (event) {
         <input type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360" step="10"/>
     </p>
     <script>
-        var $inputLoop = $("#inputLoop")
-        $inputLoop.on("input", function (ignored) {
-            var value = $inputLoop.val()
-            value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
-            $inputLoop.val(value)
+        window.addEventListener("load", function () {
+            const inputLoop = document.getElementById("inputLoop")
+            inputLoop.addEventListener("input", function () {
+                let value = parseInt(inputLoop.value, 10)
+                value = (value < 0) ? 360 + value : value % 360
+                inputLoop.setValue(value)
+            })
         })
     </script>
     <pre><code class="language-html">&lt;input step="10" type="number" id="inputLoop" value="0" data-decimals="0" min="-10" max="360"/&gt;</code></pre>
-    <p>"Loop" the value between 0 and 360 with the <code>change</code> event in JavaScript.</p>
-    <pre><code class="language-javascript">var $inputLoop = $("#inputLoop")
-$inputLoop.on("input", function(event) {
-    var value = $inputLoop.val()
-    value = (value < 0) ? 360 + parseInt(value, 10) : value % 360
-    $inputLoop.val(value)
+    <p>"Loop" the value between 0 and 360 with the <code>input</code> event in JavaScript.</p>
+    <pre><code class="language-javascript">const inputLoop = document.getElementById("inputLoop")
+inputLoop.addEventListener("input", function () {
+    let value = parseInt(inputLoop.value, 10)
+    value = (value < 0) ? 360 + value : value % 360
+    inputLoop.setValue(value)
 })</code></pre>
 
     <h3>Custom Editors</h3>
 
-    <p>An Editor defines, how the input is parsed and rendered. The inputSpinner is shipped with some custom Editors in
-        <code>/src/custom-editors.js</code>.</p>
+    <p>An Editor defines how the input is parsed and rendered. The inputSpinner ships some custom Editors in
+        <code>/src/custom-editors.js</code>, available as named ES exports.</p>
 
     <h4>RawEditor</h4>
 
-    <p>The simplest custom Editor is the <code>RawEditor</code>, it renders just the value und parses just the value,
+    <p>The simplest custom Editor is the <code>RawEditor</code>, it renders just the value and parses just the value,
         without any
         changes, like a native number input. No internationalization, no digit grouping.</p>
     <p>
@@ -406,12 +360,12 @@ $inputLoop.on("input", function(event) {
     </p>
     <script type="module">
         import {InputSpinner} from "./src/InputSpinner.js"
-
-        new InputSpinner(document.getElementById("rawEditor"),
-            {editor: customEditors.RawEditor})
+        import {RawEditor} from "./src/custom-editors.js"
+        new InputSpinner(document.getElementById("rawEditor"), {editor: RawEditor})
     </script>
-    <pre><code
-            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.RawEditor})</code></pre>
+    <pre><code class="language-js">import {InputSpinner} from "./src/InputSpinner.js"
+import {RawEditor} from "./src/custom-editors.js"
+new InputSpinner(document.getElementById("rawEditor"), {editor: RawEditor})</code></pre>
 
     <h4>TimeEditor</h4>
 
@@ -420,19 +374,21 @@ $inputLoop.on("input", function(event) {
     <div class="mt-1">value: <span id="timeValue"></span></div>
     <script type="module">
         import {InputSpinner} from "./src/InputSpinner.js"
+        import {TimeEditor} from "./src/custom-editors.js"
 
         const element = document.getElementById("timeEditor")
-        new InputSpinner(element, {editor: customEditors.TimeEditor})
+        new InputSpinner(element, {editor: TimeEditor})
         element.addEventListener("input", () => {
             document.getElementById("timeValue").textContent = element.value
         })
         document.getElementById("timeValue").textContent = element.value
     </script>
-    <pre><code
-            class="language-js">$("#rawEditor").inputSpinner({editor: customEditors.TimeEditor})</code></pre>
+    <pre><code class="language-js">import {InputSpinner} from "./src/InputSpinner.js"
+import {TimeEditor} from "./src/custom-editors.js"
+new InputSpinner(document.getElementById("timeEditor"), {editor: TimeEditor})</code></pre>
 
-    <h3>Styling with templates (<i>new!</i>)</h3>
-    <p>With the new templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
+    <h3>Styling with templates</h3>
+    <p>With the templating feature, you can almost do <b>anything, when it comes to layout</b>.</p>
     <h5>How about... buttons right</h5>
     <p>
         <input data-prefix="¥" id="templateButtonsRight" value="1000"/>
@@ -468,11 +424,11 @@ $inputLoop.on("input", function(event) {
         <li>${incrementButton}</li>
     </ul>
     <p>Provide the template as configuration parameter:</p>
-    <pre><code class="language-js">$(element).inputSpinner({template: '&lt;div class...'})</code></pre>
+    <pre><code class="language-js">new InputSpinner(element, {template: '&lt;div class...'})</code></pre>
 
     <h3>Destroying the spinner</h3>
-    <p>To Remove the InputSpinner and show the original input element, use</p>
-    <pre><code class="language-javascript">$(element).inputSpinner("destroy")</code></pre>
+    <p>To remove the InputSpinner and show the original input element, use</p>
+    <pre><code class="language-javascript">element.destroyInputSpinner()</code></pre>
     <div class="mb-3">
         <label for="inputDestroyCreate">Label `for` switches dynamically:</label>
         <input type="number" id="inputDestroyCreate" value="50"/>
@@ -481,18 +437,18 @@ $inputLoop.on("input", function(event) {
     <button id="buttonCreate" disabled="disabled" class="btn btn-primary">re-create</button>
     <script type="module">
         import {InputSpinner} from "./src/InputSpinner.js"
-        var $buttonDestroy = $("#buttonDestroy")
-        var $buttonCreate = $("#buttonCreate")
-        var $inputDestroyCreate = $("#inputDestroyCreate")
-        $buttonDestroy.click(function () {
-            $inputDestroyCreate[0].destroyInputSpinner()
-            $buttonDestroy.attr("disabled", true)
-            $buttonCreate.attr("disabled", false)
+        const buttonDestroy = document.getElementById("buttonDestroy")
+        const buttonCreate = document.getElementById("buttonCreate")
+        const inputDestroyCreate = document.getElementById("inputDestroyCreate")
+        buttonDestroy.addEventListener("click", function () {
+            inputDestroyCreate.destroyInputSpinner()
+            buttonDestroy.disabled = true
+            buttonCreate.disabled = false
         })
-        $buttonCreate.click(function () {
-            new InputSpinner($inputDestroyCreate[0])
-            $buttonDestroy.attr("disabled", false)
-            $buttonCreate.attr("disabled", true)
+        buttonCreate.addEventListener("click", function () {
+            new InputSpinner(inputDestroyCreate)
+            buttonDestroy.disabled = false
+            buttonCreate.disabled = true
         })
     </script>
 
@@ -510,13 +466,11 @@ $inputLoop.on("input", function(event) {
         <a href="https://github.com/shaack/bootstrap-input-spinner/issues">issue</a>.</p>
     <br/><br/>
 </section>
-<!-- bootstrap needs jQuery -->
 <script type="module">
     import {InputSpinner} from "./src/InputSpinner.js"
 
-    const inputSpinnerElements = document.querySelectorAll("input[type='number']")
-    for (const inputSpinnerElement of inputSpinnerElements) {
-        new InputSpinner(inputSpinnerElement)
+    for (const el of document.querySelectorAll("input[type='number']")) {
+        new InputSpinner(el)
     }
 </script>
 </body>
