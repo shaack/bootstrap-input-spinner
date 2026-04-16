@@ -8,26 +8,41 @@
 const I18nEditor = function (props, element) {
     const locale = props.locale || "en-US"
 
+    let parseRegexes = null
     this.parse = function (customFormat) {
-        const numberFormat = new Intl.NumberFormat(locale)
-        const thousandSeparator = numberFormat.format(11111).replace(/1/g, '') || '.'
-        const decimalSeparator = numberFormat.format(1.1).replace(/1/g, '')
+        if (!parseRegexes) {
+            const fmt = new Intl.NumberFormat(locale)
+            const thousandSeparator = fmt.format(11111).replace(/1/g, '') || '.'
+            const decimalSeparator = fmt.format(1.1).replace(/1/g, '')
+            parseRegexes = {
+                space: / /g,
+                thousand: new RegExp('\\' + thousandSeparator, 'g'),
+                decimal: new RegExp('\\' + decimalSeparator)
+            }
+        }
         return parseFloat(customFormat
-            .replace(new RegExp(' ', 'g'), '')
-            .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
-            .replace(new RegExp('\\' + decimalSeparator), '.')
+            .replace(parseRegexes.space, '')
+            .replace(parseRegexes.thousand, '')
+            .replace(parseRegexes.decimal, '.')
         )
     }
 
+    let renderFmt = null
+    let renderDecimals = -1
+    let renderGrouping = null
     this.render = function (number) {
         const decimals = parseInt(element.getAttribute("data-decimals")) || 0
         const digitGrouping = !(element.getAttribute("data-digit-grouping") === "false")
-        const numberFormat = new Intl.NumberFormat(locale, {
-            minimumFractionDigits: decimals,
-            maximumFractionDigits: decimals,
-            useGrouping: digitGrouping
-        })
-        return numberFormat.format(number)
+        if (!renderFmt || decimals !== renderDecimals || digitGrouping !== renderGrouping) {
+            renderFmt = new Intl.NumberFormat(locale, {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals,
+                useGrouping: digitGrouping
+            })
+            renderDecimals = decimals
+            renderGrouping = digitGrouping
+        }
+        return renderFmt.format(number)
     }
 }
 

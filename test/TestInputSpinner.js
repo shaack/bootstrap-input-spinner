@@ -95,6 +95,33 @@ describe("InputSpinner I18n rendering (default editor)", () => {
         assert.equal(group.querySelector("input").value, "1.234,5")
         clear()
     })
+    it("re-renders when data-decimals changes (formatter cache invalidates)", async () => {
+        const {el, group} = spin({value: "4.5", "data-decimals": "0"}, {locale: "en-US"})
+        assert.equal(group.querySelector("input").value, "5")
+        el.setAttribute("data-decimals", "2")
+        await wait()
+        assert.equal(group.querySelector("input").value, "4.50")
+        clear()
+    })
+    it("re-renders when data-digit-grouping changes (formatter cache invalidates)", async () => {
+        const {el, group} = spin({value: "12345"}, {locale: "en-US"})
+        assert.equal(group.querySelector("input").value, "12,345")
+        el.setAttribute("data-digit-grouping", "false")
+        await wait()
+        assert.equal(group.querySelector("input").value, "12345")
+        clear()
+    })
+    it("parses i18n input round-trips after multiple calls (separator cache stable)", () => {
+        const {el, group} = spin({value: "0", "data-decimals": "2"}, {locale: "de-DE"})
+        const input = group.querySelector("input")
+        input.value = "1.234,56"
+        input.dispatchEvent(new Event("input", {bubbles: true}))
+        assert.equal(parseFloat(el.value), 1234.56)
+        input.value = "9.876,54"
+        input.dispatchEvent(new Event("input", {bubbles: true}))
+        assert.equal(parseFloat(el.value), 9876.54)
+        clear()
+    })
 })
 
 describe("InputSpinner setValue", () => {
