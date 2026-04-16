@@ -341,6 +341,28 @@ describe("InputSpinner instance isolation", () => {
         assert.equal(b, 0)
         clear()
     })
+    it("two spinners both respond to keyboard activation while the other is held", () => {
+        const elA = createInput({value: "0", min: "0", max: "10", step: "1"})
+        const elB = createInput({value: "0", min: "0", max: "10", step: "1"})
+        new InputSpinner(elA, {autoInterval: undefined})
+        new InputSpinner(elB, {autoInterval: undefined})
+        const btnA = elA.nextElementSibling.querySelector(".btn-increment")
+        const btnB = elB.nextElementSibling.querySelector(".btn-increment")
+        const make = (type) => {
+            const e = new KeyboardEvent(type, {key: " ", bubbles: true})
+            Object.defineProperty(e, "keyCode", {value: 32})
+            return e
+        }
+        const down = () => make("keydown")
+        const up = () => make("keyup")
+        btnA.dispatchEvent(down())
+        assert.equal(elA.value, "1")
+        // B's keydown must still register even though A's keyup hasn't fired.
+        btnB.dispatchEvent(down())
+        assert.equal(elB.value, "1")
+        document.body.dispatchEvent(up())
+        clear()
+    })
 })
 
 describe("InputSpinner attribute observation", () => {

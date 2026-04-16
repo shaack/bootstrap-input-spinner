@@ -46,8 +46,6 @@ const I18nEditor = function (props, element) {
     }
 }
 
-let triggerKeyPressed = false
-
 function parseTemplate(html) {
     const tpl = document.createElement("template")
     tpl.innerHTML = html.trim()
@@ -158,6 +156,8 @@ export class InputSpinner {
         this.original.destroyInputSpinner = function () {
             destroy()
         }
+
+        let triggerKeyPressed = false
 
         this.observer = new MutationObserver(function () {
             updateAttributes()
@@ -364,9 +364,9 @@ export class InputSpinner {
             }
             const originalClass = self.original.className || ""
             let groupClass = ""
-            if (/form-control-sm/g.test(originalClass)) {
+            if (/form-control-sm/.test(originalClass)) {
                 groupClass = "input-group-sm"
-            } else if (/form-control-lg/g.test(originalClass)) {
+            } else if (/form-control-lg/.test(originalClass)) {
                 groupClass = "input-group-lg"
             }
             const inputClass = originalClass.replace(/form-control(-(sm|lg))?/g, "")
