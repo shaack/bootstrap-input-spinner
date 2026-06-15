@@ -336,7 +336,23 @@ export class InputSpinner {
             if (isNaN(self.value)) {
                 self.value = 0
             }
-            setValue(Math.round(self.value / step) * step + step)
+            // Step like the native <input type="number">: the stepping base is
+            // `min` if set, otherwise the `value` content attribute, otherwise 0.
+            // Valid values are `base + n * step`. On-grid values move exactly one
+            // step; off-grid values (e.g. typed manually) snap to the next valid
+            // value in the button's direction.
+            const direction = step < 0 ? -1 : 1
+            const stepSize = Math.abs(step)
+            const base = isFinite(self.min) ? self.min : parseNumberAttr(self.original, "value", 0)
+            const offset = (self.value - base) / stepSize
+            const rounded = Math.round(offset)
+            let next
+            if (Math.abs(offset - rounded) < 1e-9) {
+                next = base + (rounded + direction) * stepSize
+            } else {
+                next = base + (direction > 0 ? Math.ceil(offset) : Math.floor(offset)) * stepSize
+            }
+            setValue(next)
             dispatchEvent(self.original, "input")
         }
 

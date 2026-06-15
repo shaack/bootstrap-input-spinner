@@ -212,6 +212,37 @@ describe("InputSpinner stepping", () => {
         assert.equal(el.value, "4")
         clear()
     })
+    it("uses the value attribute as the stepping base when no min is set (regression for #56)", () => {
+        // No min → base is the value attribute (5); with step 2 the grid is
+        // ..., 1, 3, 5, 7, ... Native stepDown(5) === 3, not value - step rounded to 4.
+        const {el, group} = spin({value: "5", step: "2"})
+        pressButton(group.querySelector(".btn-decrement"))
+        assert.equal(el.value, "3")
+        clear()
+    })
+    it("steps up from the value-attribute base when no min is set (regression for #56)", () => {
+        const {el, group} = spin({value: "5", step: "2"})
+        pressButton(group.querySelector(".btn-increment"))
+        assert.equal(el.value, "7")
+        clear()
+    })
+    it("uses min as the stepping base and snaps off-grid values (regression for #56)", () => {
+        // base -99, step 20 → grid ..., -19, 1, 21, ...; the off-grid 12 snaps
+        // down to 1 and up to 21, matching native stepDown/stepUp
+        const {el, group} = spin({value: "12", min: "-99", step: "20"})
+        pressButton(group.querySelector(".btn-decrement"))
+        assert.equal(el.value, "1")
+        pressButton(group.querySelector(".btn-increment"))
+        assert.equal(el.value, "21")
+        clear()
+    })
+    it("snaps an off-grid value to the min-based grid (regression for #56)", () => {
+        // base 1, step 3 → grid 1, 4, 7, 10, ...; the off-grid 5 snaps down to 4
+        const {el, group} = spin({value: "5", min: "1", step: "3"})
+        pressButton(group.querySelector(".btn-decrement"))
+        assert.equal(el.value, "4")
+        clear()
+    })
 })
 
 describe("InputSpinner dynamic step while holding", () => {

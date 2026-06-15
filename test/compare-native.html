@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>bootstrap-input-spinner vs. native input[type=number]</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <style>
+        body { padding: 2rem; max-width: 880px; }
+        .case { border: 1px solid var(--bs-border-color); border-radius: .5rem; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+        .case h2 { font-size: 1rem; margin: 0 0 .75rem; }
+        .case code { color: var(--bs-pink); }
+        .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+        .col-label { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: var(--bs-secondary-color); margin-bottom: .35rem; }
+        .native input { max-width: 12rem; }
+        .grid-hint { font-size: .8rem; color: var(--bs-secondary-color); margin-top: .4rem; }
+        .note { background: var(--bs-light); border-radius: .5rem; padding: .75rem 1rem; font-size: .9rem; }
+    </style>
+</head>
+<body>
+<h1 class="h4 mb-3">Spinner vs. native <code>input[type=number]</code></h1>
+<p class="text-secondary">
+    Click the up/down controls (native on the left, the spinner on the right) and compare.
+    Both fields carry the same attributes. The stepping base is <code>min</code>, otherwise the
+    <code>value</code> attribute, otherwise 0; valid values are <code>base + n·step</code>.
+</p>
+
+<div id="cases"></div>
+
+<div class="note">
+    <strong>About manual typing:</strong> native Chrome accepts an off-grid value that is typed
+    in and only flags it as invalid on form validation. The spinner likewise leaves a typed value
+    untouched, but a button click snaps it, like the native arrows, to the nearest valid grid value
+    in the click direction.
+</div>
+
+<script type="module">
+    import {InputSpinner} from "../src/InputSpinner.js"
+
+    // Each case renders the same attributes once as a native control and once as a spinner.
+    const cases = [
+        {
+            title: "No min: the value attribute is the base (core of #56)",
+            desc: "value 5, step 2 → base 5 → grid …,1,3,5,7,…",
+            attrs: {value: 5, step: 2},
+            grid: "Expected native: down 3, up 7"
+        },
+        {
+            title: "min as the stepping base",
+            desc: "value 12, step 20, min -99 → grid …,-19,1,21,41,…",
+            attrs: {value: 12, step: 20, min: -99},
+            grid: "Expected native: down 1, up 21"
+        },
+        {
+            title: "On-grid default case",
+            desc: "value 5, step 1, min 0, max 10",
+            attrs: {value: 5, step: 1, min: 0, max: 10},
+            grid: "Expected: down 4, up 6"
+        },
+        {
+            title: "On-grid with min",
+            desc: "value 7, step 3, min 1 → grid 1,4,7,10,…",
+            attrs: {value: 7, step: 3, min: 1},
+            grid: "7 is on the grid → down 4, up 10"
+        },
+        {
+            title: "Off-grid with min",
+            desc: "value 5, step 3, min 1 → grid 1,4,7,10,…",
+            attrs: {value: 5, step: 3, min: 1},
+            grid: "5 is off the grid → native down 4, up 7"
+        },
+        {
+            title: "Decimal values",
+            desc: "value 0.5, step 0.3, min 0, data-decimals 1 → grid 0,0.3,0.6,…",
+            attrs: {value: 0.5, step: 0.3, min: 0, "data-decimals": 1},
+            grid: "0.5 is off the grid → native down 0.3, up 0.6"
+        }
+    ]
+
+    function makeInput(attrs) {
+        const input = document.createElement("input")
+        input.type = "number"
+        input.className = "form-control"
+        for (const [k, v] of Object.entries(attrs)) {
+            input.setAttribute(k, String(v))
+        }
+        return input
+    }
+
+    const container = document.getElementById("cases")
+    for (const c of cases) {
+        const card = document.createElement("div")
+        card.className = "case"
+
+        const h = document.createElement("h2")
+        h.textContent = c.title
+        card.appendChild(h)
+
+        const d = document.createElement("div")
+        d.className = "text-secondary mb-3"
+        d.style.fontSize = ".9rem"
+        d.textContent = c.desc
+        card.appendChild(d)
+
+        const cols = document.createElement("div")
+        cols.className = "cols"
+
+        const nativeCol = document.createElement("div")
+        nativeCol.className = "native"
+        nativeCol.innerHTML = '<div class="col-label">Native</div>'
+        nativeCol.appendChild(makeInput(c.attrs))
+
+        const spinnerCol = document.createElement("div")
+        spinnerCol.innerHTML = '<div class="col-label">Spinner</div>'
+        const spinnerInput = makeInput(c.attrs)
+        spinnerCol.appendChild(spinnerInput)
+
+        cols.appendChild(nativeCol)
+        cols.appendChild(spinnerCol)
+        card.appendChild(cols)
+
+        const hint = document.createElement("div")
+        hint.className = "grid-hint"
+        hint.textContent = c.grid
+        card.appendChild(hint)
+
+        container.appendChild(card)
+
+        // Initialise the spinner after the input is in the DOM.
+        new InputSpinner(spinnerInput)
+    }
+</script>
+</body>
+</html>
