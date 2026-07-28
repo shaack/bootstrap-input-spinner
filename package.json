@@ -1,12 +1,13 @@
 {
   "name": "bootstrap-input-spinner",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A Bootstrap 5 plugin to create input spinner elements for number input.",
   "browser": "./src/InputSpinner.js",
   "type": "module",
   "exports": {
     ".": "./src/InputSpinner.js",
-    "./custom-editors": "./src/custom-editors.js"
+    "./custom-editors": "./src/custom-editors.js",
+    "./src/*": "./src/*"
   },
   "scripts": {
     "test": "tput setaf 4;echo open test/index.html in your browser for testing."
