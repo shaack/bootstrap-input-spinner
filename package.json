@@ -10,7 +10,7 @@
     "./src/*": "./src/*"
   },
   "scripts": {
-    "test": "tput setaf 4;echo open test/index.html in your browser for testing."
+    "test": "teevi"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,6 @@
   "homepage": "https://shaack.com/en/open-source-components",
   "devDependencies": {
     "prismjs": "^1.30.0",
-    "teevi": "^2.4.1"
+    "teevi": "^2.7.0"
   }
 }
